@@ -1,0 +1,222 @@
+{
+  "records": [
+    {
+      "timestamp": 1780940047.8125637,
+      "application_id": "TEST-CASE-1",
+      "gender": null,
+      "location": null,
+      "decision": "rejected"
+    },
+    {
+      "timestamp": 1780940048.311547,
+      "application_id": "TEST-CASE-2",
+      "gender": "male",
+      "location": "semi_urban",
+      "decision": "approved"
+    },
+    {
+      "timestamp": 1780940748.4880261,
+      "application_id": "TEST-CASE-1",
+      "gender": null,
+      "location": null,
+      "decision": "rejected"
+    },
+    {
+      "timestamp": 1780940753.4109046,
+      "application_id": "TEST-CASE-2",
+      "gender": "male",
+      "location": "semi_urban",
+      "decision": "approved"
+    },
+    {
+      "timestamp": 1780940850.6254478,
+      "application_id": "TEST-CASE-1",
+      "gender": null,
+      "location": null,
+      "decision": "rejected"
+    },
+    {
+      "timestamp": 1780940854.4182904,
+      "application_id": "TEST-CASE-2",
+      "gender": "male",
+      "location": "semi_urban",
+      "decision": "approved"
+    },
+    {
+      "timestamp": 1780941895.9957736,
+      "application_id": "4d16b2b8-f85a-4285-8a8f-ed4b6fd122ca",
+      "gender": "male",
+      "location": null,
+      "decision": "rejected"
+    },
+    {
+      "timestamp": 1780984969.2691662,
+      "application_id": "TEST-CASE-1",
+      "gender": null,
+      "location": null,
+      "decision": "rejected"
+    },
+    {
+      "timestamp": 1780984980.4392056,
+      "application_id": "TEST-CASE-2",
+      "gender": "male",
+      "location": "semi_urban",
+      "decision": "approved"
+    },
+    {
+      "timestamp": 1780985022.1934028,
+      "application_id": "TEST-CASE-1",
+      "gender": null,
+      "location": null,
+      "decision": "rejected"
+    },
+    {
+      "timestamp": 1780985026.3841107,
+      "application_id": "TEST-CASE-2",
+      "gender": "male",
+      "location": "semi_urban",
+      "decision": "approved"
+    },
+    {
+      "timestamp": 1780985916.5817556,
+      "application_id": "27b258fe-eed7-4662-a901-5ad018a1bee7",
+      "gender": "male",
+      "location": null,
+      "decision": "approved"
+    },
+    {
+      "timestamp": 1780986355.9749522,
+      "application_id": "4d993f63-8c70-48b1-9af2-20827f2ba6d6",
+      "gender": "female",
+      "location": null,
+      "decision": "rejected"
+    },
+    {
+      "timestamp": 1780986629.095453,
+      "application_id": "c7d20e08-91c2-429b-819e-877a22f13cb8",
+      "gender": "male",
+      "location": null,
+      "decision": "approved"
+    },
+    {
+      "timestamp": 1780987500.1277242,
+      "application_id": "8e47b55e-1088-4373-abe0-20db2c0efed2",
+      "gender": "male",
+      "location": null,
+      "decision": "approved"
+    },
+    {
+      "timestamp": 1780988019.6278555,
+      "application_id": "0aec80bc-bac0-4a77-8682-fd046e1be31a",
+      "gender": "male",
+      "location": null,
+      "decision": "approved"
+    },
+    {
+      "timestamp": 1781192904.2036195,
+      "application_id": "c7d20e08-91c2-429b-819e-877a22f13cb8",
+      "gender": "male",
+      "location": null,
+      "decision": "approved"
+    },
+    {
+      "timestamp": 1781196199.2693987,
+      "application_id": "8e47b55e-1088-4373-abe0-20db2c0efed2",
+      "gender": "male",
+      "location": null,
+      "decision": "approved"
+    },
+    {
+      "timestamp": 1781495807.9173675,
+      "application_id": "6d4e92fa-a9a7-4355-b168-82b118fcbfad",
+      "gender": null,
+      "location": null,
+      "decision": "rejected"
+    },
+    {
+      "timestamp": 1781510461.4970462,
+      "application_id": "486eb247-86c9-413c-9a99-968c69dfb7e0",
+      "gender": null,
+      "location": null,
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": 52.2,
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1781664330.5582411,
+      "application_id": "71f479d2-02c9-4ce8-a37d-cc7794ba937f",
+      "gender": null,
+      "location": null,
+      "employment_type": null,
+      "decision": "rejected",
+      "risk_score": 20.8,
+      "bias_detected": true
+    },
+    {
+      "timestamp": 1781768865.6482353,
+      "application_id": "71f479d2-02c9-4ce8-a37d-cc7794ba937f",
+      "gender": null,
+      "location": null,
+      "employment_type": null,
+      "decision": "rejected",
+      "risk_score": 24.0,
+      "bias_detected": true
+    },
+    {
+      "timestamp": 1781769080.950288,
+      "application_id": "09581062-e96c-468e-9f2c-540261b77052",
+      "gender": null,
+      "location": null,
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1781775033.6255872,
+      "application_id": "0aec80bc-bac0-4a77-8682-fd046e1be31a",
+      "gender": "male",
+      "location": null,
+      "employment_type": "business",
+      "decision": "escalated",
+      "risk_score": 55.0,
+      "bias_detected": true
+    },
+    {
+      "timestamp": 1781777235.9145584,
+      "application_id": "0aec80bc-bac0-4a77-8682-fd046e1be31a",
+      "gender": "male",
+      "location": null,
+      "employment_type": "business",
+      "decision": "escalated",
+      "risk_score": 65.0,
+      "bias_detected": true
+    }
+  ],
+  "insights": {
+    "records_analyzed": 25,
+    "status": "analyzed",
+    "gender_approval_rates": {
+      "unknown": 0.0,
+      "male": 0.786
+    },
+    "gender_bias_gap": 0.786,
+    "gender_bias_alert": {
+      "detected": true,
+      "gap": 0.786,
+      "most_disadvantaged_group": "unknown",
+      "approval_rate": 0.0,
+      "recommendation": "Tighten fairness thresholds \u2014 unknown applicants approved at 0% vs others at higher rates"
+    },
+    "location_approval_rates": {
+      "unknown": 0.3,
+      "semi_urban": 1.0
+    },
+    "employment_approval_rates": {
+      "unknown": 0.524
+    },
+    "escalation_rate": 0.08
+  },
+  "last_updated": 1781777235.9151173
+}

@@ -1,0 +1,415 @@
+{
+  "application_id": "TEST-CASE-1",
+  "user_id": "user-42",
+  "applicant_data": {
+    "applicant_name": "Amit Verma",
+    "applicant_pan": "ABCDE1234F",
+    "applicant_aadhaar": "123456789012"
+  },
+  "pan_verification": {
+    "pan": "ABCDE1234F",
+    "status": "valid",
+    "name_on_record": "Rahul Sharma",
+    "name_match": false,
+    "category": "individual",
+    "verified": true
+  },
+  "aadhaar_verification": {
+    "aadhaar": "123456789012",
+    "status": "active",
+    "name_on_record": "Rahul Sharma",
+    "name_match": false,
+    "dob": "1990-05-15",
+    "gender": "male",
+    "address": "Mumbai, Maharashtra",
+    "verified": true
+  },
+  "credit_report": null,
+  "data_agent_summary": "ReAct loop: 3 iterations, 2 tools called dynamically based on profile.",
+  "data_agent_reasoning_trace": [
+    {
+      "iteration": 1,
+      "thought": "We need to start by verifying the applicant's identity. Since PAN is provided, we should call verify_pan first.",
+      "action": "CALL verify_pan",
+      "observation": "PAN: VALID"
+    },
+    {
+      "iteration": 2,
+      "thought": "Since the PAN verification result shows that name_match is False, we need to verify the Aadhaar card to confirm the applicant's identity.",
+      "action": "CALL verify_aadhaar",
+      "observation": "Aadhaar: ACTIVE"
+    },
+    {
+      "iteration": 3,
+      "thought": "Since the applicant's PAN and Aadhaar verification results show that name_match is false, we need to stop the data gathering process.",
+      "action": "STOP",
+      "observation": "PAN and Aadhaar verification results show name mismatch."
+    }
+  ],
+  "data_agent_tools_called": [
+    "verify_pan",
+    "verify_aadhaar"
+  ],
+  "data_agent_early_stop": true,
+  "fraud_detected": true,
+  "requires_manual_kyc": false,
+  "fraud_reason": "PAN Identity Fraud: Completely different names, indicating a potential identity mismatch; Aadhaar Identity Fraud: Completely different names, indicating a potential identity mismatch",
+  "fraud_agent_summary": "FRAUD DETECTED: PAN Identity Fraud: Completely different names, indicating a potential identity mismatch; Aadhaar Identity Fraud: Completely different names, indicating a potential identity mismatch",
+  "negotiation_turns": 0,
+  "explanation": {
+    "applicant_message": "Dear Amit Verma,\n\nYour application for a \u20b90 loan has been rejected. Our AI detected an unfavorable risk profile or KYC mismatch.",
+    "admin_summary": "ADMIN SUMMARY:\nApplicant: Amit Verma\nDecision: REJECTED\nRisk Score: N/A\nBias Detected: False",
+    "compliance_report": "COMPLIANCE REPORT: All actions audited.",
+    "process_explanation": "**Process Trace**\n\nThe loan evaluation system's decision to auto-reject the application was reached through a series of autonomous behaviors exhibited by the Data Agent and the Fraud Agent. The process began with the Data Agent's initial verification of the applicant's identity, which involved calling the `verify_pan` tool and successfully verifying the PAN. However, upon further analysis, the Data Agent determined that the name_match was false, prompting it to dynamically request the `verify_aadhaar` tool to confirm the applicant's identity. This behavior demonstrates the Data Agent's ability to adapt and adjust its workflow based on the application's profile.\n\nUpon receiving the results from the `verify_aadhaar` tool, the Data Agent stopped the data gathering process due to the continued name mismatch, indicating that it had reached a critical decision point. The Fraud Agent then took over, performing a Fraud & Identity Analysis and detecting potential identity mismatches in both the PAN and Aadhaar verification results. This analysis led to the system's decision to auto-reject the application due to KYC failure.\n\nKey autonomous behaviors exhibited by the system include the Data Agent's dynamic tool selection and adaptation to the application's profile, as well as the Fraud Agent's ability to analyze and detect potential identity fraud. There were no edge case fallback rules triggered in this process, and the system's decision was reached through a series of logical and autonomous behaviors exhibited by the agents."
+  },
+  "explainability_agent_summary": "Generated 4 explanations: Applicant (128 chars), Admin (92 chars), Compliance (39 chars), Process Trace (1542 chars)",
+  "audit_trail": [
+    {
+      "application_id": "TEST-CASE-1",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[1] REASON",
+      "input_data": {
+        "step": 1
+      },
+      "output_data": {
+        "status": "reasoning",
+        "details": "We need to start by verifying the applicant's identity. Since PAN is provided, we should call verify_pan first."
+      },
+      "output_hash": "271dca473deffb5d6ba46606e50e1743e50f1c63478aaeaff8e61a0c9250886d",
+      "reasoning": "We need to start by verifying the applicant's identity. Since PAN is provided, we should call verify_pan first.",
+      "timestamp": "2026-06-09T06:03:42.194648+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-1",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[1] ACT \u2192 verify_pan",
+      "input_data": {
+        "step": 2
+      },
+      "output_data": {
+        "status": "success",
+        "details": "PAN: VALID"
+      },
+      "output_hash": "19200912978126095b480769eff44300c966356fd18c724127d21c70708cb0ac",
+      "reasoning": "PAN: VALID",
+      "timestamp": "2026-06-09T06:03:42.194668+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-1",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[2] REASON",
+      "input_data": {
+        "step": 3
+      },
+      "output_data": {
+        "status": "reasoning",
+        "details": "Since the PAN verification result shows that name_match is False, we need to verify the Aadhaar card to confirm the applicant's identity."
+      },
+      "output_hash": "671dd9b93af95da155133ab8680dd9f3d69d12434b947ad0ee021c650e498f13",
+      "reasoning": "Since the PAN verification result shows that name_match is False, we need to verify the Aadhaar card to confirm the applicant's identity.",
+      "timestamp": "2026-06-09T06:03:42.194681+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-1",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[2] ACT \u2192 verify_aadhaar",
+      "input_data": {
+        "step": 4
+      },
+      "output_data": {
+        "status": "success",
+        "details": "Aadhaar: ACTIVE"
+      },
+      "output_hash": "64a19d78b8b06657602ed9907f38a02b3ae55693948d1a87a24595349c016ffa",
+      "reasoning": "Aadhaar: ACTIVE",
+      "timestamp": "2026-06-09T06:03:42.194692+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-1",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[3] REASON",
+      "input_data": {
+        "step": 5
+      },
+      "output_data": {
+        "status": "reasoning",
+        "details": "Since the applicant's PAN and Aadhaar verification results show that name_match is false, we need to stop the data gathering process."
+      },
+      "output_hash": "ce50fbf36eb986ca45b364cafc37d12515c164b00aef1cdddbb14cf027cdf4cc",
+      "reasoning": "Since the applicant's PAN and Aadhaar verification results show that name_match is false, we need to stop the data gathering process.",
+      "timestamp": "2026-06-09T06:03:42.194703+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-1",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[3] STOP",
+      "input_data": {
+        "step": 6
+      },
+      "output_data": {
+        "status": "early_stop",
+        "details": "Since the applicant's PAN and Aadhaar verification results show that name_match is false, we need to stop the data gathering process."
+      },
+      "output_hash": "f81ad06e5bc0efa4970dffbd062be4e284b684ae7983731fb1665421b22dea63",
+      "reasoning": "Since the applicant's PAN and Aadhaar verification results show that name_match is false, we need to stop the data gathering process.",
+      "timestamp": "2026-06-09T06:03:42.194715+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-1",
+      "agent_name": "data_agent",
+      "tool_called": "Data gathering complete",
+      "input_data": {
+        "step": 7
+      },
+      "output_data": {
+        "status": "early_stop",
+        "details": "ReAct loop: 3 iterations, 2 tools called dynamically based on profile."
+      },
+      "output_hash": "392a9e84ee7404d19fec34e44997bbf7532653cebbb5bb5540409fea97827876",
+      "reasoning": "ReAct loop: 3 iterations, 2 tools called dynamically based on profile.",
+      "timestamp": "2026-06-09T06:03:42.194726+00:00",
+      "execution_ms": 2335
+    },
+    {
+      "application_id": "TEST-CASE-1",
+      "agent_name": "fraud_agent",
+      "tool_called": "Fraud & Identity Analysis",
+      "input_data": {
+        "step": 8
+      },
+      "output_data": {
+        "status": "fraud_detected",
+        "details": "FRAUD DETECTED: PAN Identity Fraud: Completely different names, indicating a potential identity mismatch; Aadhaar Identity Fraud: Completely different names, indicating a potential identity mismatch"
+      },
+      "output_hash": "564f49d0bbd67680c71fc1c8aeef016341c2603d9762bf19300f9e6ad10b89c6",
+      "reasoning": "FRAUD DETECTED: PAN Identity Fraud: Completely different names, indicating a potential identity mismatch; Aadhaar Identity Fraud: Completely different names, indicating a potential identity mismatch",
+      "timestamp": "2026-06-09T06:03:42.194737+00:00",
+      "execution_ms": 827
+    },
+    {
+      "application_id": "TEST-CASE-1",
+      "agent_name": "orchestrator",
+      "tool_called": "Auto-rejected (KYC Failure)",
+      "input_data": {
+        "step": 9
+      },
+      "output_data": {
+        "status": "success",
+        "details": "PAN Identity Fraud: Completely different names, indicating a potential identity mismatch; Aadhaar Identity Fraud: Completely different names, indicating a potential identity mismatch"
+      },
+      "output_hash": "1dba22e66d6908a5fc99332ddc54b765e5c7953d9ee06dbd38f09a621d142f39",
+      "reasoning": "PAN Identity Fraud: Completely different names, indicating a potential identity mismatch; Aadhaar Identity Fraud: Completely different names, indicating a potential identity mismatch",
+      "timestamp": "2026-06-09T06:03:42.194748+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-1",
+      "agent_name": "explainability_agent",
+      "tool_called": "Generate explanations",
+      "input_data": {
+        "step": 10
+      },
+      "output_data": {
+        "status": "success",
+        "details": "Generated 4 explanations: Applicant (128 chars), Admin (92 chars), Compliance (39 chars), Process Trace (1542 chars)"
+      },
+      "output_hash": "7b52b17b486eba9c3a10819ee041d5fac27dac9909fbfa7f831318730d19cebc",
+      "reasoning": "Generated 4 explanations: Applicant (128 chars), Admin (92 chars), Compliance (39 chars), Process Trace (1542 chars)",
+      "timestamp": "2026-06-09T06:03:42.194758+00:00",
+      "execution_ms": 2153
+    },
+    {
+      "application_id": "TEST-CASE-1",
+      "agent_name": "learning_agent",
+      "tool_called": "Update long term memory",
+      "input_data": {
+        "step": 11
+      },
+      "output_data": {
+        "status": "success",
+        "details": "Appended record to memory. Total records: 10"
+      },
+      "output_hash": "5a543c26b3a64c4206f580db0b318b55a5d56c35794684b492ff7a162b049669",
+      "reasoning": "Appended record to memory. Total records: 10",
+      "timestamp": "2026-06-09T06:03:42.194768+00:00",
+      "execution_ms": 0
+    }
+  ],
+  "audit_anomalies": [
+    "Missing agent execution: risk_agent, policy_agent did not run",
+    "Decision was made without a risk score being calculated"
+  ],
+  "audit_execution_summary": {
+    "total_steps": 11,
+    "total_execution_ms": 5315,
+    "agents_executed": {
+      "data_agent": 7,
+      "fraud_agent": 1,
+      "orchestrator": 1,
+      "explainability_agent": 1,
+      "learning_agent": 1
+    },
+    "status_breakdown": {
+      "reasoning": 3,
+      "success": 5,
+      "early_stop": 2,
+      "fraud_detected": 1
+    },
+    "total_errors": 0,
+    "decision": "rejected",
+    "risk_score": null,
+    "risk_category": null,
+    "policy_passed": null,
+    "bias_detected": null,
+    "agent_output_hashes": {
+      "data_agent": "aea2354a8627fa522ba19821dddde43687950df88a0b6a3c4865e4524032d772",
+      "risk_agent": "2b0003c5ff6d57fae4eb4df676f61c13aa4a776a6ba0aa2ca8aa8672ab187e8b",
+      "policy_agent": "eb0d2afa8d22612f94bc99e13fcfd4574eee02aaa586825a49c10eb7380ddd6b",
+      "fairness_agent": "c02b7b63f771ad3a91d82619cfb76abc379bad4042475b100ad2e1dab9479353",
+      "explainability_agent": "e2a28771487bfa8da15dac180f1c288aab393bb327e65f35a02bb78f377e7638",
+      "orchestrator": "cd5f3f1a3b92b4b6d0f5ca713595436051a5786cc1faa250d40ea0b20ce2cec6"
+    },
+    "pipeline_integrity_hash": "d8e0b62937b6e4d8a381eeb857d73486674a7a8b644e66e2eb20861d3ab23abc"
+  },
+  "audit_agent_summary": "Audit complete: 11 records, 2 anomalie(s), pipeline ran 11 steps | Pipeline hash: d8e0b62937b6e4d8\u2026",
+  "final_decision": "rejected",
+  "decision_reasoning": "Application rejected. Reason: PAN Identity Fraud: Completely different names, indicating a potential identity mismatch; Aadhaar Identity Fraud: Completely different names, indicating a potential identity mismatch.",
+  "current_step_index": 1,
+  "agent_logs": [
+    {
+      "agent": "data_agent",
+      "step": 1,
+      "action": "ReAct[1] REASON",
+      "status": "reasoning",
+      "details": "We need to start by verifying the applicant's identity. Since PAN is provided, we should call verify_pan first.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 2,
+      "action": "ReAct[1] ACT \u2192 verify_pan",
+      "status": "success",
+      "details": "PAN: VALID",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 3,
+      "action": "ReAct[2] REASON",
+      "status": "reasoning",
+      "details": "Since the PAN verification result shows that name_match is False, we need to verify the Aadhaar card to confirm the applicant's identity.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 4,
+      "action": "ReAct[2] ACT \u2192 verify_aadhaar",
+      "status": "success",
+      "details": "Aadhaar: ACTIVE",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 5,
+      "action": "ReAct[3] REASON",
+      "status": "reasoning",
+      "details": "Since the applicant's PAN and Aadhaar verification results show that name_match is false, we need to stop the data gathering process.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 6,
+      "action": "ReAct[3] STOP",
+      "status": "early_stop",
+      "details": "Since the applicant's PAN and Aadhaar verification results show that name_match is false, we need to stop the data gathering process.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 7,
+      "action": "Data gathering complete",
+      "status": "early_stop",
+      "details": "ReAct loop: 3 iterations, 2 tools called dynamically based on profile.",
+      "duration_ms": 2335
+    },
+    {
+      "agent": "fraud_agent",
+      "step": 8,
+      "action": "Fraud & Identity Analysis",
+      "status": "fraud_detected",
+      "details": "FRAUD DETECTED: PAN Identity Fraud: Completely different names, indicating a potential identity mismatch; Aadhaar Identity Fraud: Completely different names, indicating a potential identity mismatch",
+      "duration_ms": 827
+    },
+    {
+      "agent": "orchestrator",
+      "step": 9,
+      "action": "Auto-rejected (KYC Failure)",
+      "status": "success",
+      "details": "PAN Identity Fraud: Completely different names, indicating a potential identity mismatch; Aadhaar Identity Fraud: Completely different names, indicating a potential identity mismatch",
+      "duration_ms": 0
+    },
+    {
+      "agent": "explainability_agent",
+      "step": 10,
+      "action": "Generate explanations",
+      "status": "success",
+      "details": "Generated 4 explanations: Applicant (128 chars), Admin (92 chars), Compliance (39 chars), Process Trace (1542 chars)",
+      "duration_ms": 2153
+    },
+    {
+      "agent": "learning_agent",
+      "step": 11,
+      "action": "Update long term memory",
+      "status": "success",
+      "details": "Appended record to memory. Total records: 10",
+      "duration_ms": 0
+    },
+    {
+      "agent": "audit_agent",
+      "step": 12,
+      "action": "Compute cryptographic output hashes (SHA-256)",
+      "status": "success",
+      "details": "Hashed 6 agent output slices | Pipeline integrity fingerprint: d8e0b62937b6e4d8\u2026",
+      "duration_ms": 0
+    },
+    {
+      "agent": "audit_agent",
+      "step": 13,
+      "action": "Generate formal audit trail",
+      "status": "success",
+      "details": "Created 11 audit records from agent logs \u2014 each record sealed with SHA-256 output_hash",
+      "duration_ms": 0
+    },
+    {
+      "agent": "audit_agent",
+      "step": 14,
+      "action": "Anomaly detection",
+      "status": "warning",
+      "details": "Found 2 anomalie(s): Missing agent execution: risk_agent, policy_agent did not run; Decision was made without a risk score being calculated",
+      "duration_ms": 0
+    },
+    {
+      "agent": "audit_agent",
+      "step": 15,
+      "action": "Generate execution summary",
+      "status": "success",
+      "details": "Pipeline: 11 steps, 5315ms total, 0 error(s) | Integrity hash: d8e0b62937b6e4d8\u2026",
+      "duration_ms": 0
+    },
+    {
+      "agent": "audit_agent",
+      "step": 16,
+      "action": "Audit finalisation complete",
+      "status": "success",
+      "details": "Audit complete: 11 records, 2 anomalie(s), pipeline ran 11 steps | Pipeline hash: d8e0b62937b6e4d8\u2026",
+      "duration_ms": 0
+    }
+  ],
+  "errors": []
+}

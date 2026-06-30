@@ -1,0 +1,19 @@
+# BANKING & LENDING REGULATORY GUIDELINES (MOCK)
+
+## 1. Identity & KYC Verification
+All applicants must undergo mandatory Know Your Customer (KYC) verification. Both the Permanent Account Number (PAN) and Aadhaar verification statuses must return as 'Verified'. Furthermore, the applicant's stated name must match the name registered on both the PAN and Aadhaar databases. Any identity mismatch constitutes an automatic rejection and must be escalated as potential fraud.
+
+## 2. Minimum Age Requirements
+To enter into a legally binding credit contract, the applicant must have reached the age of majority. Therefore, the absolute minimum age for loan approval is 21 years. Any applicant below the age of 21 must be immediately rejected.
+
+## 3. Debt-to-Income and Loan Limits
+To prevent predatory lending and ensure manageable debt burdens, the maximum allowable loan amount must not exceed 5 times the applicant's stated annual income (Loan-to-Income ratio <= 5.0x). High leverage poses systemic risk and leads to default.
+
+## 4. Default History
+Applicants with a severe history of non-repayment are disqualified from new credit facilities. Specifically, if an applicant has more than 2 active defaults recorded by the Credit Bureau, their application must be rejected.
+
+## 5. Minimum Credit Threshold
+Applicants with highly impaired credit histories are ineligible for automated unsecured lending. A minimum baseline credit score of 400 is required for the application to proceed. Scores below 400 indicate extreme delinquency patterns.
+
+## 6. High-Value Loan Security
+For high-value unsecured loans (defined as loan amounts exceeding ₹25,000,000 or ₹25L), the applicant must demonstrate highly stable, verifiable income. Consequently, high-value loans are restricted to salaried or formally registered business applicants. Self-employed individuals are ineligible for unsecured loans above the ₹25L threshold without collateral.

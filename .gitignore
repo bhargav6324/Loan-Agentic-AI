@@ -1,0 +1,48 @@
+# Byte-compiled / optimised
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables
+.env
+
+# Uploads
+uploads/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ML model files
+ml/model/*.pkl
+ml/model/*.joblib
+
+# Data files
+data/kaggle/
+data/synthetic/*.pdf
+
+# Audit logs (generated)
+audit_logs/
+
+# Docker
+.docker/
+
+# pytest
+.pytest_cache/
+
+# Docs ref
+*.docx
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/vite.log

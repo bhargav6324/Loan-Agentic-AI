@@ -1,0 +1,1360 @@
+{
+  "application_id": "TEST-CASE-3",
+  "user_id": "user-42",
+  "applicant_data": {
+    "applicant_name": "Priya Patel",
+    "applicant_pan": "XYZAB5678G",
+    "applicant_aadhaar": "234567890123",
+    "applicant_age": 24,
+    "applicant_gender": "female",
+    "monthly_income": 80000,
+    "loan_amount": 1000000,
+    "employment_type": "self_employed",
+    "employment_years": 2,
+    "loan_tenure_years": 5,
+    "loan_purpose": "business",
+    "location": "rural"
+  },
+  "pan_verification": {
+    "pan": "XYZAB5678G",
+    "status": "valid",
+    "name_on_record": "Priya Patel",
+    "name_match": true,
+    "category": "individual",
+    "verified": true
+  },
+  "aadhaar_verification": {
+    "aadhaar": "234567890123",
+    "status": "active",
+    "name_on_record": "Priya Patel",
+    "name_match": true,
+    "dob": "1988-11-22",
+    "gender": "female",
+    "address": "Ahmedabad, Gujarat",
+    "verified": true
+  },
+  "credit_report": {
+    "credit_score": 710,
+    "total_accounts": 4,
+    "active_accounts": 3,
+    "closed_accounts": 1,
+    "total_defaults": 0,
+    "current_outstanding": 500000,
+    "oldest_account_years": 5,
+    "recent_inquiries": 2,
+    "credit_utilisation_pct": 45.0,
+    "payment_history": "good",
+    "pan": "XYZAB5678G",
+    "bureau": "CIBIL",
+    "report_date": "2026-04-01",
+    "found": true
+  },
+  "data_agent_summary": "ReAct loop: 4 iterations, 3/3 tools called | PAN: \u2705 Valid | Aadhaar: \u2705 Verified | CIBIL: 710",
+  "data_agent_reasoning_trace": [
+    {
+      "iteration": 1,
+      "thought": "I have PAN number 'XYZAB5678G' for applicant 'Priya Patel'. PAN verification is the first KYC step \u2014 I need to confirm the applicant's identity before any credit assessment. Calling PAN verification tool.",
+      "action": "CALL verify_pan",
+      "observation": "PAN Status: VALID \u2705 | Name match: YES | Name on record: Priya Patel"
+    },
+    {
+      "iteration": 2,
+      "thought": "PAN status: verified. Now checking Aadhaar '2345****' to cross-validate the applicant's identity from a second source. Dual-document KYC is standard practice.",
+      "action": "CALL verify_aadhaar",
+      "observation": "Aadhaar Status: ACTIVE \u2705 | Name match: YES | Address: Ahmedabad, Gujarat"
+    },
+    {
+      "iteration": 3,
+      "thought": "Identity confirmed via PAN + Aadhaar. It is now safe to pull the credit bureau report using PAN 'XYZAB5678G' as the lookup key. This will provide credit score, defaults, utilisation \u2014 essential for risk scoring.",
+      "action": "CALL get_credit_report",
+      "observation": "CIBIL Score: 710 | Defaults: 0 | Outstanding: \u20b9500,000 | Utilisation: 45%"
+    },
+    {
+      "iteration": 4,
+      "thought": "All available verification tools have been called and results collected. Data gathering is complete. Passing enriched state to Risk Agent.",
+      "action": "STOP",
+      "observation": "All tools called \u2014 data gathering complete"
+    }
+  ],
+  "data_agent_tools_called": [
+    "verify_pan",
+    "verify_aadhaar",
+    "get_credit_report"
+  ],
+  "data_agent_early_stop": false,
+  "fraud_detected": false,
+  "fraud_reason": null,
+  "fraud_agent_summary": "No fraud signals detected. Identity verified.",
+  "risk_score": 59.5,
+  "risk_category": "MEDIUM",
+  "risk_factors": [
+    "High debt-to-income ratio (52.1%)",
+    "Self-employed \u2014 variable income",
+    "Business loan \u2014 higher default volatility"
+  ],
+  "risk_agent_summary": "Risk Score: 59.5/100 (MEDIUM) [revised from 54.3] | Top factors: High debt-to-income ratio (52.1%), Self-employed \u2014 variable income, Business loan \u2014 higher default volatility",
+  "risk_agent_reflection": {
+    "contradictions": [
+      "ML/Heuristic contradiction: ML says LOW risk (45.0) but heuristics say HIGH risk (74.0) \u2014 gap of 29.0 points (threshold: 25). This suggests conflicting signals in the applicant's profile."
+    ],
+    "revised": true,
+    "revised_score": 59.5,
+    "revision_reason": "ML and heuristic scores differ by 29.0 points. Re-scored with equal weights (0.50/0.50) for safety: (45.0 + 74.0) / 2 = 59.5",
+    "confirmation_reason": null,
+    "original_score": 54.3,
+    "ml_score": 45.0,
+    "heuristic_score": 74.0,
+    "reflection_summary": "Reflection found 1 issue(s). Score revised: 54.3 \u2192 59.5."
+  },
+  "policy_violations": [],
+  "policy_passed": true,
+  "policy_agent_summary": "All policy checks passed \u2705",
+  "policy_rag_reasoning": "Fallback rules applied. No violations.",
+  "fairness_report": {
+    "original_risk_score": 59.5,
+    "counterfactual_results": [
+      {
+        "attribute": "gender",
+        "original_value": "female",
+        "counterfactual_value": "male",
+        "original_score": 59.5,
+        "counterfactual_score": 52.4,
+        "signed_delta": -7.1,
+        "score_difference": 7.1,
+        "threshold": 5.0,
+        "bias_flag": true,
+        "interpretation": "ORIGINAL scored more leniently (possible inverse bias)"
+      },
+      {
+        "attribute": "gender",
+        "original_value": "female",
+        "counterfactual_value": "other",
+        "original_score": 59.5,
+        "counterfactual_score": 60.5,
+        "signed_delta": 1.0,
+        "score_difference": 1.0,
+        "threshold": 5.0,
+        "bias_flag": false,
+        "interpretation": "No significant gender-driven score change"
+      },
+      {
+        "attribute": "age",
+        "original_value": 24,
+        "counterfactual_value": 35,
+        "original_score": 59.5,
+        "counterfactual_score": 59.5,
+        "signed_delta": 0.0,
+        "score_difference": 0.0,
+        "threshold": 10.0,
+        "bias_flag": false,
+        "interpretation": "Within acceptable age-related variance"
+      },
+      {
+        "attribute": "age",
+        "original_value": 24,
+        "counterfactual_value": 45,
+        "original_score": 59.5,
+        "counterfactual_score": 59.5,
+        "signed_delta": 0.0,
+        "score_difference": 0.0,
+        "threshold": 10.0,
+        "bias_flag": false,
+        "interpretation": "Within acceptable age-related variance"
+      },
+      {
+        "attribute": "age",
+        "original_value": 24,
+        "counterfactual_value": 55,
+        "original_score": 59.5,
+        "counterfactual_score": 59.5,
+        "signed_delta": 0.0,
+        "score_difference": 0.0,
+        "threshold": 10.0,
+        "bias_flag": false,
+        "interpretation": "Within acceptable age-related variance"
+      },
+      {
+        "attribute": "location",
+        "original_value": "semi_urban",
+        "counterfactual_value": "urban",
+        "original_score": 59.5,
+        "counterfactual_score": 58.0,
+        "signed_delta": -1.5,
+        "score_difference": 1.5,
+        "threshold": 8.0,
+        "bias_flag": false,
+        "interpretation": "Within acceptable location-related variance"
+      },
+      {
+        "attribute": "location",
+        "original_value": "semi_urban",
+        "counterfactual_value": "rural",
+        "original_score": 59.5,
+        "counterfactual_score": 62.0,
+        "signed_delta": 2.5,
+        "score_difference": 2.5,
+        "threshold": 8.0,
+        "bias_flag": false,
+        "interpretation": "Within acceptable location-related variance"
+      }
+    ],
+    "counterfactual_delta_summary": {
+      "gender": {
+        "max_absolute_delta": 7.1,
+        "worst_signed_delta": -7.1,
+        "threshold": 5.0,
+        "bias_flagged": true
+      },
+      "age": {
+        "max_absolute_delta": 0.0,
+        "worst_signed_delta": 0.0,
+        "threshold": 10.0,
+        "bias_flagged": false
+      },
+      "location": {
+        "max_absolute_delta": 2.5,
+        "worst_signed_delta": 2.5,
+        "threshold": 8.0,
+        "bias_flagged": false
+      }
+    },
+    "bias_detected": true,
+    "recommendation": "escalate",
+    "summary": "\u26a0\ufe0f Potential bias detected \u2014 decision varies with protected attributes. Escalating to human review."
+  },
+  "fairness_debate_log": [
+    {
+      "attribute_tested": "gender",
+      "original_value": "female",
+      "counterfactual_value": "male",
+      "original_score": 59.5,
+      "counterfactual_score": 52.4,
+      "score_delta": -7.1,
+      "risk_agent_justification": "Score 52.4 driven by: Started with neutral baseline (50). | ML Confidence: 0.70 | Bias Source: heuristic"
+    },
+    {
+      "attribute_tested": "gender",
+      "original_value": "female",
+      "counterfactual_value": "other",
+      "original_score": 59.5,
+      "counterfactual_score": 60.5,
+      "score_delta": 1.0,
+      "risk_agent_justification": "Score 54.9 driven by: Started with neutral baseline (50). Applied +8pt adjustment for other gender. | ML Confidence: 0.70 | Bias Source: heuristic"
+    },
+    {
+      "attribute_tested": "age",
+      "original_value": 24,
+      "counterfactual_value": 35,
+      "original_score": 59.5,
+      "counterfactual_score": 59.5,
+      "score_delta": 0.0,
+      "risk_agent_justification": "Score 54.3 driven by: Started with neutral baseline (50). Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic"
+    },
+    {
+      "attribute_tested": "age",
+      "original_value": 24,
+      "counterfactual_value": 45,
+      "original_score": 59.5,
+      "counterfactual_score": 59.5,
+      "score_delta": 0.0,
+      "risk_agent_justification": "Score 54.3 driven by: Started with neutral baseline (50). Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic"
+    },
+    {
+      "attribute_tested": "age",
+      "original_value": 24,
+      "counterfactual_value": 55,
+      "original_score": 59.5,
+      "counterfactual_score": 59.5,
+      "score_delta": 0.0,
+      "risk_agent_justification": "Score 54.3 driven by: Started with neutral baseline (50). Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic"
+    },
+    {
+      "attribute_tested": "location",
+      "original_value": "semi_urban",
+      "counterfactual_value": "urban",
+      "original_score": 59.5,
+      "counterfactual_score": 58.0,
+      "score_delta": -1.5,
+      "risk_agent_justification": "Score 53.3 driven by: Started with neutral baseline (50). Applied -3pt adjustment for urban location. Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic"
+    },
+    {
+      "attribute_tested": "location",
+      "original_value": "semi_urban",
+      "counterfactual_value": "rural",
+      "original_score": 59.5,
+      "counterfactual_score": 62.0,
+      "score_delta": 2.5,
+      "risk_agent_justification": "Score 55.9 driven by: Started with neutral baseline (50). Applied +5pt adjustment for rural location. Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic"
+    }
+  ],
+  "bias_detected": true,
+  "fairness_agent_summary": "\u26a0\ufe0f BIAS DETECTED in: gender \u2014 Worst delta: gender \u0394=-7.10, age \u0394=+0.00, location \u0394=+2.50 \u2014 Recommending escalation to human reviewer",
+  "explanation": {
+    "applicant_message": "Dear Priya Patel,\n\nYour application for a \u20b91,000,000 loan has been routed to our Senior Credit Committee for manual human review.\n\n**Why Your File Was Escalated:**\nYour profile falls into our 'Medium Risk' tier (Risk Score: 59.5/100, Credit Score: 710). While your numbers do not trigger an automatic rejection, they also do not qualify for instant automated approval. Furthermore, our automated algorithmic fairness auditor detected that slight simulated demographic counterfactual changes (such as age or gender) caused variations in the risk assessment. To ensure that our decision is entirely fair, unbiased, and objective, we have halted automated processing.\n\nA human credit officer is now conducting a detailed manual audit of your application, bank statements, and credit files. This ensures that we take your unique individual context into account rather than relying purely on algorithms.\n\n**Next Steps:**\nNo action is required from you. We will update you via email within 2-3 business days once the manual review is complete.",
+    "admin_summary": "==================================================\n      AUTOMATED CREDIT OFFICER RISK MEMORANDUM\n==================================================\nApplicant Name  : Priya Patel\nLoan Amount     : \u20b91,000,000.00 (business)\nDeclared Income : \u20b980,000.00 per month (self_employed, 2 yrs)\nPipeline Status : ESCALATED\n--------------------------------------------------\n1. CREDIT METRIC ANALYSIS\n  \u2022 Bureau Credit Score : 710 (Bureau-verified)\n  \u2022 Debt-to-Income (DTI): 40.0% (Threshold: 50.0%)\n  \u2022 Credit Utilisation  : 45.0% (Critical at >80%)\n  \u2022 Historical Defaults : 0 default event(s) recorded\n--------------------------------------------------\n2. COMPREHENSIVE RISK JUSTIFICATION\n  The application has been ESCALATED for human intervention. While the credit metrics fall in the medium risk tier (Score: 59.5/100), the Fairness Agent flagged counterfactual demographic anomalies. Manual underwriting is required to verify stability and review bank logs.\n--------------------------------------------------\n3. POLICY COMPLIANCE & AUDIT\n  \u2705 Policy compliance verified. No regulatory or risk limits breached.\n--------------------------------------------------\n4. DEMOGRAPHIC BIAS & FAIRNESS CONTROL\n  \u26a0\ufe0f BIAS ALERT: Counterfactual demographic sensitivity detected.\n    - Flipping gender (female \u2192 male) shifted risk score by 7.1 points.\n==================================================",
+    "compliance_report": "\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n\u2551     REGULATORY COMPLIANCE AUDIT TRAIL        \u2551\n\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d\n\nApplication ID : TEST-CASE-3\nAudit Timestamp: 2026-06-08T17:27:00.483033Z\nAudit Authority: RBI Credit Guidelines & Equal Credit Opportunity Compliance\n\n\u2500\u2500 1. IDENTITY & KYC COMPLIANCE \u2500\u2500\n  PAN Verification Status    : PASSED \u2705\n  PAN Database Name Match    : MATCHED \u2705\n  Aadhaar Verification Status: PASSED \u2705\n  Aadhaar Database Name Match: MATCHED \u2705\n\n\u2500\u2500 2. BUREAU DATA AUDIT \u2500\u2500\n  Credit Bureau Score        : 710\n  Reported Debt-to-Income    : 0.00%\n  Total Historical Defaults  : 0\n  Revolving Credit Util      : 45.0%\n\n\u2500\u2500 3. RISK ALGORITHM DECISION NARRATIVE \u2500\u2500\n  Assessed Risk Score        : 59.5/100\n  Assessed Risk Tier         : MEDIUM\n  Reasoning Narrative        : Application escalated to human reviewer. Risk score: 59.5/100 (MEDIUM). Potential bias detected in automated assessment \u2014 requires human judgment.\n\n\u2500\u2500 4. POLICY LIMIT AUDIT \u2500\u2500\n  Compliant with RBI Rules   : YES \u2705\n  All regulatory limits (CIBIL thresholds, age limits, DTI caps) were satisfied.\n\n\u2500\u2500 5. EQUAL LENDING OPPORTUNITY AUDIT (FAIRNESS) \u2500\u2500\n  Demographic Bias Flagged   : YES \u26a0\ufe0f (Escalation Triggered)\n  Demographic Simulations Run: 7\n    - Alert: Flipping demographic [gender] to counterfactual value [male] changed the risk score from 59.5 to 52.4 (Diff: 7.1 pts).\n\n\u2500\u2500 6. AGENT PIPELINE RUNTIME LOGS \u2500\u2500\n  \u2022 [data_agent] ReAct[1] REASON \u2192 Status: reasoning (0 ms)\n  \u2022 [data_agent] ReAct[1] ACT \u2192 verify_pan \u2192 Status: success (0 ms)\n  \u2022 [data_agent] ReAct[2] REASON \u2192 Status: reasoning (0 ms)\n  \u2022 [data_agent] ReAct[2] ACT \u2192 verify_aadhaar \u2192 Status: success (0 ms)\n  \u2022 [data_agent] ReAct[3] REASON \u2192 Status: reasoning (0 ms)\n  \u2022 [data_agent] ReAct[3] ACT \u2192 get_credit_report \u2192 Status: success (0 ms)\n  \u2022 [data_agent] ReAct[4] REASON \u2192 Status: reasoning (0 ms)\n  \u2022 [data_agent] ReAct[4] STOP \u2192 Status: complete (0 ms)\n  \u2022 [data_agent] Data gathering complete (ReAct) \u2192 Status: success (0 ms)\n  \u2022 [fraud_agent] Fraud & Identity Analysis \u2192 Status: passed (0 ms)\n  \u2022 [risk_agent] ML model prediction \u2192 Status: success (0 ms)\n  \u2022 [risk_agent] Dynamic weight blending \u2192 Status: success (0 ms)\n  \u2022 [risk_agent] Self-reflection: REVISED score \u2192 Status: revised (0 ms)\n  \u2022 [risk_agent] Reflection: contradiction detected \u2192 Status: warning (0 ms)\n  \u2022 [risk_agent] Risk assessment complete \u2192 Status: success (0 ms)\n  \u2022 [planner_agent] Generated LLM-driven execution plan \u2192 Status: success (219 ms)\n  \u2022 [fairness_agent] INTER-AGENT DEBATE: Challenge \u2192 Status: challenge (0 ms)\n  \u2022 [risk_agent] INTER-AGENT DEBATE: Response \u2192 Status: response (0 ms)\n  \u2022 [fairness_agent] INTER-AGENT DEBATE: Challenge \u2192 Status: challenge (0 ms)\n  \u2022 [risk_agent] INTER-AGENT DEBATE: Response \u2192 Status: response (0 ms)\n  \u2022 [fairness_agent] Gender counterfactual analysis \u2192 Status: bias_detected (0 ms)\n  \u2022 [fairness_agent] INTER-AGENT DEBATE: Challenge \u2192 Status: challenge (0 ms)\n  \u2022 [risk_agent] INTER-AGENT DEBATE: Response \u2192 Status: response (0 ms)\n  \u2022 [fairness_agent] INTER-AGENT DEBATE: Challenge \u2192 Status: challenge (0 ms)\n  \u2022 [risk_agent] INTER-AGENT DEBATE: Response \u2192 Status: response (0 ms)\n  \u2022 [fairness_agent] INTER-AGENT DEBATE: Challenge \u2192 Status: challenge (0 ms)\n  \u2022 [risk_agent] INTER-AGENT DEBATE: Response \u2192 Status: response (0 ms)\n  \u2022 [fairness_agent] Age counterfactual analysis \u2192 Status: no_bias (0 ms)\n  \u2022 [fairness_agent] INTER-AGENT DEBATE: Challenge \u2192 Status: challenge (0 ms)\n  \u2022 [risk_agent] INTER-AGENT DEBATE: Response \u2192 Status: response (0 ms)\n  \u2022 [fairness_agent] INTER-AGENT DEBATE: Challenge \u2192 Status: challenge (0 ms)\n  \u2022 [risk_agent] INTER-AGENT DEBATE: Response \u2192 Status: response (0 ms)\n  \u2022 [fairness_agent] Location counterfactual analysis \u2192 Status: no_bias (0 ms)\n  \u2022 [fairness_agent] Fairness assessment complete \u2192 Status: escalate (2 ms)\n  \u2022 [policy_agent] Policy assessment (Fallback) \u2192 Status: success (2 ms)\n  \u2022 [orchestrator] Final decision: ESCALATED \u2192 Status: success (0 ms)\n\n\u2550\u2550\u2550 END OF COMPLIANCE AUDIT TRAIL \u2550\u2550\u2550"
+  },
+  "explainability_agent_summary": "Generated 3 explanations: Applicant (1037 chars), Admin (1382 chars), Compliance (4056 chars)",
+  "audit_trail": [
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[1] REASON",
+      "input_data": {
+        "step": 1
+      },
+      "output_data": {
+        "status": "reasoning",
+        "details": "I have PAN number 'XYZAB5678G' for applicant 'Priya Patel'. PAN verification is the first KYC step \u2014 I need to confirm the applicant's identity before any credit assessment. Calling PAN verification tool."
+      },
+      "output_hash": "1ad2c6c7fb3bbb19585d0402ddbfe565d6f90c4d2db4d2df7cb510c1c1999d86",
+      "reasoning": "I have PAN number 'XYZAB5678G' for applicant 'Priya Patel'. PAN verification is the first KYC step \u2014 I need to confirm the applicant's identity before any credit assessment. Calling PAN verification tool.",
+      "timestamp": "2026-06-08T17:27:00.484411+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[1] ACT \u2192 verify_pan",
+      "input_data": {
+        "step": 2
+      },
+      "output_data": {
+        "status": "success",
+        "details": "PAN Status: VALID \u2705 | Name match: YES | Name on record: Priya Patel"
+      },
+      "output_hash": "2d7838a380d57b5e99e70ff9401400fc2ac27f27e3686d433fbe317f9db0eca0",
+      "reasoning": "PAN Status: VALID \u2705 | Name match: YES | Name on record: Priya Patel",
+      "timestamp": "2026-06-08T17:27:00.484440+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[2] REASON",
+      "input_data": {
+        "step": 3
+      },
+      "output_data": {
+        "status": "reasoning",
+        "details": "PAN status: verified. Now checking Aadhaar '2345****' to cross-validate the applicant's identity from a second source. Dual-document KYC is standard practice."
+      },
+      "output_hash": "50852f2a98bbc21a2e41a4006d516ab123b176a4f1de096e19251c495c690aca",
+      "reasoning": "PAN status: verified. Now checking Aadhaar '2345****' to cross-validate the applicant's identity from a second source. Dual-document KYC is standard practice.",
+      "timestamp": "2026-06-08T17:27:00.484461+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[2] ACT \u2192 verify_aadhaar",
+      "input_data": {
+        "step": 4
+      },
+      "output_data": {
+        "status": "success",
+        "details": "Aadhaar Status: ACTIVE \u2705 | Name match: YES | Address: Ahmedabad, Gujarat"
+      },
+      "output_hash": "6a45fe2de0117241f0530018aeb691c50fe3b61826cab898aa2430d16df28ffe",
+      "reasoning": "Aadhaar Status: ACTIVE \u2705 | Name match: YES | Address: Ahmedabad, Gujarat",
+      "timestamp": "2026-06-08T17:27:00.484478+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[3] REASON",
+      "input_data": {
+        "step": 5
+      },
+      "output_data": {
+        "status": "reasoning",
+        "details": "Identity confirmed via PAN + Aadhaar. It is now safe to pull the credit bureau report using PAN 'XYZAB5678G' as the lookup key. This will provide credit score, defaults, utilisation \u2014 essential for risk scoring."
+      },
+      "output_hash": "4cced8c65540d732cd72f24afef8a85923cfa3e883a49311f35fa1da83e09d71",
+      "reasoning": "Identity confirmed via PAN + Aadhaar. It is now safe to pull the credit bureau report using PAN 'XYZAB5678G' as the lookup key. This will provide credit score, defaults, utilisation \u2014 essential for risk scoring.",
+      "timestamp": "2026-06-08T17:27:00.484498+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[3] ACT \u2192 get_credit_report",
+      "input_data": {
+        "step": 6
+      },
+      "output_data": {
+        "status": "success",
+        "details": "CIBIL Score: 710 | Defaults: 0 | Outstanding: \u20b9500,000 | Utilisation: 45%"
+      },
+      "output_hash": "78640af60c6c3033f78ffd1b008a3bb02d5b9095847a9b7ba6401dc18b01c968",
+      "reasoning": "CIBIL Score: 710 | Defaults: 0 | Outstanding: \u20b9500,000 | Utilisation: 45%",
+      "timestamp": "2026-06-08T17:27:00.484515+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[4] REASON",
+      "input_data": {
+        "step": 7
+      },
+      "output_data": {
+        "status": "reasoning",
+        "details": "All available verification tools have been called and results collected. Data gathering is complete. Passing enriched state to Risk Agent."
+      },
+      "output_hash": "542c0b112db810c3266bea6d4c75a7134f4805002591062fdcb8713ea6a78780",
+      "reasoning": "All available verification tools have been called and results collected. Data gathering is complete. Passing enriched state to Risk Agent.",
+      "timestamp": "2026-06-08T17:27:00.484533+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "data_agent",
+      "tool_called": "ReAct[4] STOP",
+      "input_data": {
+        "step": 8
+      },
+      "output_data": {
+        "status": "complete",
+        "details": "All available verification tools have been called and results collected. Data gathering is complete. Passing enriched state to Risk Agent."
+      },
+      "output_hash": "3ed06697913107126b68368cd5c59312b42c6fefff577615100eab2e64014097",
+      "reasoning": "All available verification tools have been called and results collected. Data gathering is complete. Passing enriched state to Risk Agent.",
+      "timestamp": "2026-06-08T17:27:00.484550+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "data_agent",
+      "tool_called": "Data gathering complete (ReAct)",
+      "input_data": {
+        "step": 9
+      },
+      "output_data": {
+        "status": "success",
+        "details": "ReAct loop: 4 iterations, 3/3 tools called | PAN: \u2705 Valid | Aadhaar: \u2705 Verified | CIBIL: 710"
+      },
+      "output_hash": "8b66495dbf5269cb4a22dd926d21929a74d9637500611351544042455c17aae3",
+      "reasoning": "ReAct loop: 4 iterations, 3/3 tools called | PAN: \u2705 Valid | Aadhaar: \u2705 Verified | CIBIL: 710",
+      "timestamp": "2026-06-08T17:27:00.484566+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "fraud_agent",
+      "tool_called": "Fraud & Identity Analysis",
+      "input_data": {
+        "step": 10
+      },
+      "output_data": {
+        "status": "passed",
+        "details": "No fraud signals detected. Identity verified."
+      },
+      "output_hash": "8af27929ffcc57e8ef618717fad0eabca5c9822c92cf6befd9826bf89f20fe3e",
+      "reasoning": "No fraud signals detected. Identity verified.",
+      "timestamp": "2026-06-08T17:27:00.484591+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "risk_agent",
+      "tool_called": "ML model prediction",
+      "input_data": {
+        "step": 11
+      },
+      "output_data": {
+        "status": "success",
+        "details": "Probabilities: approve=0.20, review=0.70, reject=0.10 | Confidence=0.70"
+      },
+      "output_hash": "6d2a7fe9efb3c4b1a64b028a94fabe81674fb4136002802b925888d3bf76ce76",
+      "reasoning": "Probabilities: approve=0.20, review=0.70, reject=0.10 | Confidence=0.70",
+      "timestamp": "2026-06-08T17:27:00.484617+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "risk_agent",
+      "tool_called": "Dynamic weight blending",
+      "input_data": {
+        "step": 12
+      },
+      "output_data": {
+        "status": "success",
+        "details": "ML weight=0.68, Heuristic weight=0.32 (confidence=0.70)"
+      },
+      "output_hash": "9100eb8d28781b5d275b8daee4f89455485047add7a09bf7d5b3db511292e1e7",
+      "reasoning": "ML weight=0.68, Heuristic weight=0.32 (confidence=0.70)",
+      "timestamp": "2026-06-08T17:27:00.484634+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "risk_agent",
+      "tool_called": "Self-reflection: REVISED score",
+      "input_data": {
+        "step": 13
+      },
+      "output_data": {
+        "status": "revised",
+        "details": "Original=54.3 \u2192 Revised=59.5 | Reason: ML and heuristic scores differ by 29.0 points. Re-scored with equal weights (0.50/0.50) for safety: (45.0 + 74.0) / 2 = 59.5"
+      },
+      "output_hash": "78ee6cc2dfda72cf4a65d3827b0186fa9c8a4abc71ae228ce0abf994d78d9061",
+      "reasoning": "Original=54.3 \u2192 Revised=59.5 | Reason: ML and heuristic scores differ by 29.0 points. Re-scored with equal weights (0.50/0.50) for safety: (45.0 + 74.0) / 2 = 59.5",
+      "timestamp": "2026-06-08T17:27:00.484652+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "risk_agent",
+      "tool_called": "Reflection: contradiction detected",
+      "input_data": {
+        "step": 14
+      },
+      "output_data": {
+        "status": "warning",
+        "details": "ML/Heuristic contradiction: ML says LOW risk (45.0) but heuristics say HIGH risk (74.0) \u2014 gap of 29.0 points (threshold: 25). This suggests conflicting signals in the applicant's profile."
+      },
+      "output_hash": "747908e9df560c976e1bc474bd198c8e188f2d1766d49c109c8d80e84e8ab2f7",
+      "reasoning": "ML/Heuristic contradiction: ML says LOW risk (45.0) but heuristics say HIGH risk (74.0) \u2014 gap of 29.0 points (threshold: 25). This suggests conflicting signals in the applicant's profile.",
+      "timestamp": "2026-06-08T17:27:00.484670+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "risk_agent",
+      "tool_called": "Risk assessment complete",
+      "input_data": {
+        "step": 15
+      },
+      "output_data": {
+        "status": "success",
+        "details": "Risk Score: 59.5/100 (MEDIUM) [revised from 54.3] | Top factors: High debt-to-income ratio (52.1%), Self-employed \u2014 variable income, Business loan \u2014 higher default volatility"
+      },
+      "output_hash": "c28d399aa3c9b8f4d95196e36900f2614549e53c1e02872360f747a4e335db87",
+      "reasoning": "Risk Score: 59.5/100 (MEDIUM) [revised from 54.3] | Top factors: High debt-to-income ratio (52.1%), Self-employed \u2014 variable income, Business loan \u2014 higher default volatility",
+      "timestamp": "2026-06-08T17:27:00.484687+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "planner_agent",
+      "tool_called": "Generated LLM-driven execution plan",
+      "input_data": {
+        "step": 16
+      },
+      "output_data": {
+        "status": "success",
+        "details": "Reasoning: Fallback: LLM unavailable, used deterministic routing. High-variance demographic."
+      },
+      "output_hash": "96ed44acab9ad3d39293990d94a895ff5a65e8320fcbdb2a4b6638e056b56887",
+      "reasoning": "Reasoning: Fallback: LLM unavailable, used deterministic routing. High-variance demographic.",
+      "timestamp": "2026-06-08T17:27:00.484704+00:00",
+      "execution_ms": 219
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "fairness_agent",
+      "tool_called": "INTER-AGENT DEBATE: Challenge",
+      "input_data": {
+        "step": 17
+      },
+      "output_data": {
+        "status": "challenge",
+        "details": "Re-evaluate profile with gender=male (was female). Justify any score difference."
+      },
+      "output_hash": "55af6fb04a911ec61aadaa7286dda5597c0074a3e977b90aabfaa294fa746a25",
+      "reasoning": "Re-evaluate profile with gender=male (was female). Justify any score difference.",
+      "timestamp": "2026-06-08T17:27:00.484720+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "risk_agent",
+      "tool_called": "INTER-AGENT DEBATE: Response",
+      "input_data": {
+        "step": 18
+      },
+      "output_data": {
+        "status": "response",
+        "details": "Re-evaluated with gender=male. New score is 52.4. Justification: Score 52.4 driven by: Started with neutral baseline (50). | ML Confidence: 0.70 | Bias Source: heuristic"
+      },
+      "output_hash": "3804ea74a8fde7e9cce22ae3b7204c5c2701ec166f459980b8bf7a217668936a",
+      "reasoning": "Re-evaluated with gender=male. New score is 52.4. Justification: Score 52.4 driven by: Started with neutral baseline (50). | ML Confidence: 0.70 | Bias Source: heuristic",
+      "timestamp": "2026-06-08T17:27:00.484737+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "fairness_agent",
+      "tool_called": "INTER-AGENT DEBATE: Challenge",
+      "input_data": {
+        "step": 19
+      },
+      "output_data": {
+        "status": "challenge",
+        "details": "Re-evaluate profile with gender=other (was female). Justify any score difference."
+      },
+      "output_hash": "07365a0000047447a053e66c6d63e34c85bd25892d91b8fe9b736c509f120405",
+      "reasoning": "Re-evaluate profile with gender=other (was female). Justify any score difference.",
+      "timestamp": "2026-06-08T17:27:00.484754+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "risk_agent",
+      "tool_called": "INTER-AGENT DEBATE: Response",
+      "input_data": {
+        "step": 20
+      },
+      "output_data": {
+        "status": "response",
+        "details": "Re-evaluated with gender=other. New score is 60.5. Justification: Score 54.9 driven by: Started with neutral baseline (50). Applied +8pt adjustment for other gender. | ML Confidence: 0.70 | Bias Source: heuristic"
+      },
+      "output_hash": "1ddaf2dbd13bd9f1ff17d7ce355bb51cd7c2a5731d34eaba230c8080d04de63c",
+      "reasoning": "Re-evaluated with gender=other. New score is 60.5. Justification: Score 54.9 driven by: Started with neutral baseline (50). Applied +8pt adjustment for other gender. | ML Confidence: 0.70 | Bias Source: heuristic",
+      "timestamp": "2026-06-08T17:27:00.484771+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "fairness_agent",
+      "tool_called": "Gender counterfactual analysis",
+      "input_data": {
+        "step": 21
+      },
+      "output_data": {
+        "status": "bias_detected",
+        "details": "Tested 2 gender variants | Max |\u0394|=7.1 pts | Worst: female\u2192male \u0394=-7.10 pts"
+      },
+      "output_hash": "55a705b846b4f1e32538b7e7260289ae5d9e3b2726498dd6abab2a10ef0e4c5e",
+      "reasoning": "Tested 2 gender variants | Max |\u0394|=7.1 pts | Worst: female\u2192male \u0394=-7.10 pts",
+      "timestamp": "2026-06-08T17:27:00.484788+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "fairness_agent",
+      "tool_called": "INTER-AGENT DEBATE: Challenge",
+      "input_data": {
+        "step": 22
+      },
+      "output_data": {
+        "status": "challenge",
+        "details": "Re-evaluate profile with age=35 (was 24). Justify any score difference."
+      },
+      "output_hash": "4fac4807e67607b512149e299df4f2911fa859d2953d583aa4fe089a929d5289",
+      "reasoning": "Re-evaluate profile with age=35 (was 24). Justify any score difference.",
+      "timestamp": "2026-06-08T17:27:00.484804+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "risk_agent",
+      "tool_called": "INTER-AGENT DEBATE: Response",
+      "input_data": {
+        "step": 23
+      },
+      "output_data": {
+        "status": "response",
+        "details": "Re-evaluated with age=35. New score is 59.5. Justification: Score 54.3 driven by: Started with neutral baseline (50). Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic"
+      },
+      "output_hash": "00f5426ed22cf0d97c70320284cde27ef42e11404ca8e4c75c66f96273cb724f",
+      "reasoning": "Re-evaluated with age=35. New score is 59.5. Justification: Score 54.3 driven by: Started with neutral baseline (50). Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic",
+      "timestamp": "2026-06-08T17:27:00.484821+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "fairness_agent",
+      "tool_called": "INTER-AGENT DEBATE: Challenge",
+      "input_data": {
+        "step": 24
+      },
+      "output_data": {
+        "status": "challenge",
+        "details": "Re-evaluate profile with age=45 (was 24). Justify any score difference."
+      },
+      "output_hash": "c6d97d68b6d20320371350d28b50b7c443ddaae28ba98b8734ae8146ccc9dc56",
+      "reasoning": "Re-evaluate profile with age=45 (was 24). Justify any score difference.",
+      "timestamp": "2026-06-08T17:27:00.484837+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "risk_agent",
+      "tool_called": "INTER-AGENT DEBATE: Response",
+      "input_data": {
+        "step": 25
+      },
+      "output_data": {
+        "status": "response",
+        "details": "Re-evaluated with age=45. New score is 59.5. Justification: Score 54.3 driven by: Started with neutral baseline (50). Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic"
+      },
+      "output_hash": "a518211af7841a8aaccd76e64eb93635b82194b02fb22a3803e0e4fcd70b3e9b",
+      "reasoning": "Re-evaluated with age=45. New score is 59.5. Justification: Score 54.3 driven by: Started with neutral baseline (50). Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic",
+      "timestamp": "2026-06-08T17:27:00.484853+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "fairness_agent",
+      "tool_called": "INTER-AGENT DEBATE: Challenge",
+      "input_data": {
+        "step": 26
+      },
+      "output_data": {
+        "status": "challenge",
+        "details": "Re-evaluate profile with age=55 (was 24). Justify any score difference."
+      },
+      "output_hash": "1c13f13f50872cab9a2d1aeab27d0e6ac802d88d17a8d7ac892720ead1f507f1",
+      "reasoning": "Re-evaluate profile with age=55 (was 24). Justify any score difference.",
+      "timestamp": "2026-06-08T17:27:00.484870+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "risk_agent",
+      "tool_called": "INTER-AGENT DEBATE: Response",
+      "input_data": {
+        "step": 27
+      },
+      "output_data": {
+        "status": "response",
+        "details": "Re-evaluated with age=55. New score is 59.5. Justification: Score 54.3 driven by: Started with neutral baseline (50). Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic"
+      },
+      "output_hash": "a6b6a3c8c5769b9ee64a25d05a2eb386fee4573758e59c515905d03af46ad87e",
+      "reasoning": "Re-evaluated with age=55. New score is 59.5. Justification: Score 54.3 driven by: Started with neutral baseline (50). Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic",
+      "timestamp": "2026-06-08T17:27:00.484886+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "fairness_agent",
+      "tool_called": "Age counterfactual analysis",
+      "input_data": {
+        "step": 28
+      },
+      "output_data": {
+        "status": "no_bias",
+        "details": "Tested 3 age brackets | Max |\u0394|=0.0 pts | Worst: age 24\u219235 \u0394=+0.00 pts"
+      },
+      "output_hash": "1f3adc249a201a7b2ff2185cd7d9690fb333ab73f7a5a3cc1fe60ba3a32967f3",
+      "reasoning": "Tested 3 age brackets | Max |\u0394|=0.0 pts | Worst: age 24\u219235 \u0394=+0.00 pts",
+      "timestamp": "2026-06-08T17:27:00.484903+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "fairness_agent",
+      "tool_called": "INTER-AGENT DEBATE: Challenge",
+      "input_data": {
+        "step": 29
+      },
+      "output_data": {
+        "status": "challenge",
+        "details": "Re-evaluate profile with location=urban (was None). Justify any score difference."
+      },
+      "output_hash": "88b2feeda2be7c15a77654eac26fefd9c2d190f039bd1aa567f196c22af1b76f",
+      "reasoning": "Re-evaluate profile with location=urban (was None). Justify any score difference.",
+      "timestamp": "2026-06-08T17:27:00.484919+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "risk_agent",
+      "tool_called": "INTER-AGENT DEBATE: Response",
+      "input_data": {
+        "step": 30
+      },
+      "output_data": {
+        "status": "response",
+        "details": "Re-evaluated with location=urban. New score is 58.0. Justification: Score 53.3 driven by: Started with neutral baseline (50). Applied -3pt adjustment for urban location. Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic"
+      },
+      "output_hash": "eda48677f28a1e1f9b023625e5228afaf2206f0332554d4739e0417b07ec0597",
+      "reasoning": "Re-evaluated with location=urban. New score is 58.0. Justification: Score 53.3 driven by: Started with neutral baseline (50). Applied -3pt adjustment for urban location. Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic",
+      "timestamp": "2026-06-08T17:27:00.484937+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "fairness_agent",
+      "tool_called": "INTER-AGENT DEBATE: Challenge",
+      "input_data": {
+        "step": 31
+      },
+      "output_data": {
+        "status": "challenge",
+        "details": "Re-evaluate profile with location=rural (was None). Justify any score difference."
+      },
+      "output_hash": "cb3fe2ec1f8021e6dbc871ac30c87c628228fc950f40ca0bb9001edbb0a1beb7",
+      "reasoning": "Re-evaluate profile with location=rural (was None). Justify any score difference.",
+      "timestamp": "2026-06-08T17:27:00.484952+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "risk_agent",
+      "tool_called": "INTER-AGENT DEBATE: Response",
+      "input_data": {
+        "step": 32
+      },
+      "output_data": {
+        "status": "response",
+        "details": "Re-evaluated with location=rural. New score is 62.0. Justification: Score 55.9 driven by: Started with neutral baseline (50). Applied +5pt adjustment for rural location. Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic"
+      },
+      "output_hash": "485d8911e16816eca0661e7938271ea102d354e6cf8194737406beb5f946b6bc",
+      "reasoning": "Re-evaluated with location=rural. New score is 62.0. Justification: Score 55.9 driven by: Started with neutral baseline (50). Applied +5pt adjustment for rural location. Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic",
+      "timestamp": "2026-06-08T17:27:00.484969+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "fairness_agent",
+      "tool_called": "Location counterfactual analysis",
+      "input_data": {
+        "step": 33
+      },
+      "output_data": {
+        "status": "no_bias",
+        "details": "Tested 2 location variants | Max |\u0394|=2.5 pts | Worst: semi_urban\u2192rural \u0394=+2.50 pts"
+      },
+      "output_hash": "c9b93300e7305fb007d9e10660d5fb8204f5c85d9c08e33848595ea490c713a2",
+      "reasoning": "Tested 2 location variants | Max |\u0394|=2.5 pts | Worst: semi_urban\u2192rural \u0394=+2.50 pts",
+      "timestamp": "2026-06-08T17:27:00.484986+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "fairness_agent",
+      "tool_called": "Fairness assessment complete",
+      "input_data": {
+        "step": 34
+      },
+      "output_data": {
+        "status": "escalate",
+        "details": "\u26a0\ufe0f BIAS DETECTED in: gender \u2014 Worst delta: gender \u0394=-7.10, age \u0394=+0.00, location \u0394=+2.50 \u2014 Recommending escalation to human reviewer"
+      },
+      "output_hash": "22f482be126056b078007f3a8c643360883e92fcbac2c5c152c86109d3f275b5",
+      "reasoning": "\u26a0\ufe0f BIAS DETECTED in: gender \u2014 Worst delta: gender \u0394=-7.10, age \u0394=+0.00, location \u0394=+2.50 \u2014 Recommending escalation to human reviewer",
+      "timestamp": "2026-06-08T17:27:00.485004+00:00",
+      "execution_ms": 2
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "policy_agent",
+      "tool_called": "Policy assessment (Fallback)",
+      "input_data": {
+        "step": 35
+      },
+      "output_data": {
+        "status": "success",
+        "details": "All policy checks passed \u2705"
+      },
+      "output_hash": "676a56f231a6e2e51e9f894185c01d664fb3be51456081a179a4202ac34097ab",
+      "reasoning": "All policy checks passed \u2705",
+      "timestamp": "2026-06-08T17:27:00.485023+00:00",
+      "execution_ms": 2
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "orchestrator",
+      "tool_called": "Final decision: ESCALATED",
+      "input_data": {
+        "step": 36
+      },
+      "output_data": {
+        "status": "success",
+        "details": "Application escalated to human reviewer. Risk score: 59.5/100 (MEDIUM). Potential bias detected in automated assessment \u2014 requires human judgment."
+      },
+      "output_hash": "c832fdea87eee50eb8d1bc91b8fe103758de0c08bb92713c0f093df574fd622c",
+      "reasoning": "Application escalated to human reviewer. Risk score: 59.5/100 (MEDIUM). Potential bias detected in automated assessment \u2014 requires human judgment.",
+      "timestamp": "2026-06-08T17:27:00.485041+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "explainability_agent",
+      "tool_called": "Generate applicant-facing explanation",
+      "input_data": {
+        "step": 37
+      },
+      "output_data": {
+        "status": "success",
+        "details": "Generated 1037 chars for applicant"
+      },
+      "output_hash": "934b34c1480c762b8db927abd8e93b297eab095e356f6660b6f2c5f76663f628",
+      "reasoning": "Generated 1037 chars for applicant",
+      "timestamp": "2026-06-08T17:27:00.485059+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "explainability_agent",
+      "tool_called": "Generate admin technical summary",
+      "input_data": {
+        "step": 38
+      },
+      "output_data": {
+        "status": "success",
+        "details": "Generated 1382 chars for admin"
+      },
+      "output_hash": "7c4d3c053e675cfdb56ef3d4ca614bcd719af80ea85d0d5a9bc5728082e4565e",
+      "reasoning": "Generated 1382 chars for admin",
+      "timestamp": "2026-06-08T17:27:00.485075+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "explainability_agent",
+      "tool_called": "Generate regulatory compliance report",
+      "input_data": {
+        "step": 39
+      },
+      "output_data": {
+        "status": "success",
+        "details": "Generated 4056 chars for compliance"
+      },
+      "output_hash": "9b7a2628f5ee94d9cca9c37c689b9ae280d25d5cfd477ce0888d1c1525baee3d",
+      "reasoning": "Generated 4056 chars for compliance",
+      "timestamp": "2026-06-08T17:27:00.485091+00:00",
+      "execution_ms": 0
+    },
+    {
+      "application_id": "TEST-CASE-3",
+      "agent_name": "explainability_agent",
+      "tool_called": "Explainability generation complete",
+      "input_data": {
+        "step": 40
+      },
+      "output_data": {
+        "status": "success",
+        "details": "Generated 3 explanations: Applicant (1037 chars), Admin (1382 chars), Compliance (4056 chars)"
+      },
+      "output_hash": "2676c65c52854a77eb0f10ef4289b898437657a7d3312eac60241e50cda11628",
+      "reasoning": "Generated 3 explanations: Applicant (1037 chars), Admin (1382 chars), Compliance (4056 chars)",
+      "timestamp": "2026-06-08T17:27:00.485128+00:00",
+      "execution_ms": 0
+    }
+  ],
+  "audit_anomalies": [
+    "1 error(s) occurred during pipeline execution"
+  ],
+  "audit_execution_summary": {
+    "total_steps": 40,
+    "total_execution_ms": 223,
+    "agents_executed": {
+      "data_agent": 9,
+      "fraud_agent": 1,
+      "risk_agent": 12,
+      "planner_agent": 1,
+      "fairness_agent": 11,
+      "policy_agent": 1,
+      "orchestrator": 1,
+      "explainability_agent": 4
+    },
+    "status_breakdown": {
+      "reasoning": 4,
+      "success": 14,
+      "complete": 1,
+      "passed": 1,
+      "revised": 1,
+      "warning": 1,
+      "challenge": 7,
+      "response": 7,
+      "bias_detected": 1,
+      "no_bias": 2,
+      "escalate": 1
+    },
+    "total_errors": 1,
+    "decision": "escalated",
+    "risk_score": 59.5,
+    "risk_category": "MEDIUM",
+    "policy_passed": true,
+    "bias_detected": true,
+    "agent_output_hashes": {
+      "data_agent": "1a255687fe8126f64fcf370a87f3085647d42838f5eefd22d4ada609b3931232",
+      "risk_agent": "218498f6d1c2d62388102f73cd346037f0cd9db97432b0f55ee75dfae43702ee",
+      "policy_agent": "d8c0f7c9d400bbd9537a0af3ac4517cd85d6940bfe22ffc2bdcf7fc812abc31d",
+      "fairness_agent": "7193be4ade27669a0c80bc60971e1485b4d66282437b179c983c67a0906b7499",
+      "explainability_agent": "90b61a625f3763b46f972a5bf90dd80761e3a986dc79bcd7d88693ae7d59e818",
+      "orchestrator": "c7ffcec7c580b6a641ea4bd807f77051a992c962f86ca8701e3a9c3e9fa143ac"
+    },
+    "pipeline_integrity_hash": "cd59a56ff3889fddcbbbf8944c6038fb8a3b0d80315ba1c1b8712baaf76b65ff"
+  },
+  "audit_agent_summary": "Audit complete: 40 records, 1 anomalie(s), pipeline ran 40 steps | Pipeline hash: cd59a56ff3889fdd\u2026",
+  "final_decision": "escalated",
+  "decision_reasoning": "Application escalated to human reviewer. Risk score: 59.5/100 (MEDIUM). Potential bias detected in automated assessment \u2014 requires human judgment.",
+  "plan": [
+    "fairness_agent",
+    "policy_agent",
+    "final_decision"
+  ],
+  "plan_reasoning": "Fallback: LLM unavailable, used deterministic routing. High-variance demographic.",
+  "current_step_index": 3,
+  "agent_logs": [
+    {
+      "agent": "data_agent",
+      "step": 1,
+      "action": "ReAct[1] REASON",
+      "status": "reasoning",
+      "details": "I have PAN number 'XYZAB5678G' for applicant 'Priya Patel'. PAN verification is the first KYC step \u2014 I need to confirm the applicant's identity before any credit assessment. Calling PAN verification tool.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 2,
+      "action": "ReAct[1] ACT \u2192 verify_pan",
+      "status": "success",
+      "details": "PAN Status: VALID \u2705 | Name match: YES | Name on record: Priya Patel",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 3,
+      "action": "ReAct[2] REASON",
+      "status": "reasoning",
+      "details": "PAN status: verified. Now checking Aadhaar '2345****' to cross-validate the applicant's identity from a second source. Dual-document KYC is standard practice.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 4,
+      "action": "ReAct[2] ACT \u2192 verify_aadhaar",
+      "status": "success",
+      "details": "Aadhaar Status: ACTIVE \u2705 | Name match: YES | Address: Ahmedabad, Gujarat",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 5,
+      "action": "ReAct[3] REASON",
+      "status": "reasoning",
+      "details": "Identity confirmed via PAN + Aadhaar. It is now safe to pull the credit bureau report using PAN 'XYZAB5678G' as the lookup key. This will provide credit score, defaults, utilisation \u2014 essential for risk scoring.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 6,
+      "action": "ReAct[3] ACT \u2192 get_credit_report",
+      "status": "success",
+      "details": "CIBIL Score: 710 | Defaults: 0 | Outstanding: \u20b9500,000 | Utilisation: 45%",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 7,
+      "action": "ReAct[4] REASON",
+      "status": "reasoning",
+      "details": "All available verification tools have been called and results collected. Data gathering is complete. Passing enriched state to Risk Agent.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 8,
+      "action": "ReAct[4] STOP",
+      "status": "complete",
+      "details": "All available verification tools have been called and results collected. Data gathering is complete. Passing enriched state to Risk Agent.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "data_agent",
+      "step": 9,
+      "action": "Data gathering complete (ReAct)",
+      "status": "success",
+      "details": "ReAct loop: 4 iterations, 3/3 tools called | PAN: \u2705 Valid | Aadhaar: \u2705 Verified | CIBIL: 710",
+      "duration_ms": 0
+    },
+    {
+      "agent": "fraud_agent",
+      "step": 10,
+      "action": "Fraud & Identity Analysis",
+      "status": "passed",
+      "details": "No fraud signals detected. Identity verified.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "risk_agent",
+      "step": 11,
+      "action": "ML model prediction",
+      "status": "success",
+      "details": "Probabilities: approve=0.20, review=0.70, reject=0.10 | Confidence=0.70",
+      "duration_ms": 0
+    },
+    {
+      "agent": "risk_agent",
+      "step": 12,
+      "action": "Dynamic weight blending",
+      "status": "success",
+      "details": "ML weight=0.68, Heuristic weight=0.32 (confidence=0.70)",
+      "duration_ms": 0
+    },
+    {
+      "agent": "risk_agent",
+      "step": 13,
+      "action": "Self-reflection: REVISED score",
+      "status": "revised",
+      "details": "Original=54.3 \u2192 Revised=59.5 | Reason: ML and heuristic scores differ by 29.0 points. Re-scored with equal weights (0.50/0.50) for safety: (45.0 + 74.0) / 2 = 59.5",
+      "duration_ms": 0
+    },
+    {
+      "agent": "risk_agent",
+      "step": 14,
+      "action": "Reflection: contradiction detected",
+      "status": "warning",
+      "details": "ML/Heuristic contradiction: ML says LOW risk (45.0) but heuristics say HIGH risk (74.0) \u2014 gap of 29.0 points (threshold: 25). This suggests conflicting signals in the applicant's profile.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "risk_agent",
+      "step": 15,
+      "action": "Risk assessment complete",
+      "status": "success",
+      "details": "Risk Score: 59.5/100 (MEDIUM) [revised from 54.3] | Top factors: High debt-to-income ratio (52.1%), Self-employed \u2014 variable income, Business loan \u2014 higher default volatility",
+      "duration_ms": 0
+    },
+    {
+      "agent": "planner_agent",
+      "step": 16,
+      "action": "Generated LLM-driven execution plan",
+      "status": "success",
+      "details": "Reasoning: Fallback: LLM unavailable, used deterministic routing. High-variance demographic.",
+      "duration_ms": 219
+    },
+    {
+      "agent": "fairness_agent",
+      "step": 17,
+      "action": "INTER-AGENT DEBATE: Challenge",
+      "status": "challenge",
+      "details": "Re-evaluate profile with gender=male (was female). Justify any score difference.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "risk_agent",
+      "step": 18,
+      "action": "INTER-AGENT DEBATE: Response",
+      "status": "response",
+      "details": "Re-evaluated with gender=male. New score is 52.4. Justification: Score 52.4 driven by: Started with neutral baseline (50). | ML Confidence: 0.70 | Bias Source: heuristic",
+      "duration_ms": 0
+    },
+    {
+      "agent": "fairness_agent",
+      "step": 19,
+      "action": "INTER-AGENT DEBATE: Challenge",
+      "status": "challenge",
+      "details": "Re-evaluate profile with gender=other (was female). Justify any score difference.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "risk_agent",
+      "step": 20,
+      "action": "INTER-AGENT DEBATE: Response",
+      "status": "response",
+      "details": "Re-evaluated with gender=other. New score is 60.5. Justification: Score 54.9 driven by: Started with neutral baseline (50). Applied +8pt adjustment for other gender. | ML Confidence: 0.70 | Bias Source: heuristic",
+      "duration_ms": 0
+    },
+    {
+      "agent": "fairness_agent",
+      "step": 21,
+      "action": "Gender counterfactual analysis",
+      "status": "bias_detected",
+      "details": "Tested 2 gender variants | Max |\u0394|=7.1 pts | Worst: female\u2192male \u0394=-7.10 pts",
+      "duration_ms": 0
+    },
+    {
+      "agent": "fairness_agent",
+      "step": 22,
+      "action": "INTER-AGENT DEBATE: Challenge",
+      "status": "challenge",
+      "details": "Re-evaluate profile with age=35 (was 24). Justify any score difference.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "risk_agent",
+      "step": 23,
+      "action": "INTER-AGENT DEBATE: Response",
+      "status": "response",
+      "details": "Re-evaluated with age=35. New score is 59.5. Justification: Score 54.3 driven by: Started with neutral baseline (50). Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic",
+      "duration_ms": 0
+    },
+    {
+      "agent": "fairness_agent",
+      "step": 24,
+      "action": "INTER-AGENT DEBATE: Challenge",
+      "status": "challenge",
+      "details": "Re-evaluate profile with age=45 (was 24). Justify any score difference.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "risk_agent",
+      "step": 25,
+      "action": "INTER-AGENT DEBATE: Response",
+      "status": "response",
+      "details": "Re-evaluated with age=45. New score is 59.5. Justification: Score 54.3 driven by: Started with neutral baseline (50). Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic",
+      "duration_ms": 0
+    },
+    {
+      "agent": "fairness_agent",
+      "step": 26,
+      "action": "INTER-AGENT DEBATE: Challenge",
+      "status": "challenge",
+      "details": "Re-evaluate profile with age=55 (was 24). Justify any score difference.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "risk_agent",
+      "step": 27,
+      "action": "INTER-AGENT DEBATE: Response",
+      "status": "response",
+      "details": "Re-evaluated with age=55. New score is 59.5. Justification: Score 54.3 driven by: Started with neutral baseline (50). Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic",
+      "duration_ms": 0
+    },
+    {
+      "agent": "fairness_agent",
+      "step": 28,
+      "action": "Age counterfactual analysis",
+      "status": "no_bias",
+      "details": "Tested 3 age brackets | Max |\u0394|=0.0 pts | Worst: age 24\u219235 \u0394=+0.00 pts",
+      "duration_ms": 0
+    },
+    {
+      "agent": "fairness_agent",
+      "step": 29,
+      "action": "INTER-AGENT DEBATE: Challenge",
+      "status": "challenge",
+      "details": "Re-evaluate profile with location=urban (was None). Justify any score difference.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "risk_agent",
+      "step": 30,
+      "action": "INTER-AGENT DEBATE: Response",
+      "status": "response",
+      "details": "Re-evaluated with location=urban. New score is 58.0. Justification: Score 53.3 driven by: Started with neutral baseline (50). Applied -3pt adjustment for urban location. Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic",
+      "duration_ms": 0
+    },
+    {
+      "agent": "fairness_agent",
+      "step": 31,
+      "action": "INTER-AGENT DEBATE: Challenge",
+      "status": "challenge",
+      "details": "Re-evaluate profile with location=rural (was None). Justify any score difference.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "risk_agent",
+      "step": 32,
+      "action": "INTER-AGENT DEBATE: Response",
+      "status": "response",
+      "details": "Re-evaluated with location=rural. New score is 62.0. Justification: Score 55.9 driven by: Started with neutral baseline (50). Applied +5pt adjustment for rural location. Applied +6pt adjustment for female gender. | ML Confidence: 0.70 | Bias Source: heuristic",
+      "duration_ms": 0
+    },
+    {
+      "agent": "fairness_agent",
+      "step": 33,
+      "action": "Location counterfactual analysis",
+      "status": "no_bias",
+      "details": "Tested 2 location variants | Max |\u0394|=2.5 pts | Worst: semi_urban\u2192rural \u0394=+2.50 pts",
+      "duration_ms": 0
+    },
+    {
+      "agent": "fairness_agent",
+      "step": 34,
+      "action": "Fairness assessment complete",
+      "status": "escalate",
+      "details": "\u26a0\ufe0f BIAS DETECTED in: gender \u2014 Worst delta: gender \u0394=-7.10, age \u0394=+0.00, location \u0394=+2.50 \u2014 Recommending escalation to human reviewer",
+      "duration_ms": 2
+    },
+    {
+      "agent": "policy_agent",
+      "step": 35,
+      "action": "Policy assessment (Fallback)",
+      "status": "success",
+      "details": "All policy checks passed \u2705",
+      "duration_ms": 2
+    },
+    {
+      "agent": "orchestrator",
+      "step": 36,
+      "action": "Final decision: ESCALATED",
+      "status": "success",
+      "details": "Application escalated to human reviewer. Risk score: 59.5/100 (MEDIUM). Potential bias detected in automated assessment \u2014 requires human judgment.",
+      "duration_ms": 0
+    },
+    {
+      "agent": "explainability_agent",
+      "step": 37,
+      "action": "Generate applicant-facing explanation",
+      "status": "success",
+      "details": "Generated 1037 chars for applicant",
+      "duration_ms": 0
+    },
+    {
+      "agent": "explainability_agent",
+      "step": 38,
+      "action": "Generate admin technical summary",
+      "status": "success",
+      "details": "Generated 1382 chars for admin",
+      "duration_ms": 0
+    },
+    {
+      "agent": "explainability_agent",
+      "step": 39,
+      "action": "Generate regulatory compliance report",
+      "status": "success",
+      "details": "Generated 4056 chars for compliance",
+      "duration_ms": 0
+    },
+    {
+      "agent": "explainability_agent",
+      "step": 40,
+      "action": "Explainability generation complete",
+      "status": "success",
+      "details": "Generated 3 explanations: Applicant (1037 chars), Admin (1382 chars), Compliance (4056 chars)",
+      "duration_ms": 0
+    },
+    {
+      "agent": "audit_agent",
+      "step": 41,
+      "action": "Compute cryptographic output hashes (SHA-256)",
+      "status": "success",
+      "details": "Hashed 6 agent output slices | Pipeline integrity fingerprint: cd59a56ff3889fdd\u2026",
+      "duration_ms": 0
+    },
+    {
+      "agent": "audit_agent",
+      "step": 42,
+      "action": "Generate formal audit trail",
+      "status": "success",
+      "details": "Created 40 audit records from agent logs \u2014 each record sealed with SHA-256 output_hash",
+      "duration_ms": 0
+    },
+    {
+      "agent": "audit_agent",
+      "step": 43,
+      "action": "Anomaly detection",
+      "status": "warning",
+      "details": "Found 1 anomalie(s): 1 error(s) occurred during pipeline execution",
+      "duration_ms": 0
+    },
+    {
+      "agent": "audit_agent",
+      "step": 44,
+      "action": "Generate execution summary",
+      "status": "success",
+      "details": "Pipeline: 40 steps, 223ms total, 1 error(s) | Integrity hash: cd59a56ff3889fdd\u2026",
+      "duration_ms": 0
+    },
+    {
+      "agent": "audit_agent",
+      "step": 45,
+      "action": "Audit finalisation complete",
+      "status": "success",
+      "details": "Audit complete: 40 records, 1 anomalie(s), pipeline ran 40 steps | Pipeline hash: cd59a56ff3889fdd\u2026",
+      "duration_ms": 1
+    }
+  ],
+  "errors": [
+    "RAG Policy Engine failed: Valid GROQ_API_KEY missing. Triggering fallback.. Falling back to deterministic rules."
+  ]
+}
