@@ -460,8 +460,9 @@ export default function ApplicationDetail() {
                          {ss.audit_trail.map((log, i) => (
                            <tr key={i} className="hover:bg-[rgba(255,255,255,0.02)]">
                              <td className="px-3 py-2">{log.agent}</td>
-                             <td className="px-3 py-2">{log.action_type}</td>
-                             <td className="px-3 py-2 font-mono text-emerald truncate max-w-[150px]">{log.hash.substring(0, 16)}...</td>
+                             <td className="px-3 py-2">{log.agent_name ?? ''}</td>
+                             <td className="px-3 py-2">{log.tool_called ?? ''}</td>
+                             <td className="px-3 py-2 font-mono text-emerald truncate max-w-[150px]">{log.output_hash ? `${log.output_hash.substring(0,16)}...` : ''}</td>
                            </tr>
                          ))}
                        </tbody>
@@ -490,7 +491,7 @@ export default function ApplicationDetail() {
                                <span className="text-xs text-muted">{log.duration_ms}ms</span>
                             </div>
                             <p className="text-secondary text-xs">{log.action}</p>
-                            {log.details && <p className="text-muted text-[10px] mt-1 border-t border-slate-700/50 pt-1">"{log.details.substring(0, 100)}{log.details.length > 100 ? '...' : ''}"</p>}
+                            {log.details && <p className="text-muted text-[10px] mt-1 border-t border-slate-700/50 pt-1">"{log.details?.substring(0, 100)}{log.details?.length > 100 ? '...' : ''}"</p>}
                           </div>
                         </div>
                      ))}

@@ -321,7 +321,6 @@ async def process_application_stream(
                     "data_agent": "Data Agent: Running ReAct loop for KYC and data extraction...",
                     "fraud_agent": "Fraud Agent: Checking identity and anti-fraud signals...",
                     "risk_agent": "Risk Agent: Analyzing financial profile and calculating risk score...",
-                    "planner_agent": "Planner Agent: Autonomously generating execution plan via LLM...",
                     "policy_agent": "Policy Agent: Verifying compliance with lending policies...",
                     "fairness_agent": "Fairness Agent: Debating counterfactuals and auditing bias...",
                     "risk_adjustment_agent": "Risk Adjustment: Negotiating score with Fairness Agent...",

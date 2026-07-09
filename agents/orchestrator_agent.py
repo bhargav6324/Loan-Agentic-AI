@@ -247,7 +247,7 @@ def _call_llm_orchestrator(state: AgentState, iteration: int) -> dict:
                 "Content-Type": "application/json",
             },
             json={
-                "model": "llama-3.3-70b-versatile",
+                "model": "llama-3.1-8b-instant",
                 "messages": [
                     {
                         "role": "system",

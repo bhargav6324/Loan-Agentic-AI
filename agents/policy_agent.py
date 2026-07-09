@@ -153,7 +153,7 @@ def _call_llm_policy(applicant_data_str: str, policy_text: str) -> dict:
     }
     
     payload = {
-        "model": "llama-3.3-70b-versatile",
+        "model": "llama-3.1-8b-instant",
         "messages": [
             {"role": "system", "content": "You are a strict JSON-only API."},
             {"role": "user", "content": formatted_prompt}

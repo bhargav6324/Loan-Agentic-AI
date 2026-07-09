@@ -192,31 +192,72 @@
       "decision": "escalated",
       "risk_score": 65.0,
       "bias_detected": true
+    },
+    {
+      "timestamp": 1782832329.8983796,
+      "application_id": "4a260c29-584b-44de-87fa-e583e0f59bb6",
+      "gender": "male",
+      "location": null,
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1782832577.0354567,
+      "application_id": "a034328d-4f65-404a-b2dd-b00cc5286a4d",
+      "gender": "male",
+      "location": null,
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": 35.0,
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1782832815.278785,
+      "application_id": "7bbf9966-c690-453d-92b5-0eb8475d470f",
+      "gender": "male",
+      "location": null,
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 22.5,
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1782834051.4471695,
+      "application_id": "c9aa9be7-506b-462a-ad27-a77d0ac5fc72",
+      "gender": "male",
+      "location": null,
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 34.0,
+      "bias_detected": false
     }
   ],
   "insights": {
-    "records_analyzed": 25,
+    "records_analyzed": 29,
     "status": "analyzed",
     "gender_approval_rates": {
       "unknown": 0.0,
-      "male": 0.786
+      "male": 0.722
     },
-    "gender_bias_gap": 0.786,
+    "gender_bias_gap": 0.722,
     "gender_bias_alert": {
       "detected": true,
-      "gap": 0.786,
+      "gap": 0.722,
       "most_disadvantaged_group": "unknown",
       "approval_rate": 0.0,
       "recommendation": "Tighten fairness thresholds \u2014 unknown applicants approved at 0% vs others at higher rates"
     },
     "location_approval_rates": {
-      "unknown": 0.3,
+      "unknown": 0.333,
       "semi_urban": 1.0
     },
     "employment_approval_rates": {
-      "unknown": 0.524
+      "unknown": 0.524,
+      "salaried": 0.4
     },
-    "escalation_rate": 0.08
+    "escalation_rate": 0.069
   },
-  "last_updated": 1781777235.9151173
+  "last_updated": 1782834051.4479141
 }
