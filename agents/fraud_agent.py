@@ -136,11 +136,20 @@ def fraud_agent(state: AgentState) -> AgentState:
         "duration_ms": duration,
     })
 
+    # Compute identity match confidence for orchestrator ambiguity gating
+    if fraud_detected:
+        match_confidence = 0.0
+    elif requires_manual_kyc:
+        match_confidence = 0.5
+    else:
+        match_confidence = 1.0
+
     return {
         **state,
         "fraud_detected": fraud_detected,
         "requires_manual_kyc": requires_manual_kyc,
         "fraud_reason": "; ".join(fraud_reasons) if (fraud_detected or requires_manual_kyc) else None,
         "fraud_agent_summary": summary,
+        "fraud_match_confidence": match_confidence,
         "agent_logs": logs,
     }

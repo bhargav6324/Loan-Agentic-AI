@@ -422,7 +422,8 @@ def evaluate_profile(features: dict, state: AgentState) -> dict:
         "errors": errors,
         "original_score": original_score,
         "agent_justification": agent_justification,
-        "bias_source": "heuristic"
+        "bias_source": "heuristic",
+        "ml_confidence": ml_confidence,
     }
 
 
@@ -463,6 +464,7 @@ def risk_agent(state: AgentState) -> AgentState:
             "risk_category": "HIGH",
             "risk_factors": risk_factors,
             "risk_agent_summary": summary,
+            "risk_ml_confidence": 1.0,  # Hard override = full confidence
             "agent_logs": logs,
             "errors": errors,
         }
@@ -484,6 +486,7 @@ def risk_agent(state: AgentState) -> AgentState:
             "risk_category": "LOW",
             "risk_factors": ["Strong financial profile"],
             "risk_agent_summary": summary,
+            "risk_ml_confidence": 1.0,  # Hard override = full confidence
             "agent_logs": logs,
             "errors": errors,
         }
@@ -533,6 +536,7 @@ def risk_agent(state: AgentState) -> AgentState:
         "risk_factors": risk_factors,
         "risk_agent_summary": summary,
         "risk_agent_reflection": reflection,
+        "risk_ml_confidence": eval_result.get("ml_confidence", 0.5),
         "agent_logs": logs,
         "errors": errors,
     }

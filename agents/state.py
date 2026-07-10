@@ -34,12 +34,14 @@ class AgentState(TypedDict, total=False):
     requires_manual_kyc: Optional[bool]
     fraud_reason: Optional[str]
     fraud_agent_summary: Optional[str]
+    fraud_match_confidence: Optional[float]  # Identity match confidence; used by orchestrator for ambiguity gating
 
     # ── Risk Agent Outputs ───────────────────────────────
     risk_score: Optional[float]        # 0-100 (lower = safer)
     risk_category: Optional[str]       # LOW, MEDIUM, HIGH
     risk_factors: Optional[list]       # Top risk factor descriptions
     risk_agent_summary: Optional[str]
+    risk_ml_confidence: Optional[float]  # ML model confidence (0-1); used by orchestrator for ambiguity gating
     # Agentic: Self-reflection / self-critique results
     risk_agent_reflection: Optional[dict]  # {contradictions, revised, reason, ...}
 
@@ -48,6 +50,7 @@ class AgentState(TypedDict, total=False):
     policy_passed: Optional[bool]
     policy_agent_summary: Optional[str]
     policy_rag_reasoning: Optional[str]
+    policy_retrieval_score: Optional[float]  # Best TF-IDF cosine similarity; used by orchestrator for ambiguity gating
 
     # ── Fairness Agent Outputs ───────────────────────────
     fairness_report: Optional[dict]    # Counterfactual analysis

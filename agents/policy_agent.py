@@ -122,19 +122,20 @@ class RAGPolicyEngine:
         except Exception:
             pass
 
-    def retrieve(self, query: str, top_k: int = 3) -> str:
+    def retrieve(self, query: str, top_k: int = 3) -> tuple[str, float]:
         if not self.vectorizer or not self.chunks:
-            return ""
+            return "", 0.0
         
         try:
             from sklearn.metrics.pairwise import cosine_similarity
             query_vec = self.vectorizer.transform([query])
             similarities = cosine_similarity(query_vec, self.tfidf_matrix).flatten()
             top_indices = similarities.argsort()[-top_k:][::-1]
+            best_score = float(similarities[top_indices[0]]) if len(top_indices) > 0 else 0.0
             retrieved = [self.chunks[i] for i in top_indices if similarities[i] > 0.0]
-            return "\n\n".join(retrieved)
+            return "\n\n".join(retrieved), round(best_score, 4)
         except Exception:
-            return ""
+            return "", 0.0
 
 _rag_engine = RAGPolicyEngine()
 
@@ -191,8 +192,9 @@ def policy_agent(state: AgentState) -> AgentState:
 
     # Try RAG
     rag_success = False
+    retrieval_score = 0.0
     try:
-        policy_context = _rag_engine.retrieve(app_str)
+        policy_context, retrieval_score = _rag_engine.retrieve(app_str)
         if not policy_context:
             raise ValueError("Empty RAG context.")
             
@@ -227,6 +229,7 @@ def policy_agent(state: AgentState) -> AgentState:
         "policy_passed": policy_passed,
         "policy_agent_summary": summary,
         "policy_rag_reasoning": reasoning,
+        "policy_retrieval_score": retrieval_score,
         "agent_logs": logs,
         "errors": errors,
     }
