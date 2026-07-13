@@ -27,6 +27,7 @@ import time
 import json
 import httpx
 from agents.state import AgentState
+from agents.llm_client import call_groq
 from config import settings
 
 
@@ -290,13 +291,8 @@ def _call_llm_orchestrator(state: AgentState, iteration: int) -> dict:
     )
 
     try:
-        response = httpx.post(
-            "https://api.groq.com/openai/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {settings.GROQ_API_KEY}",
-                "Content-Type": "application/json",
-            },
-            json={
+        data = call_groq(
+            payload={
                 "model": "llama-3.1-8b-instant",
                 "messages": [
                     {
@@ -312,11 +308,11 @@ def _call_llm_orchestrator(state: AgentState, iteration: int) -> dict:
                 "temperature": 0.1,
                 "response_format": {"type": "json_object"},
             },
+            api_key=settings.GROQ_API_KEY,
             timeout=15.0,
         )
-        response.raise_for_status()
 
-        content = response.json()["choices"][0]["message"]["content"].strip()
+        content = data["choices"][0]["message"]["content"].strip()
         parsed = json.loads(content)
 
         next_agent = parsed.get("next_agent", "").strip()

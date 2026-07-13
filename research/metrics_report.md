@@ -8,25 +8,8 @@ This table compares the **enhanced** Agentic AI system against standard ML basel
 |:------------------------------|-----------:|-----------:|--------------------------:|----------------------:|:------------------|
 | Logistic Regression           |      0.868 |      0.915 |                     0.184 |                 0.261 | 0.0%              |
 | Random Forest                 |      0.871 |      0.917 |                     0.178 |                 0.24  | 0.0%              |
-| XGBoost                       |      0.86  |      0.91  |                     0.178 |                 0.272 | 0.0%              |
+| XGBoost                       |      0.863 |      0.911 |                     0.18  |                 0.255 | 0.0%              |
 | Agentic System v2 (LangGraph) |      0.809 |      0.881 |                     0.037 |                 0.071 | 8.3%              |
-
-## Key Findings
-- DPD improvement: 79.9% reduction vs best traditional ML baseline
-- EOD improvement: 70.5% reduction vs best traditional ML baseline  
-- Accuracy trade-off: 6.2% below best baseline (Random Forest 0.871)
-- Escalation rate: 8.3% of cases referred to human review
-- Bias source: heuristic-layer (ML model is demographic-blind by design)
-
-## Interpretation
-The Agentic System achieves the strongest fairness profile across 
-all metrics while maintaining competitive predictive performance. 
-The 8.3% escalation rate confirms the human-in-the-loop mechanism 
-is actively engaging on borderline demographic cases, rather than 
-making autonomous decisions on potentially biased profiles. 
-The marginal accuracy reduction (6.2%) is an acceptable trade-off 
-for near-elimination of measurable demographic bias in a 
-high-stakes financial decision context.
 
 ## Agentic Pipeline Telemetry
 

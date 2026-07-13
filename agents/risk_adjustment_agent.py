@@ -19,6 +19,7 @@ import time
 import json
 import httpx
 from agents.state import AgentState
+from agents.llm_client import call_groq
 from config import settings
 
 
@@ -98,13 +99,8 @@ def _call_llm(system_prompt: str, user_prompt: str, model: str = "llama-3.1-8b-i
         return None  # Signal to use fallback
 
     try:
-        response = httpx.post(
-            "https://api.groq.com/openai/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {settings.GROQ_API_KEY}",
-                "Content-Type": "application/json",
-            },
-            json={
+        data = call_groq(
+            payload={
                 "model": model,
                 "messages": [
                     {"role": "system", "content": system_prompt},
@@ -113,10 +109,10 @@ def _call_llm(system_prompt: str, user_prompt: str, model: str = "llama-3.1-8b-i
                 "temperature": 0.2,
                 "response_format": {"type": "json_object"},
             },
+            api_key=settings.GROQ_API_KEY,
             timeout=12.0,
         )
-        response.raise_for_status()
-        content = response.json()["choices"][0]["message"]["content"].strip()
+        content = data["choices"][0]["message"]["content"].strip()
         return json.loads(content)
     except Exception as e:
         print(f"LLM debate call failed: {e}")

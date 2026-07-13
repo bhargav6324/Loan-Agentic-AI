@@ -11,6 +11,7 @@ import time
 import json
 import httpx
 from agents.state import AgentState
+from agents.llm_client import call_groq
 from config import settings
 
 FRAUD_LLM_PROMPT = """
@@ -53,13 +54,11 @@ def _call_llm_fraud(stated_name: str, id_name: str) -> dict:
     }
     
     try:
-        with httpx.Client(timeout=10.0) as client:
-            response = client.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload)
-            response.raise_for_status()
-            content = response.json()["choices"][0]["message"]["content"].strip()
-            if content.startswith("```json"): content = content[7:-3].strip()
-            elif content.startswith("```"): content = content[3:-3].strip()
-            return json.loads(content)
+        data = call_groq(payload, settings.GROQ_API_KEY, timeout=10.0)
+        content = data["choices"][0]["message"]["content"].strip()
+        if content.startswith("```json"): content = content[7:-3].strip()
+        elif content.startswith("```"): content = content[3:-3].strip()
+        return json.loads(content)
     except Exception as e:
         # Graceful fallback on rate limit/API failure
         if stated_name.lower() == id_name.lower():

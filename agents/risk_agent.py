@@ -553,6 +553,8 @@ def risk_agent(state: AgentState) -> AgentState:
 
 import json
 import httpx
+from agents.state import AgentState
+from agents.llm_client import call_groq
 from config import settings
 
 REFLECTION_PROMPT = """
@@ -669,13 +671,8 @@ def _reflect_on_score(
                 similar_cases=similar_text,
             )
 
-            response = httpx.post(
-                "https://api.groq.com/openai/v1/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {settings.GROQ_API_KEY}",
-                    "Content-Type": "application/json",
-                },
-                json={
+            data = call_groq(
+                payload={
                     "model": "llama-3.1-8b-instant",
                     "messages": [
                         {
@@ -691,10 +688,10 @@ def _reflect_on_score(
                     "temperature": 0.1,
                     "response_format": {"type": "json_object"},
                 },
+                api_key=settings.GROQ_API_KEY,
                 timeout=12.0,
             )
-            response.raise_for_status()
-            content = response.json()["choices"][0]["message"]["content"].strip()
+            content = data["choices"][0]["message"]["content"].strip()
             llm_result = json.loads(content)
 
             contradictions = llm_result.get("contradictions_found", [])

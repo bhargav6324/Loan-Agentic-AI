@@ -12,6 +12,7 @@ import os
 import json
 import httpx
 from agents.state import AgentState
+from agents.llm_client import call_groq
 from config import settings
 
 # ── 1. Hardcoded Rules (Fallback Engine) ─────────────────
@@ -147,12 +148,6 @@ def _call_llm_policy(applicant_data_str: str, policy_text: str) -> dict:
         applicant_data=applicant_data_str,
         policy_text=policy_text
     )
-    
-    headers = {
-        "Authorization": f"Bearer {settings.GROQ_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    
     payload = {
         "model": "llama-3.1-8b-instant",
         "messages": [
@@ -162,19 +157,16 @@ def _call_llm_policy(applicant_data_str: str, policy_text: str) -> dict:
         "temperature": 0.0
     }
     
-    with httpx.Client(timeout=10.0) as client:
-        response = client.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload)
-        response.raise_for_status()
+    data = call_groq(payload, settings.GROQ_API_KEY, timeout=10.0)
+    
+    content = data["choices"][0]["message"]["content"].strip()
+    
+    if content.startswith("```json"):
+        content = content[7:-3].strip()
+    elif content.startswith("```"):
+        content = content[3:-3].strip()
         
-        data = response.json()
-        content = data["choices"][0]["message"]["content"].strip()
-        
-        if content.startswith("```json"):
-            content = content[7:-3].strip()
-        elif content.startswith("```"):
-            content = content[3:-3].strip()
-            
-        return json.loads(content)
+    return json.loads(content)
 
 # ── 3. Main Policy Agent Node ─────────────────────────────
 

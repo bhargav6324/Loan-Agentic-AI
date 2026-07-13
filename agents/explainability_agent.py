@@ -19,6 +19,7 @@ import time
 import httpx
 from datetime import datetime
 from agents.state import AgentState
+from agents.llm_client import call_groq
 from config import settings
 
 
@@ -71,10 +72,8 @@ def _generate_process_explanation(state: AgentState) -> str:
     }
     
     try:
-        with httpx.Client(timeout=20.0) as client:
-            response = client.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload)
-            response.raise_for_status()
-            return response.json()["choices"][0]["message"]["content"].strip()
+        data = call_groq(payload, settings.GROQ_API_KEY, timeout=20.0)
+        return data["choices"][0]["message"]["content"].strip()
     except Exception as e:
         return f"Failed to generate process explanation: {e}"
 
@@ -140,10 +139,8 @@ def _generate_applicant_message(state: AgentState) -> str:
         "temperature": 0.4
     }
     try:
-        with httpx.Client(timeout=15.0) as client:
-            response = client.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload)
-            response.raise_for_status()
-            return response.json()["choices"][0]["message"]["content"].strip()
+        data = call_groq(payload, settings.GROQ_API_KEY, timeout=15.0)
+        return data["choices"][0]["message"]["content"].strip()
     except Exception as e:
         return f"Dear {name},\n\nYour loan application decision is: {decision.upper()}. Please contact our branch for further details. (Generation error: {e})"
 
@@ -253,10 +250,8 @@ def _generate_admin_summary(state: AgentState) -> str:
         "temperature": 0.1
     }
     try:
-        with httpx.Client(timeout=20.0) as client:
-            response = client.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload)
-            response.raise_for_status()
-            return response.json()["choices"][0]["message"]["content"].strip()
+        data = call_groq(payload, settings.GROQ_API_KEY, timeout=20.0)
+        return data["choices"][0]["message"]["content"].strip()
     except Exception as e:
         return f"Admin summary generation failed: {e}. Risk Score: {state.get('risk_score')}, Decision: {state.get('final_decision')}"
 
@@ -398,10 +393,8 @@ def _generate_compliance_report(state: AgentState) -> str:
         "temperature": 0.0
     }
     try:
-        with httpx.Client(timeout=25.0) as client:
-            response = client.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload)
-            response.raise_for_status()
-            return response.json()["choices"][0]["message"]["content"].strip()
+        data = call_groq(payload, settings.GROQ_API_KEY, timeout=25.0)
+        return data["choices"][0]["message"]["content"].strip()
     except Exception as e:
         return f"Compliance report generation failed: {e}. Pipeline hash: {audit_summary.get('pipeline_integrity_hash', 'N/A')}"
 
