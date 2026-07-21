@@ -1,92 +1,98 @@
 """
-Agent Shared State — TypedDict for LangGraph Pipeline
+Agent Shared State — TypedDict for LangGraph Pipeline (V7)
 ──────────────────────────────────────────────────────
-All agents read from and write to this shared state as it flows
-through the LangGraph orchestrator.
+V7: All scalar fields use a last_value reducer so parallel nodes that
+re-spread **state don't cause "one value per step" conflicts.
+agent_logs and errors use operator.add to merge lists from both branches.
 """
 
 from __future__ import annotations
-from typing import TypedDict, Optional
+import operator
+from typing import TypedDict, Optional, Annotated
+
+
+def _last(a, b):
+    """Last-write-wins: idempotent for unchanged values, later-write wins on conflict."""
+    return b
 
 
 class AgentState(TypedDict, total=False):
     """Shared state flowing through the agent pipeline."""
 
     # ── Identifiers ──────────────────────────────────────
-    application_id: str
-    user_id: str
+    application_id: Annotated[str, _last]
+    user_id: Annotated[str, _last]
 
     # ── Raw Application Data ─────────────────────────────
-    applicant_data: dict  # Full form data from the application
+    applicant_data: Annotated[dict, _last]
 
     # ── Data Agent Outputs ───────────────────────────────
-    pan_verification: Optional[dict]
-    aadhaar_verification: Optional[dict]
-    credit_report: Optional[dict]
-    data_agent_summary: Optional[str]
-    # Agentic: ReAct reasoning trace
-    data_agent_reasoning_trace: Optional[list]   # [{thought, action, observation}, ...]
-    data_agent_tools_called: Optional[list]      # Which tools the agent chose to invoke
-    data_agent_early_stop: Optional[bool]        # Did the agent stop early (e.g. KYC fail)?
+    pan_verification: Annotated[Optional[dict], _last]
+    aadhaar_verification: Annotated[Optional[dict], _last]
+    credit_report: Annotated[Optional[dict], _last]
+    data_agent_summary: Annotated[Optional[str], _last]
+    data_agent_reasoning_trace: Annotated[Optional[list], _last]
+    data_agent_tools_called: Annotated[Optional[list], _last]
+    data_agent_early_stop: Annotated[Optional[bool], _last]
 
     # ── Fraud Agent Outputs ──────────────────────────────
-    fraud_detected: Optional[bool]
-    requires_manual_kyc: Optional[bool]
-    fraud_reason: Optional[str]
-    fraud_agent_summary: Optional[str]
-    fraud_match_confidence: Optional[float]  # Identity match confidence; used by orchestrator for ambiguity gating
+    fraud_detected: Annotated[Optional[bool], _last]
+    requires_manual_kyc: Annotated[Optional[bool], _last]
+    fraud_reason: Annotated[Optional[str], _last]
+    fraud_agent_summary: Annotated[Optional[str], _last]
+    fraud_match_confidence: Annotated[Optional[float], _last]
 
     # ── Risk Agent Outputs ───────────────────────────────
-    risk_score: Optional[float]        # 0-100 (lower = safer)
-    risk_category: Optional[str]       # LOW, MEDIUM, HIGH
-    risk_factors: Optional[list]       # Top risk factor descriptions
-    risk_agent_summary: Optional[str]
-    risk_ml_confidence: Optional[float]  # ML model confidence (0-1); used by orchestrator for ambiguity gating
-    # Agentic: Self-reflection / self-critique results
-    risk_agent_reflection: Optional[dict]  # {contradictions, revised, reason, ...}
+    risk_score: Annotated[Optional[float], _last]
+    risk_category: Annotated[Optional[str], _last]
+    risk_factors: Annotated[Optional[list], _last]
+    risk_agent_summary: Annotated[Optional[str], _last]
+    risk_ml_confidence: Annotated[Optional[float], _last]
+    risk_agent_reflection: Annotated[Optional[dict], _last]
 
     # ── Policy Agent Outputs ─────────────────────────────
-    policy_violations: Optional[list]  # List of violated rules
-    policy_passed: Optional[bool]
-    policy_agent_summary: Optional[str]
-    policy_rag_reasoning: Optional[str]
-    policy_retrieval_score: Optional[float]  # Best TF-IDF cosine similarity; used by orchestrator for ambiguity gating
+    policy_violations: Annotated[Optional[list], _last]
+    policy_passed: Annotated[Optional[bool], _last]
+    policy_agent_summary: Annotated[Optional[str], _last]
+    policy_rag_reasoning: Annotated[Optional[str], _last]
+    policy_retrieval_score: Annotated[Optional[float], _last]
 
     # ── Fairness Agent Outputs ───────────────────────────
-    fairness_report: Optional[dict]    # Counterfactual analysis
-    fairness_debate_log: Optional[list] # Textual inter-agent debate records
-    bias_detected: Optional[bool]
-    negotiation_turns: Optional[int]   # Number of times Fairness and Risk debated
-    fairness_agent_summary: Optional[str]
-    debate_transcript: Optional[list]  # V4: Full LLM-to-LLM semantic debate exchanges
+    fairness_report: Annotated[Optional[dict], _last]
+    fairness_debate_log: Annotated[Optional[list], _last]
+    bias_detected: Annotated[Optional[bool], _last]
+    negotiation_turns: Annotated[Optional[int], _last]
+    fairness_agent_summary: Annotated[Optional[str], _last]
+    debate_transcript: Annotated[Optional[list], _last]
 
     # ── Explainability Agent Outputs ─────────────────────
-    explanation: Optional[dict]        # {applicant_message, admin_summary, compliance_report}
-    explainability_agent_summary: Optional[str]
+    explanation: Annotated[Optional[dict], _last]
+    explainability_agent_summary: Annotated[Optional[str], _last]
 
     # ── Audit Agent Outputs ──────────────────────────────
-    audit_trail: Optional[list]        # Formal audit records for DB
-    audit_anomalies: Optional[list]    # Detected execution anomalies
-    audit_execution_summary: Optional[dict]  # Pipeline execution stats
-    audit_agent_summary: Optional[str]
+    audit_trail: Annotated[Optional[list], _last]
+    audit_anomalies: Annotated[Optional[list], _last]
+    audit_execution_summary: Annotated[Optional[dict], _last]
+    audit_agent_summary: Annotated[Optional[str], _last]
 
     # ── Final Decision ───────────────────────────────────
-    final_decision: Optional[str]      # approved, rejected, escalated
-    decision_reasoning: Optional[str]
+    final_decision: Annotated[Optional[str], _last]
+    decision_reasoning: Annotated[Optional[str], _last]
 
     # ── Learning Agent Outputs ───────────────────────────
-    learning_insights: Optional[dict]   # Systemic bias analysis from learning agent
+    learning_insights: Annotated[Optional[dict], _last]
 
-    # ── Orchestrator Agent Outputs (V5) ──────────────────
-    orchestrator_next_agent: Optional[str]   # Next agent to execute (set by orchestrator_decide)
-    orchestrator_history: Optional[list]     # [{step, agent, reasoning}, ...] — full decision trace
-    orchestrator_iterations: Optional[int]   # Current orchestrator iteration count
+    # ── Orchestrator Agent Outputs ───────────────────────
+    orchestrator_next_agent: Annotated[Optional[str], _last]
+    orchestrator_history: Annotated[Optional[list], _last]
+    orchestrator_iterations: Annotated[Optional[int], _last]
 
-    # ── Legacy Planner Fields (backward compat) ──────────
-    plan: Optional[list[str]]          # Populated by orchestrator for frontend display
-    plan_reasoning: Optional[str]      # Populated by orchestrator for frontend display
-    current_step_index: Optional[int]  # Deprecated — kept for schema compatibility
+    # ── Legacy Fields (backward compat) ──────────────────
+    plan: Annotated[Optional[list], _last]
+    plan_reasoning: Annotated[Optional[str], _last]
+    current_step_index: Annotated[Optional[int], _last]
 
-    # ── Audit Trail ──────────────────────────────────────
-    agent_logs: list   # List of {agent, action, status, details, duration_ms}
-    errors: list       # Any errors encountered
+    # ── Audit Trail (merged from parallel branches) ───────
+    # operator.add concatenates lists so both branches' logs are preserved
+    agent_logs: Annotated[list, operator.add]
+    errors: Annotated[list, operator.add]
