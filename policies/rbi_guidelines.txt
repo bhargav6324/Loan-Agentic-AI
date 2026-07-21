@@ -1,19 +1,63 @@
-# BANKING & LENDING REGULATORY GUIDELINES (MOCK)
+# BANKING & LENDING REGULATORY GUIDELINES
+# Based on RBI Master Circulars, Fair Practices Code, and KYC Norms
+# This document is used by the Policy RAG Engine for applicant compliance checks.
 
 ## 1. Identity & KYC Verification
-All applicants must undergo mandatory Know Your Customer (KYC) verification. Both the Permanent Account Number (PAN) and Aadhaar verification statuses must return as 'Verified'. Furthermore, the applicant's stated name must match the name registered on both the PAN and Aadhaar databases. Any identity mismatch constitutes an automatic rejection and must be escalated as potential fraud.
+All applicants must undergo mandatory Know Your Customer (KYC) verification per RBI Master Direction on KYC (updated 2023). Both the Permanent Account Number (PAN) and Aadhaar must be verified and active. The applicant's stated name must match the name on official KYC records. Name mismatches must be escalated as potential fraud. Applicants who refuse to provide KYC documents must be rejected. Re-KYC is required every 2 years for high-risk customers and every 10 years for low-risk customers.
 
-## 2. Minimum Age Requirements
-To enter into a legally binding credit contract, the applicant must have reached the age of majority. Therefore, the absolute minimum age for loan approval is 21 years. Any applicant below the age of 21 must be immediately rejected.
+## 2. Minimum Age Requirement
+To enter into a legally binding credit contract under the Indian Contract Act, the applicant must have attained the age of majority. The absolute minimum age for loan approval is 21 years. Any applicant below the age of 21 must be immediately rejected. For joint loan applications, the primary borrower must be at least 21 years old. The maximum age at loan maturity should not exceed 70 years for salaried and 75 years for self-employed borrowers.
 
-## 3. Debt-to-Income and Loan Limits
-To prevent predatory lending and ensure manageable debt burdens, the maximum allowable loan amount must not exceed 5 times the applicant's stated annual income (Loan-to-Income ratio <= 5.0x). High leverage poses systemic risk and leads to default.
+## 3. Loan-to-Income Ratio (LTI Cap)
+To prevent over-leveraging and predatory lending, the maximum allowable loan amount must not exceed 5 times the applicant's gross annual income. The Loan-to-Income (LTI) ratio must be calculated as: LTI = Loan Amount / (Monthly Income × 12). LTI > 5.0 constitutes a policy violation. For home loans, the LTI may extend to 6x for applicants with credit scores above 750. For personal loans, the LTI cap is strictly 4x annual income.
 
-## 4. Default History
-Applicants with a severe history of non-repayment are disqualified from new credit facilities. Specifically, if an applicant has more than 2 active defaults recorded by the Credit Bureau, their application must be rejected.
+## 4. Default History & CIBIL Record
+Applicants with a severe history of non-repayment are disqualified from new credit facilities. If an applicant has more than 2 active defaults recorded by the Credit Bureau (CIBIL/Equifax/Experian), their application must be rejected. A single default older than 3 years with subsequent clean repayment history may be considered at the discretion of the credit officer. Applicants in active bankruptcy proceedings or under debt restructuring orders must be rejected. Any write-off by a previous lender in the last 5 years constitutes an automatic rejection.
 
-## 5. Minimum Credit Threshold
-Applicants with highly impaired credit histories are ineligible for automated unsecured lending. A minimum baseline credit score of 400 is required for the application to proceed. Scores below 400 indicate extreme delinquency patterns.
+## 5. Minimum Credit Score Threshold
+Applicants with highly impaired credit histories are ineligible for automated unsecured lending. A minimum baseline CIBIL score of 400 is required for the application to proceed. Scores below 400 indicate extreme delinquency patterns and must result in immediate rejection. Scores between 400–550 are considered HIGH RISK. Scores between 550–700 are considered MEDIUM RISK. Scores between 700–800 are considered LOW RISK. Scores above 800 qualify for express fast-track approval.
 
-## 6. High-Value Loan Security
-For high-value unsecured loans (defined as loan amounts exceeding ₹25,000,000 or ₹25L), the applicant must demonstrate highly stable, verifiable income. Consequently, high-value loans are restricted to salaried or formally registered business applicants. Self-employed individuals are ineligible for unsecured loans above the ₹25L threshold without collateral.
+## 6. High-Value Loan Employment Restriction
+For high-value unsecured loans exceeding ₹25,00,000 (₹25 Lakhs), the applicant must demonstrate stable, verifiable formal employment income. Self-employed individuals are ineligible for unsecured loans above ₹25 Lakhs without collateral or co-applicant. Eligible employment types for high-value loans: (a) salaried with minimum 2 years continuous employment, (b) formally registered business with GST filing for at least 2 years, (c) government or PSU employees with confirmed service record.
+
+## 7. Debt-to-Income (DTI) Ratio
+The monthly Equated Monthly Installment (EMI) of the proposed loan, when added to existing EMIs, must not exceed 50% of the applicant's gross monthly income. DTI = (Total Monthly EMI Obligations + New Loan EMI) / Gross Monthly Income. DTI > 0.50 is a policy violation. For housing loans, DTI may extend to 0.55 for applicants with net monthly income above ₹75,000. High DTI combined with low credit scores constitutes a double risk flag.
+
+## 8. Employment Stability Requirement
+For salaried applicants, a minimum of 6 months in the current job is required. Total work experience of at least 2 years is preferred. Applicants in probation periods or on contractual employment with remaining tenure less than 12 months are considered high risk. For self-employed applicants, the business must be in operation for at least 2 years with verifiable GST returns or ITR filings. Newly started businesses with less than 12 months of operations must provide a co-applicant or collateral.
+
+## 9. Credit Utilization Limit
+The credit utilization percentage (outstanding balance / credit limit across all revolving credit facilities) must not exceed 80% at the time of application. High utilization (>80%) indicates stress on existing credit lines and is a negative factor. Utilization between 60–80% is a moderate risk indicator. Optimal utilization for loan approval is below 40%.
+
+## 10. Loan Purpose Classification
+Permissible loan purposes for automated approval: (a) home purchase or home improvement, (b) vehicle purchase, (c) education loan, (d) medical emergency, (e) business expansion with documented need. Loan purposes flagged for enhanced scrutiny: (a) speculative investment in stocks/crypto, (b) gambling-related purposes, (c) refinancing of an existing defaulted loan. Applications stating prohibited purposes must be escalated for manual review.
+
+## 11. Income Verification & Documentation
+All stated income must be verifiable. For salaried employees: last 3 months' salary slips and 6 months' bank statements required. For self-employed: last 2 years' ITR with computation, CA-certified balance sheet, and 12 months' bank statements. If stated monthly income is more than 30% higher than income implied by bank statements, the lower figure must be used for ratio calculations. Inconsistencies between stated income and bank activity constitute a fraud flag.
+
+## 12. Loan-to-Value Ratio (LTV) for Secured Loans
+For loans secured by collateral: LTV = Loan Amount / Market Value of Collateral. For home loans: maximum LTV is 75% for loan amounts above ₹75 Lakhs, 80% for ₹30–75 Lakhs, and 90% for amounts below ₹30 Lakhs (per RBI circular DBOD No. BP. BC.64/08.12.001/2011-12). For gold loans: maximum LTV is 75% of gold value. LTV exceeding these limits constitutes a policy violation.
+
+## 13. Equal Credit Opportunity (Fair Lending)
+Under RBI's Fair Practices Code for Lenders, credit decisions must not discriminate based on gender, religion, caste, or marital status. Applications from women, minorities, or applicants from rural or semi-urban areas must be evaluated on the same financial criteria as all other applicants. Any disparity in approval rates between demographic groups must be documented and reviewed. Algorithms must not use protected attributes or their proxies as input features for credit scoring.
+
+## 14. Anti-Money Laundering (AML) Checks
+Applicants with transactions linked to known high-risk jurisdictions must be flagged for AML review. Applicants with sudden large cash deposits (>₹10 Lakhs) in the 3 months prior to application must be reviewed for structuring. PEP (Politically Exposed Person) status requires enhanced due diligence and senior credit officer approval. Beneficial ownership of the applicant's business must be disclosed for loans above ₹50 Lakhs.
+
+## 15. Recurring Inquiries & Multiple Applications
+If the Credit Bureau report shows more than 6 hard inquiries in the last 6 months, the application must be reviewed for "loan shopping" behavior. More than 3 active unsecured loan accounts simultaneously is a high-risk indicator. Multiple applications to different lenders within 30 days must be flagged and the applicant queried for explanation before proceeding.
+
+## 16. Geographic & Location Risk
+Applications from rural or semi-urban areas with limited credit bureau data must apply relaxed LTI thresholds (6x instead of 5x) to promote financial inclusion per RBI Priority Sector Lending norms. Urban metropolitan area applicants face standard LTI and credit score thresholds. High-risk geographic zones with historically elevated default rates must apply a risk premium of +5 points to the computed risk score.
+
+## 17. Tenure & Repayment Period Limits
+Personal loans: maximum tenure of 5 years (60 months). Home loans: maximum tenure of 30 years, subject to the borrower's retirement age. Vehicle loans: maximum tenure of 7 years for new vehicles, 5 years for used vehicles. Education loans: repayment begins 12 months after completion of course or 6 months after getting employment, whichever is earlier. Loan tenure must not extend beyond the borrower's expected working age (typically 60 for salaried, 65 for self-employed).
+
+## 18. Co-Applicant & Guarantor Rules
+A co-applicant may be added to improve eligibility, but their income is clubbed only if they are a co-owner of the property (for home loans) or a family member (for personal loans). The co-applicant's CIBIL score must also meet the minimum threshold of 400. Guarantors are required for all loans above ₹50 Lakhs where the primary borrower's DTI exceeds 40%. Guarantors must not have any existing defaults and must have a credit score above 600.
+
+## 19. Moratorium & Restructuring History
+Applicants who availed the COVID-19 moratorium (March 2020 – August 2020) and subsequently maintained clean repayment records may be treated as standard applicants. However, applicants who have undergone formal loan restructuring in the last 3 years must be treated as HIGH RISK regardless of current credit score. Any application from a borrower under ongoing One-Time Settlement (OTS) must be rejected.
+
+## 20. Data Privacy & Consent
+Per the Digital Personal Data Protection Act 2023 and RBI data governance norms, applicant consent for credit bureau queries, KYC data access, and data storage must be explicitly recorded. Consent must be time-bound (maximum 1 year) and purpose-specific. Applicants have the right to withdraw consent, in which case the application must be processed using only the data already provided. All data used in credit decisions must be retained for a minimum of 5 years for audit purposes.
