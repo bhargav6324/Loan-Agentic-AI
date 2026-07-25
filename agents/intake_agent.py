@@ -597,9 +597,12 @@ Retrieved Policy Document:
 {policy_text}
 
 Task: Evaluate if the applicant violates ANY of the retrieved policies.
+Additionally, identify any specific policy rules in the document that apply to this profile but are NOT part of standard age/income/LTI checks.
+
 Respond ONLY with valid JSON. Do not include markdown blocks or outside text.
 {{
     "violations": ["violation reason 1", "violation reason 2"], // leave empty if none
+    "discovered_rules": ["new rule 1", "new rule 2"], // new rules found in text
     "reasoning": "brief explanation of your findings"
 }}
 """
@@ -720,6 +723,10 @@ def _run_policy(state: AgentState) -> AgentState:
         summary = "All policy checks passed ✅"
     else:
         summary = f"{len(violations)} policy violation(s) found: {'; '.join(violations)}"
+        
+    discovered_rules = llm_response.get("discovered_rules", []) if 'llm_response' in locals() else []
+    if discovered_rules:
+        summary += f"\nDiscovered new rules: {'; '.join(discovered_rules)}"
 
     logs.append({
         "agent": "policy_agent",

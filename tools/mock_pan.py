@@ -43,12 +43,12 @@ def verify_pan(pan_number: str, applicant_name: Optional[str] = None) -> dict:
             "verified": record["status"] == "valid",
         }
     else:
-        # Unknown PAN — generate a plausible response
+        # Unknown PAN — not found in government database
         return {
             "pan": pan_upper,
-            "status": "valid",
-            "name_on_record": applicant_name or "Unknown",
-            "name_match": True,
-            "category": "individual",
-            "verified": True,
+            "status": "not_found",
+            "name_on_record": None,
+            "name_match": False,
+            "category": "unknown",
+            "verified": False,
         }

@@ -649,8 +649,15 @@ def _reflect_on_score(
             lines = []
             for idx, case in enumerate(similar):
                 outcome = case.get("outcome", {})
+                
+                # Format reflection note
+                reflection_note = ""
+                if str(outcome.get("reflection_revised")).lower() == "true":
+                    reason = outcome.get("reflection_reason", "")
+                    reflection_note = f"\n    ⚠ Agentic Reflection applied: Score revised due to '{reason}'"
+                
                 lines.append(f"[{idx+1}] Profile: {case.get('profile')}")
-                lines.append(f"    Decision: {outcome.get('decision')} | Risk: {outcome.get('risk_score')} | Bias Detected: {outcome.get('bias_detected')}")
+                lines.append(f"    Decision: {outcome.get('decision')} | Risk: {outcome.get('risk_score')} | Bias Detected: {outcome.get('bias_detected')}{reflection_note}")
             similar_text = "\n".join(lines)
         else:
             similar_text = "No similar past cases found."

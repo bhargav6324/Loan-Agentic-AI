@@ -102,6 +102,19 @@ def _build_state_summary(state: AgentState) -> str:
     if state.get("fairness_report"):
         lines.append(f"Fairness: Bias={'DETECTED ⚠' if state.get('bias_detected') else 'None'} | Debate turns: {state.get('negotiation_turns', 0)}")
 
+    # Add Episodic Memory Precedents for orchestrator routing context
+    try:
+        from memory.episodic_memory import retrieve_similar_cases
+        similar = retrieve_similar_cases(applicant, credit, top_k=3)
+        if similar:
+            lines.append("\n═══ PAST ROUTING PRECEDENTS (EPISODIC MEMORY) ═══")
+            for idx, case in enumerate(similar):
+                outcome = case.get("outcome", {})
+                lines.append(f"Case #{idx+1} (Sim: {case.get('similarity', 0):.2f}): {case.get('profile')}")
+                lines.append(f"  → Final Decision: {outcome.get('decision')} | Bias: {outcome.get('bias_detected')}")
+    except Exception as e:
+        lines.append(f"\n[Episodic memory unavailable: {e}]")
+
     return "\n".join(lines)
 
 
@@ -169,6 +182,93 @@ Respond ONLY with valid JSON:
 
 
 # ══════════════════════════════════════════════════════════
+#  PLANNER LOGIC (V8)
+# ══════════════════════════════════════════════════════════
+
+ORCHESTRATOR_PLANNER_PROMPT = """\
+You are the Loan Agentic AI Planner. Your job is to look at a new loan application \
+and generate an INITIAL execution plan.
+
+The pipeline always runs the Data Agent (KYC) and Fraud Agent first.
+After Intake, the Orchestrator takes over.
+You need to plan the sequence of agents to run AFTER intake.
+
+═══ AVAILABLE AGENTS ═══
+{agent_registry}
+
+═══ APPLICATION INITIAL STATE ═══
+{state_summary}
+
+═══ PLANNING RULES ═══
+1. The typical path for a normal application is:
+   ['fan_out', 'policy_join', 'final_decision']
+   (Note: fan_out automatically triggers risk_agent and policy_agent in parallel)
+2. If you see immediate obvious reasons for rejection (e.g. extremely young age, \
+   astronomical loan amount for low income), you can plan to skip fairness and \
+   go straight to ['fan_out', 'policy_join', 'auto_reject'].
+3. If the profile has demographics known to historically suffer bias (e.g. rural, \
+   certain employments), explicitly include 'fairness_agent' after the join.
+4. Your plan is a STARTING POINT. The orchestrator will still dynamically route \
+   after every step, and may deviate from this plan if KYC fails or ML confidence is low.
+
+Respond ONLY with valid JSON:
+{{
+    "plan": ["agent_name_1", "agent_name_2", ...],
+    "plan_reasoning": "Explain why you chose this initial sequence."
+}}
+"""
+
+def generate_initial_plan(state: AgentState) -> AgentState:
+    """Generate an upfront execution plan before agents run."""
+    print("🧠 Planner: Generating initial execution plan...")
+    
+    if not settings.GROQ_API_KEY or settings.GROQ_API_KEY == "gsk_placeholder":
+        return {
+            **state,
+            "plan": ["fan_out", "policy_join", "fairness_agent", "final_decision"],
+            "plan_reasoning": "Fallback: Default deterministic plan."
+        }
+
+    try:
+        prompt = ORCHESTRATOR_PLANNER_PROMPT.format(
+            agent_registry=_format_registry(),
+            state_summary=_build_state_summary(state)
+        )
+
+        data = call_groq(
+            payload={
+                "model": "llama-3.1-8b-instant",
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": "You are the autonomous loan pipeline planner. Respond only with JSON.",
+                    },
+                    {"role": "user", "content": prompt},
+                ],
+                "temperature": 0.1,
+                "response_format": {"type": "json_object"},
+            },
+            api_key=settings.GROQ_API_KEY,
+            timeout=15.0,
+        )
+
+        parsed = json.loads(data["choices"][0]["message"]["content"].strip())
+        plan = parsed.get("plan", ["fan_out", "policy_join", "final_decision"])
+        reasoning = parsed.get("plan_reasoning", "No reasoning provided.")
+
+        print(f"   Plan: {plan}")
+        return {**state, "plan": plan, "plan_reasoning": reasoning}
+
+    except Exception as e:
+        print(f"   Planner failed: {e}")
+        return {
+            **state,
+            "plan": ["fan_out", "policy_join", "fairness_agent", "final_decision"],
+            "plan_reasoning": f"Fallback due to error: {e}"
+        }
+
+
+# ══════════════════════════════════════════════════════════
 #  DETERMINISTIC FALLBACK
 # ══════════════════════════════════════════════════════════
 
@@ -209,7 +309,6 @@ def _fallback_decide(state: AgentState, iteration: int) -> dict:
         return {"next_agent": "fairness_agent", "reasoning": "Fallback: MEDIUM risk, running fairness analysis."}
 
     # After fairness, check if risk_reeval is needed
-    risk_score = state.get("risk_score", 50)
     if "risk_reeval" not in agents_run and state.get("bias_detected"):
         return {"next_agent": "risk_reeval", "reasoning": "Fallback: Bias detected, re-evaluating risk."}
 

@@ -45,15 +45,17 @@ FEMALE_NAMES = [
 EMPLOYMENT_TYPES = ["salaried", "self_employed", "business", "unemployed"]
 LOCATIONS = ["urban", "semi_urban", "rural"]
 LOAN_PURPOSES = ["home_improvement", "personal", "business", "car", "education", "medical", "wedding"]
-PAN_PREFIXES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+# Known mock IDs that will pass KYC verification
+_KNOWN_PANS = ["ABCDE1234F", "XYZAB5678G", "BORDL5050B", "POORQ9999Z"]
+_KNOWN_AADHAARS = ["123456789012", "234567890123", "345678901234", "456789012345"]
 
 
 def _random_pan():
-    return "".join(random.choices(PAN_PREFIXES, k=5)) + "".join(str(random.randint(0, 9)) for _ in range(4)) + random.choice(PAN_PREFIXES)
+    return random.choice(_KNOWN_PANS)
 
 
 def _random_aadhaar():
-    return "".join(str(random.randint(0, 9)) for _ in range(12))
+    return random.choice(_KNOWN_AADHAARS)
 
 
 def generate_diverse_profiles(n: int = 200) -> list[dict]:

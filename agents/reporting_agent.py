@@ -562,25 +562,66 @@ def _analyze_memory(memory: list) -> dict:
             f"— fairness thresholds may be too strict"
         )
 
-    return insights
+    # ── Approval rate by risk category ─────────────────────
+    risk_stats = {"LOW": {"total": 0, "approved": 0}, "MEDIUM": {"total": 0, "approved": 0}, "HIGH": {"total": 0, "approved": 0}}
+    approved_scores = []
+    
+    for r in recent:
+        cat = r.get("risk_category", "MEDIUM")
+        d = r.get("decision", "unknown")
+        if cat in risk_stats:
+            risk_stats[cat]["total"] += 1
+            if d == "approved":
+                risk_stats[cat]["approved"] += 1
+        
+        if d == "approved" and r.get("risk_score") is not None:
+            approved_scores.append(r.get("risk_score"))
 
+    insights["risk_approval_rates"] = {
+        cat: round(s["approved"] / s["total"], 3) if s["total"] > 0 else 0.0
+        for cat, s in risk_stats.items()
+    }
+    
+    # Adaptive Threshold Drift Detection
+    high_risk_approval_rate = insights["risk_approval_rates"].get("HIGH", 0.0)
+    avg_approved_score = sum(approved_scores) / len(approved_scores) if approved_scores else 0
+    
+    if high_risk_approval_rate > 0.05 or avg_approved_score > 55.0:
+        insights["risk_threshold_alert"] = {
+            "detected": True,
+            "high_risk_approval_rate": high_risk_approval_rate,
+            "avg_approved_score": round(avg_approved_score, 1),
+            "recommendation": f"TIGHTEN RISK THRESHOLDS. HIGH risk approval rate is {high_risk_approval_rate*100:.1f}% and average approved score is {avg_approved_score:.1f}/100. Lower auto-approve threshold from 40 to 35."
+        }
+    else:
+        insights["risk_threshold_alert"] = {"detected": False}
+
+    return insights
 
 def _run_learning(state: AgentState) -> AgentState:
     logs = list(state.get("agent_logs", []))
     start = time.time()
 
-    app = state.get("applicant_data", {})
+    reflection = state.get("risk_agent_reflection") or {}
+    app_data = state.get("applicant_data", {}).copy()
+    if reflection:
+        app_data["reflection_revised"] = reflection.get("revised", False)
+        app_data["reflection_reason"] = reflection.get("revision_reason", "")
+        app_data["reflection_summary"] = reflection.get("reflection_summary", "")
+
     decision = state.get("final_decision", "unknown")
+    risk_category = state.get("risk_category", "MEDIUM")
 
     # Build record — include more fields than before
     record = {
         "timestamp": time.time(),
         "application_id": state.get("application_id"),
-        "gender": app.get("applicant_gender"),
-        "location": app.get("applicant_location") or app.get("location"),
-        "employment_type": app.get("employment_type"),
+        "gender": app_data.get("applicant_gender"),
+        "location": app_data.get("applicant_location") or app_data.get("location"),
+        "employment_type": app_data.get("employment_type"),
         "decision": decision,
         "risk_score": state.get("risk_score"),
+        "risk_category": risk_category,
         "bias_detected": state.get("bias_detected", False),
     }
 
@@ -621,7 +662,7 @@ def _run_learning(state: AgentState) -> AgentState:
             
         store_episode(
             application_id=state.get("application_id", f"unknown_{time.time()}"),
-            app_data=state.get("applicant_data", {}),
+            app_data=app_data,
             credit_data=state.get("credit_report", {}),
             decision=decision,
             risk_score=state.get("risk_score", -1.0),

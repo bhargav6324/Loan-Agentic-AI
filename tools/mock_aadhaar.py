@@ -48,13 +48,14 @@ def verify_aadhaar(
             "verified": record["status"] == "active",
         }
     else:
+        # Unknown Aadhaar — not found in UIDAI database
         return {
             "aadhaar": aadhaar,
-            "status": "active",
-            "name_on_record": applicant_name or "Unknown",
-            "name_match": True,
-            "dob": "1992-01-01",
-            "gender": "male",
-            "address": "India",
-            "verified": True,
+            "status": "not_found",
+            "name_on_record": None,
+            "name_match": False,
+            "dob": None,
+            "gender": None,
+            "address": None,
+            "verified": False,
         }

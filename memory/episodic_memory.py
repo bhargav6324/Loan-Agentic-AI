@@ -55,7 +55,10 @@ def store_episode(application_id: str, app_data: dict, credit_data: dict,
         "decision": decision,
         "risk_score": float(risk_score) if risk_score is not None else -1.0,
         "bias_detected": bool(bias_detected),
-        "debate_summary": debate_summary[:200] if debate_summary else "None"
+        "debate_summary": debate_summary[:200] if debate_summary else "None",
+        "reflection_revised": bool(app_data.get("reflection_revised", False)),
+        "reflection_reason": str(app_data.get("reflection_reason", "None"))[:200],
+        "reflection_summary": str(app_data.get("reflection_summary", "None"))[:200]
     }
 
     try:

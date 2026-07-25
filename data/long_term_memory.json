@@ -1,2363 +1,478 @@
 {
   "records": [
     {
-      "timestamp": 1780940047.8125637,
-      "application_id": "TEST-CASE-1",
-      "gender": null,
-      "location": null,
-      "decision": "rejected"
-    },
-    {
-      "timestamp": 1780940048.311547,
-      "application_id": "TEST-CASE-2",
+      "timestamp": 1784732453.0667033,
+      "application_id": "738408a2-f5fe-4024-a54c-96997ae58b7f",
       "gender": "male",
-      "location": "semi_urban",
-      "decision": "approved"
-    },
-    {
-      "timestamp": 1780940748.4880261,
-      "application_id": "TEST-CASE-1",
-      "gender": null,
-      "location": null,
-      "decision": "rejected"
-    },
-    {
-      "timestamp": 1780940753.4109046,
-      "application_id": "TEST-CASE-2",
-      "gender": "male",
-      "location": "semi_urban",
-      "decision": "approved"
-    },
-    {
-      "timestamp": 1780940850.6254478,
-      "application_id": "TEST-CASE-1",
-      "gender": null,
-      "location": null,
-      "decision": "rejected"
-    },
-    {
-      "timestamp": 1780940854.4182904,
-      "application_id": "TEST-CASE-2",
-      "gender": "male",
-      "location": "semi_urban",
-      "decision": "approved"
-    },
-    {
-      "timestamp": 1780941895.9957736,
-      "application_id": "4d16b2b8-f85a-4285-8a8f-ed4b6fd122ca",
-      "gender": "male",
-      "location": null,
-      "decision": "rejected"
-    },
-    {
-      "timestamp": 1780984969.2691662,
-      "application_id": "TEST-CASE-1",
-      "gender": null,
-      "location": null,
-      "decision": "rejected"
-    },
-    {
-      "timestamp": 1780984980.4392056,
-      "application_id": "TEST-CASE-2",
-      "gender": "male",
-      "location": "semi_urban",
-      "decision": "approved"
-    },
-    {
-      "timestamp": 1780985022.1934028,
-      "application_id": "TEST-CASE-1",
-      "gender": null,
-      "location": null,
-      "decision": "rejected"
-    },
-    {
-      "timestamp": 1780985026.3841107,
-      "application_id": "TEST-CASE-2",
-      "gender": "male",
-      "location": "semi_urban",
-      "decision": "approved"
-    },
-    {
-      "timestamp": 1780985916.5817556,
-      "application_id": "27b258fe-eed7-4662-a901-5ad018a1bee7",
-      "gender": "male",
-      "location": null,
-      "decision": "approved"
-    },
-    {
-      "timestamp": 1780986355.9749522,
-      "application_id": "4d993f63-8c70-48b1-9af2-20827f2ba6d6",
-      "gender": "female",
-      "location": null,
-      "decision": "rejected"
-    },
-    {
-      "timestamp": 1780986629.095453,
-      "application_id": "c7d20e08-91c2-429b-819e-877a22f13cb8",
-      "gender": "male",
-      "location": null,
-      "decision": "approved"
-    },
-    {
-      "timestamp": 1780987500.1277242,
-      "application_id": "8e47b55e-1088-4373-abe0-20db2c0efed2",
-      "gender": "male",
-      "location": null,
-      "decision": "approved"
-    },
-    {
-      "timestamp": 1780988019.6278555,
-      "application_id": "0aec80bc-bac0-4a77-8682-fd046e1be31a",
-      "gender": "male",
-      "location": null,
-      "decision": "approved"
-    },
-    {
-      "timestamp": 1781192904.2036195,
-      "application_id": "c7d20e08-91c2-429b-819e-877a22f13cb8",
-      "gender": "male",
-      "location": null,
-      "decision": "approved"
-    },
-    {
-      "timestamp": 1781196199.2693987,
-      "application_id": "8e47b55e-1088-4373-abe0-20db2c0efed2",
-      "gender": "male",
-      "location": null,
-      "decision": "approved"
-    },
-    {
-      "timestamp": 1781495807.9173675,
-      "application_id": "6d4e92fa-a9a7-4355-b168-82b118fcbfad",
-      "gender": null,
-      "location": null,
-      "decision": "rejected"
-    },
-    {
-      "timestamp": 1781510461.4970462,
-      "application_id": "486eb247-86c9-413c-9a99-968c69dfb7e0",
-      "gender": null,
-      "location": null,
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 52.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1781664330.5582411,
-      "application_id": "71f479d2-02c9-4ce8-a37d-cc7794ba937f",
-      "gender": null,
-      "location": null,
-      "employment_type": null,
-      "decision": "rejected",
-      "risk_score": 20.8,
-      "bias_detected": true
-    },
-    {
-      "timestamp": 1781768865.6482353,
-      "application_id": "71f479d2-02c9-4ce8-a37d-cc7794ba937f",
-      "gender": null,
-      "location": null,
-      "employment_type": null,
-      "decision": "rejected",
-      "risk_score": 24.0,
-      "bias_detected": true
-    },
-    {
-      "timestamp": 1781769080.950288,
-      "application_id": "09581062-e96c-468e-9f2c-540261b77052",
-      "gender": null,
-      "location": null,
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": null,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1781775033.6255872,
-      "application_id": "0aec80bc-bac0-4a77-8682-fd046e1be31a",
-      "gender": "male",
-      "location": null,
-      "employment_type": "business",
-      "decision": "escalated",
-      "risk_score": 55.0,
-      "bias_detected": true
-    },
-    {
-      "timestamp": 1781777235.9145584,
-      "application_id": "0aec80bc-bac0-4a77-8682-fd046e1be31a",
-      "gender": "male",
-      "location": null,
-      "employment_type": "business",
-      "decision": "escalated",
-      "risk_score": 65.0,
-      "bias_detected": true
-    },
-    {
-      "timestamp": 1782832329.8983796,
-      "application_id": "4a260c29-584b-44de-87fa-e583e0f59bb6",
-      "gender": "male",
-      "location": null,
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": null,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1782832577.0354567,
-      "application_id": "a034328d-4f65-404a-b2dd-b00cc5286a4d",
-      "gender": "male",
-      "location": null,
+      "location": "rural",
       "employment_type": "self_employed",
       "decision": "rejected",
-      "risk_score": 35.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1782832815.278785,
-      "application_id": "7bbf9966-c690-453d-92b5-0eb8475d470f",
-      "gender": "male",
-      "location": null,
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 22.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1782834051.4471695,
-      "application_id": "c9aa9be7-506b-462a-ad27-a77d0ac5fc72",
-      "gender": "male",
-      "location": null,
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 34.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783678847.440041,
-      "application_id": "c932d965-adec-4e36-ac63-2bad11c6d74e",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "rejected",
       "risk_score": null,
+      "risk_category": "MEDIUM",
       "bias_detected": false
     },
     {
-      "timestamp": 1783678856.4681592,
-      "application_id": "948cb230-7bdc-4555-954b-df9318c01748",
+      "timestamp": 1784732453.0695906,
+      "application_id": "aeedc10e-7d05-4aad-9f8c-48d9598d3017",
       "gender": "male",
       "location": "rural",
       "employment_type": "unemployed",
       "decision": "rejected",
       "risk_score": null,
+      "risk_category": "MEDIUM",
       "bias_detected": false
     },
     {
-      "timestamp": 1783678865.5171933,
-      "application_id": "b49bc287-a122-4230-b168-fdfbadb66b19",
+      "timestamp": 1784732453.0722704,
+      "application_id": "e5fc8d71-2fde-4730-afe9-a880037da5c6",
+      "gender": "male",
+      "location": "rural",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.0761616,
+      "application_id": "6159d5c8-d601-4985-b053-8b36e037745e",
       "gender": "female",
       "location": "semi_urban",
       "employment_type": "self_employed",
       "decision": "rejected",
-      "risk_score": 80.2,
+      "risk_score": null,
+      "risk_category": "MEDIUM",
       "bias_detected": false
     },
     {
-      "timestamp": 1783678883.3007932,
-      "application_id": "e07a690d-901b-400e-8d68-3c4a73177d4b",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "escalated",
-      "risk_score": 49.1,
-      "bias_detected": true
-    },
-    {
-      "timestamp": 1783678904.6923568,
-      "application_id": "72a4e4e7-ef24-48c5-a2b6-40e815484720",
+      "timestamp": 1784732453.079257,
+      "application_id": "f37c20ad-21e4-486f-a0b7-3b299d48e933",
       "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "escalated",
-      "risk_score": 56.8,
-      "bias_detected": true
+      "location": "rural",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
     },
     {
-      "timestamp": 1783690886.6107302,
-      "application_id": "423d3522-c42a-4ecb-86f6-438e6a869216",
+      "timestamp": 1784732453.0825818,
+      "application_id": "5c4a635b-9dd9-4609-8be0-ac0d8db4f4e4",
+      "gender": "male",
+      "location": "semi_urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.086167,
+      "application_id": "5f0306b6-4ce0-4f9d-ba63-96bceb258c81",
       "gender": "male",
       "location": "urban",
       "employment_type": "salaried",
       "decision": "rejected",
       "risk_score": null,
+      "risk_category": "MEDIUM",
       "bias_detected": false
     },
     {
-      "timestamp": 1783690898.969265,
-      "application_id": "2dffc517-830b-4899-80b2-79c0cdb53e7e",
+      "timestamp": 1784732453.089643,
+      "application_id": "85a2c97c-23f7-4c0d-b860-30f09b2d1920",
       "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.0931275,
+      "application_id": "15628093-d569-4131-8674-ba8260df9d06",
+      "gender": "female",
+      "location": "rural",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.0962493,
+      "application_id": "10028256-abf7-4bd7-8804-ed2b4e300a69",
+      "gender": "male",
+      "location": "rural",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.0997214,
+      "application_id": "752821e4-4130-4996-acf0-e920b8e4fe22",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1032271,
+      "application_id": "837d435f-b77d-4a09-a08d-54f31e84ace2",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1071064,
+      "application_id": "4acc3a95-f0d0-4ce8-a3a7-b3000f14ad7f",
+      "gender": "female",
+      "location": "semi_urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.11093,
+      "application_id": "aef24bd8-c417-4ce4-b456-114249c1df6b",
+      "gender": "female",
+      "location": "semi_urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1147184,
+      "application_id": "8480c272-7a6f-49f1-b97e-76503b37c352",
+      "gender": "male",
+      "location": "semi_urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1179018,
+      "application_id": "bdfe7d6c-7207-4f15-9607-3541a6991456",
+      "gender": "male",
+      "location": "semi_urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1211593,
+      "application_id": "3afcd44e-a82d-46a3-ac51-6ccd9ecd7632",
+      "gender": "male",
+      "location": "semi_urban",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1241748,
+      "application_id": "efd14824-4d5f-484e-9f8c-de4b9da2b67f",
+      "gender": "male",
+      "location": "semi_urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.127317,
+      "application_id": "a24d50fb-2764-4ecd-a6c5-ac88f2e4ff47",
+      "gender": "male",
+      "location": "rural",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1303613,
+      "application_id": "a6a2bbed-5398-405a-9e6f-04833d505726",
+      "gender": "male",
+      "location": "semi_urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1335504,
+      "application_id": "aba095d1-d560-49cf-b2dd-c2f538481b5b",
+      "gender": "male",
+      "location": "semi_urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.136758,
+      "application_id": "d369586d-4abc-4190-a521-df43a4ae4da3",
+      "gender": "male",
+      "location": "semi_urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1398087,
+      "application_id": "661524dc-f2e2-4974-831b-f0bbaf33e596",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.143095,
+      "application_id": "8f3185bd-4ebe-4695-9df0-917c39d0dd37",
+      "gender": "male",
+      "location": "rural",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1461298,
+      "application_id": "4ed4aa2a-310f-4f3b-be9f-df500edeff6b",
+      "gender": "male",
+      "location": "rural",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1492734,
+      "application_id": "43c6f7f1-2536-496b-aba7-48e30abff0e7",
+      "gender": "male",
+      "location": "semi_urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1524737,
+      "application_id": "4159b154-87ff-471c-acdc-ba5dca3770b2",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1556108,
+      "application_id": "3522ca27-3f09-4e2e-94f5-39494e52a7fc",
+      "gender": "male",
+      "location": "rural",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1588798,
+      "application_id": "acaae22e-fe51-4a39-ac75-26d3c04b5c2f",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.161946,
+      "application_id": "2c60107d-f997-4acb-aff3-913103d37f1d",
+      "gender": "male",
+      "location": "semi_urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1651773,
+      "application_id": "89847c7b-4477-476c-9e6d-7c2469f2d36c",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.16851,
+      "application_id": "be75520f-7279-4f87-8b53-e7f6457550a1",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1784732453.1717012,
+      "application_id": "57a61411-84db-4c83-a7c4-4b3b23aa49cd",
+      "gender": "female",
       "location": "rural",
       "employment_type": "unemployed",
       "decision": "rejected",
       "risk_score": null,
+      "risk_category": "MEDIUM",
       "bias_detected": false
     },
     {
-      "timestamp": 1783690921.6021838,
-      "application_id": "fb12a659-e35e-44b9-b121-06d4011082b6",
-      "gender": "female",
+      "timestamp": 1784732453.1747963,
+      "application_id": "b6bf3789-c2ab-434e-b33c-1a7849e3490d",
+      "gender": "male",
       "location": "semi_urban",
       "employment_type": "self_employed",
       "decision": "rejected",
-      "risk_score": 65.1,
+      "risk_score": null,
+      "risk_category": "MEDIUM",
       "bias_detected": false
     },
     {
-      "timestamp": 1783690956.6428657,
-      "application_id": "376abdcb-f4d4-4f0a-bad7-bb4b4fcec087",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 62.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783690980.2145672,
-      "application_id": "9193b432-fc9d-48a5-816c-84c015e5a980",
+      "timestamp": 1784732453.1780815,
+      "application_id": "27b51235-f553-4aa4-a966-68656a05c80a",
       "gender": "female",
       "location": "urban",
       "employment_type": "salaried",
       "decision": "rejected",
-      "risk_score": 72.0,
+      "risk_score": null,
+      "risk_category": "MEDIUM",
       "bias_detected": false
     },
     {
-      "timestamp": 1783854809.0499053,
-      "application_id": "027bcbbd-8ce0-475c-ace8-4e6dd457f8bf",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 53.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.0608256,
-      "application_id": "75de84cf-63a0-4527-b787-f11f723e026f",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 60.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.1205945,
-      "application_id": "dd9d3549-e3e3-41c4-a1b2-76458b4f9d8f",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 59.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.173874,
-      "application_id": "51811d00-ebdc-4145-8cf4-c71320dc3009",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 58.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.186829,
-      "application_id": "556b0662-0c93-4795-b714-0ebfcd673cae",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 58.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.394796,
-      "application_id": "9ecada78-c700-4328-84be-96c40554dd39",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "escalated",
-      "risk_score": 40.9,
-      "bias_detected": true
-    },
-    {
-      "timestamp": 1783854809.4559,
-      "application_id": "824d6f2c-94a4-4724-b26b-307831bad57c",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 57.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.5154982,
-      "application_id": "78631286-8c20-4560-827d-bbe986b12b66",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 50.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.5267406,
-      "application_id": "a07b3627-3024-4bfb-802a-7b6fb4cc7fc2",
+      "timestamp": 1784732453.1816742,
+      "application_id": "dbfa58f4-704f-4abe-a5e3-e9ff649f50b1",
       "gender": "male",
       "location": "semi_urban",
       "employment_type": "unemployed",
       "decision": "rejected",
-      "risk_score": 73.7,
+      "risk_score": null,
+      "risk_category": "MEDIUM",
       "bias_detected": false
     },
     {
-      "timestamp": 1783854809.5813794,
-      "application_id": "ce46beed-5c45-44e7-94d5-27b0a757a09c",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 53.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.636446,
-      "application_id": "3ba03c1b-1914-4bbc-a59e-74bae9eebac7",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 58.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.6911561,
-      "application_id": "cd6d0151-685c-4795-9bd2-fb156142dd3d",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 56.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.750652,
-      "application_id": "30e873b2-3fff-4d4f-9951-9ba9d7d77e65",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.763203,
-      "application_id": "8795d1cf-e860-4215-847c-d69c967aa409",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 58.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.8271577,
-      "application_id": "0c1364df-dac3-4294-870d-6d00b6f1167a",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.8393807,
-      "application_id": "8ddc8b63-a25e-4c64-9e42-4da4ff6f4b42",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 78.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.9066298,
-      "application_id": "ba0ffcea-db06-49a8-b759-4cd090de7311",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 52.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854809.9688594,
-      "application_id": "cbbd7ccb-b4ab-4cf9-827c-4f0060b74626",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 58.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.0251477,
-      "application_id": "2a4f9691-1019-4341-b372-746f19c1027d",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 52.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.038746,
-      "application_id": "eaf609a0-228e-433d-8faa-935a6598f703",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 58.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.0504355,
-      "application_id": "2003b18b-f7eb-4585-b2b6-6fea07c9207b",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 64.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.0611844,
-      "application_id": "5164cec2-9a7f-440b-9685-b6a4e5fd2a4e",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 63.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.2611814,
-      "application_id": "46fb7939-6687-470c-8c7c-03b282c75b01",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "business",
-      "decision": "escalated",
-      "risk_score": 49.5,
-      "bias_detected": true
-    },
-    {
-      "timestamp": 1783854810.317658,
-      "application_id": "8eccd4c7-7bf9-4d6d-87f5-7e6b1fcc25c4",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.3286815,
-      "application_id": "0db7a3d9-b629-49e5-8886-a6e44ef56282",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 61.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.3841782,
-      "application_id": "128fe7c6-2e71-4f88-bae0-29e08a8e7f38",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 59.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.3969913,
-      "application_id": "b2301db6-f50d-43c9-b355-a66f593cae12",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 31.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.4532046,
-      "application_id": "0a0d76ba-550e-4218-90db-9c01df726ae3",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 59.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.4644172,
-      "application_id": "0fb126c5-8794-4fad-ab33-36d267b0e0de",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 61.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.523128,
-      "application_id": "e969385a-9473-4442-a162-b5f23c152b51",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.5862308,
-      "application_id": "150e6feb-c3d1-48ac-a280-eaa677d54b17",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 53.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.5975773,
-      "application_id": "129b2091-eadc-4f35-9466-1fa3605b9a39",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 72.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.6525977,
-      "application_id": "cc4a3566-9167-4072-8399-4663e5459101",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 56.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.6639924,
-      "application_id": "a7546c32-75c4-4925-8cb1-ce1ccdf479f5",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 61.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.6751332,
-      "application_id": "7e15d26a-f9a6-4c1b-8171-24618f43a46d",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "rejected",
-      "risk_score": 60.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.736686,
-      "application_id": "29a26ebe-27ee-48a2-b432-0a4d69ab03c6",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 55.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854810.931773,
-      "application_id": "1f7340f4-e686-46a6-8f91-9ffad40fddf0",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "escalated",
-      "risk_score": 42.6,
-      "bias_detected": true
-    },
-    {
-      "timestamp": 1783854810.9453204,
-      "application_id": "0d82867a-b17d-426c-b490-b3720aa1f606",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 29.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.002238,
-      "application_id": "2b6f9191-3b24-4f67-9b49-4c9175383b60",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 59.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.0133338,
-      "application_id": "e8ff2c72-fd1c-4a1a-ba41-0500dc57e6c6",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 65.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.071422,
-      "application_id": "8c013ba9-e329-4bc0-b593-5063b7678876",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 55.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.0835025,
-      "application_id": "cf77c0e8-c6cf-43c9-ab58-47034c787010",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 63.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.094655,
-      "application_id": "21947049-066f-450c-87d3-aeefb2de4855",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 61.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.1507237,
-      "application_id": "43b4b2de-5b8d-4fc9-b27f-f388c9ab6d2c",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 59.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.2137527,
-      "application_id": "ab7f8770-8daa-4b5a-b1ad-c953e6dd37fd",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.2749782,
-      "application_id": "9e24ead6-e149-4e2c-9224-0118426024d5",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 59.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.2875917,
-      "application_id": "9dba4885-5455-4dc8-b2cd-fca25cd5be0b",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 72.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.359926,
-      "application_id": "fe9de3e8-0620-4351-8dd3-260436e72d27",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 57.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.4228468,
-      "application_id": "7bea128c-44a3-454c-9297-32a48081fd6b",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.435997,
-      "application_id": "fa8c4bac-25c9-478a-8d07-faad1181922c",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 30.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.447864,
-      "application_id": "dc09998a-0d85-4059-9644-85ed01142564",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 64.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.4590259,
-      "application_id": "b9439268-35fb-4ff8-aa94-49bbfe53389c",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 62.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.472626,
-      "application_id": "b038d8f7-94d9-46db-a698-28771cbf85fd",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 31.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.532406,
-      "application_id": "ef57ae48-9f73-4f27-a0a2-a3549891b42b",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 55.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.594796,
-      "application_id": "cd34703b-2b32-4ade-9ef8-3a292f77a1bb",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 57.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.6082885,
-      "application_id": "a53e9956-f7ab-4a7e-bb98-2ec9643a4954",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 58.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.619106,
-      "application_id": "15111edc-c044-408b-9eca-2c8e51f58705",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 64.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.6321747,
-      "application_id": "e761aa24-9a69-48be-8d4f-67ba0c9d16b9",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 63.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.643878,
-      "application_id": "ec7cd773-48f5-46a0-ae40-717a2c8ef7b3",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 65.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.699825,
-      "application_id": "882bfb20-8415-4093-8b3a-32333b2be84d",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 59.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.7552915,
-      "application_id": "0f0fe8de-e974-4915-8b47-2f9a76fb4850",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 59.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854811.9417799,
-      "application_id": "010aa6f8-ab76-467a-bb26-d5aaa900188b",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "escalated",
-      "risk_score": 52.1,
-      "bias_detected": true
-    },
-    {
-      "timestamp": 1783854811.955489,
-      "application_id": "c88bc641-b016-402a-bc4a-3a038cab8e86",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 25.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.0102892,
-      "application_id": "244a5c14-7aa6-4737-bdea-51a140315ded",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 58.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.0225756,
-      "application_id": "f86174db-b813-4e56-857e-bb65cf7dfcaa",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 77.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.0350037,
-      "application_id": "e9dfc727-b40f-4b69-9908-a116f72bc46b",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 69.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.04589,
-      "application_id": "aa283934-1b4a-4541-aba1-c66fc7af8caa",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 61.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.0568912,
-      "application_id": "6de88fca-6f6e-4376-bd99-696dd0ad7973",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 61.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.0699272,
-      "application_id": "95d4cb10-3ed5-4cbd-8728-038aa300b47e",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 58.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.123697,
-      "application_id": "34744d24-4285-4fe0-8730-864b2ab9d67a",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 58.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.1379302,
-      "application_id": "dc7b1df6-61ce-4012-804c-230b8a1d3e92",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 55.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.148994,
-      "application_id": "5af635e1-9ecf-4f07-93e3-4d6543a6fda9",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 66.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.202844,
-      "application_id": "a80c62fd-11d7-4d15-a99c-947af578b499",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 52.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.2584057,
-      "application_id": "c16ac7bc-29bd-445a-95f9-f79ad191c3ed",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 52.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.3144374,
-      "application_id": "7d56a877-97c0-49fe-a65c-e62915164e9c",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.3200958,
-      "application_id": "9f55f28c-d3e0-4d99-af0b-2cf4c10acc43",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 95.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.3824406,
-      "application_id": "23a64ec0-d7c5-403f-8467-4c1eb22a4146",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 58.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.395744,
-      "application_id": "32fd7723-91ad-4258-86a7-bb2b51d275f2",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 27.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.4537652,
-      "application_id": "4d8bf53a-f34c-4fc5-90da-fdb689b22d01",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 53.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.4674532,
-      "application_id": "9e584f41-7239-4c83-805b-75e809e750b4",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 24.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.481262,
-      "application_id": "2eaf403f-7907-448b-96b1-13f6c3a7355b",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 31.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.5362809,
-      "application_id": "284b3bc1-84ba-44c3-b826-497ffae98c12",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 54.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.5476375,
-      "application_id": "bd9a5e5a-e9fb-4dbf-9ddb-b718cd89ba25",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 75.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.5585515,
-      "application_id": "f0d1748e-abfa-459b-a51c-4dbd7cab0cda",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "business",
-      "decision": "rejected",
-      "risk_score": 61.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.6156285,
-      "application_id": "cbde6a60-7f83-4ef9-87e3-363d5e12daf0",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 56.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.6212106,
-      "application_id": "ac633606-984a-45fe-86ea-bffa5ca0ec8e",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 95.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.6748314,
-      "application_id": "67348f46-c47c-4eae-be55-2d90d099262d",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 55.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.686908,
-      "application_id": "d2639c7a-eaf9-4653-99aa-958537ca1432",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 74.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.741493,
-      "application_id": "bd5fb314-39d5-4711-ae68-daea12c064e8",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 56.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.7532372,
-      "application_id": "e1dde6f8-f27e-4480-9125-d45257a291ca",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "rejected",
-      "risk_score": 62.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.8081124,
-      "application_id": "9ccae32c-ec20-4ade-88b2-4dee0d4fe1ff",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 55.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.8630574,
-      "application_id": "9c5e72bb-d25c-4faa-8e9a-c3379d94ffde",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 57.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.922561,
-      "application_id": "b2867761-7869-42a8-900e-17e0f6f1b220",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 56.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.9340417,
-      "application_id": "338081ff-955a-40c4-ba1a-0de60dde0290",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "rejected",
-      "risk_score": 62.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854812.9894798,
-      "application_id": "08868fce-9ee4-446d-b3c5-0f20e532422a",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 55.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.0456812,
-      "application_id": "fd3a95b0-f078-409b-9782-9ccd1a0ae183",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 51.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.0591276,
-      "application_id": "f1cec437-5ca9-4d42-9e13-7d7dca37fc34",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 27.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.072856,
-      "application_id": "f079e4d6-9fb3-4dbc-a58a-7ea2a76986b6",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 57.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.087678,
-      "application_id": "a88a0c19-001a-4ac6-ae9b-953fd7b33f81",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 23.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.0988188,
-      "application_id": "55b06bde-54da-4204-b4cd-9b22fae67fbe",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 74.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.1534233,
-      "application_id": "03c99967-30c5-4cff-99a5-b5f3aab34720",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 55.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.1663804,
-      "application_id": "51702938-8f8a-474c-a92e-38a1a6b21f9a",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 32.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.1781514,
-      "application_id": "82c33917-a0a4-4216-ae32-3aecf8f6ce1d",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "rejected",
-      "risk_score": 60.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.1903384,
-      "application_id": "a8b2acaa-7630-4d6b-8db0-dec737b3566d",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 64.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.2020164,
-      "application_id": "a463721e-6d3e-40f5-ac3d-61089d8bca17",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 60.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.256771,
-      "application_id": "42887536-cdce-42c6-a96e-143cc431ecc1",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.2681818,
-      "application_id": "10a7de00-b99e-4a0d-9538-2c7e2ffe5956",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 60.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.2800167,
-      "application_id": "d81fb325-0620-435d-9e44-a4dc9b2b1483",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 63.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.3409648,
-      "application_id": "4d482220-0f6f-4911-9c17-bca7d5f73521",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 54.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.3531904,
-      "application_id": "a61071ce-26b9-4779-ac2b-d90d32368360",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 63.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.4095774,
-      "application_id": "9f398243-6d90-4091-ae13-c0dfe6009cf8",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 60.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.4226174,
-      "application_id": "22d32cbc-b650-4db1-9621-e243d57bddac",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 76.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.4785101,
-      "application_id": "f5607059-810f-4dca-b139-7f6d6f6c2f70",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 58.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.5346582,
-      "application_id": "31680494-b169-4de1-b135-672c8c5ec2e0",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.591515,
-      "application_id": "e98fb2e6-4178-4f40-a043-8ce5abe89246",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 53.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.6463742,
-      "application_id": "e0acfa72-f48d-464c-a670-f94aa7982d3c",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 55.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.7024784,
-      "application_id": "9850c53e-7f3b-4de8-9aa6-eeb0804dff0d",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 57.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.7587075,
-      "application_id": "20f480fb-7ffd-46e2-95ad-79dda629ca5d",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 59.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.8152575,
-      "application_id": "c2095e41-87ec-4975-af66-e562d3dd02fe",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 53.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.8271122,
-      "application_id": "a24e88c6-f03c-4ca8-881f-c0a8c3690e6d",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 67.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.8391097,
-      "application_id": "549c90fe-047e-4707-9c69-b233a4a1c97b",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 66.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.8946226,
-      "application_id": "ca56c690-966b-4b16-acab-3486d7951956",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 56.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854813.953126,
-      "application_id": "faed6890-03f2-4a48-9175-983c74150eb5",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.0169141,
-      "application_id": "c21b94ff-fa64-434d-8dda-5ad79c685217",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 54.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.0756805,
-      "application_id": "6fe5a495-ed5c-4ba7-96c3-808d3b546858",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 58.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.1371436,
-      "application_id": "358d1975-ebb4-4311-b7bd-485f7698bd65",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.148888,
-      "application_id": "67775ef3-e7be-436f-b459-12b1d907ada2",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 60.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.2107968,
-      "application_id": "b9c34a2f-0c87-41cc-8a29-82a64c1428a9",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 59.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.223009,
-      "application_id": "2d92f867-998d-44f7-a53c-b23edeea2709",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 63.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.2350762,
-      "application_id": "3382c3aa-9885-4d23-9726-714cf40175e9",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 65.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.295708,
-      "application_id": "62d10e49-f8e3-4cff-8932-ee83e1e553d9",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 55.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.353083,
-      "application_id": "d5f60c9c-2f2e-40a4-a01c-096026f41e3f",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 56.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.3668215,
-      "application_id": "d474cfc2-5265-4ed4-9c78-624af31220a0",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 33.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.3801208,
-      "application_id": "6b6c47e1-863a-4919-9b77-8374a46e5619",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 57.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.4379902,
-      "application_id": "8ac40cbd-ab4d-408a-9778-6c407625b2c5",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 52.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.4944873,
-      "application_id": "c42c2b7f-b934-41b7-af02-e9dbbcd9a52e",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 53.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.5084314,
-      "application_id": "d7bf3ce9-06fc-4d7d-9f15-b0eeefe3a13a",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 57.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.5663795,
-      "application_id": "4335325a-4bec-4b26-81d6-31303eaae683",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 53.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.580028,
-      "application_id": "cac10fdc-221f-4183-88fe-0cc3e703a4b5",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 57.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.5920038,
-      "application_id": "2f0b43d8-2bb2-4cd0-8a2e-b9a0a32fc1a6",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 64.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.6495433,
-      "application_id": "d9e421dd-c728-4771-92bf-6c8c57324842",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 57.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.661701,
-      "application_id": "07dd9b1b-5e1e-4e25-8bf8-2fbfb659e9b5",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 76.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.6738575,
-      "application_id": "40736226-8eb1-461d-a81b-996d09190d8a",
+      "timestamp": 1784732453.1846972,
+      "application_id": "1a4eb7d4-4c56-4d92-a3d7-b4357f879540",
       "gender": "male",
       "location": "semi_urban",
       "employment_type": "unemployed",
       "decision": "rejected",
-      "risk_score": 72.1,
+      "risk_score": null,
+      "risk_category": "MEDIUM",
       "bias_detected": false
     },
     {
-      "timestamp": 1783854814.729593,
-      "application_id": "5d3ccd9f-bd49-4d19-8870-438d6966958e",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 57.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.7432518,
-      "application_id": "6ac2b789-c4e5-4e8e-b090-b15094405b76",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 28.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.79913,
-      "application_id": "229e5560-4034-4498-a273-36400eb286dd",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 55.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.8603516,
-      "application_id": "f08a5370-21c6-45fc-8642-648270364ca1",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 56.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.9168484,
-      "application_id": "3f07591d-f55c-491b-b4a4-0808b0446cf6",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 59.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.97219,
-      "application_id": "ea98734e-bb57-4d17-9237-192b085c6666",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 56.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854814.9864068,
-      "application_id": "1bf42f22-d8b2-48d0-aee7-4d849b0d2158",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 34.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.041674,
-      "application_id": "c9c7dda2-3387-426a-bffc-ee70ef5a31cc",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 53.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.1031485,
-      "application_id": "f71269b2-bfac-43f1-9e59-3b82c6f47b39",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 55.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.1602445,
-      "application_id": "b2ee2dd2-52da-49d1-b872-8c50dde9c15f",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 59.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.174375,
-      "application_id": "8abf4493-4f7a-4a6b-854b-a4b65d6c2928",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 28.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.2302368,
-      "application_id": "7eabfa25-ca1e-4dad-bac2-6b4219c73d1b",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 58.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.2420523,
-      "application_id": "ee58d4b2-62a7-4924-a0c1-53d7f657a99b",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 60.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.2974534,
-      "application_id": "6e927a01-a943-4d8f-97d0-3b70788202bf",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 58.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.309321,
-      "application_id": "96cdb82c-26a6-48fb-828c-f00b03d6ee9c",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "rejected",
-      "risk_score": 62.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.3216248,
-      "application_id": "8fdbfff1-a723-45fd-8c44-32229ab716ec",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 65.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.3342493,
-      "application_id": "2ba2312a-bb0b-4bb0-a038-923fd462d3ba",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 61.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.346681,
-      "application_id": "b176481c-d9ac-44fb-8098-4df182273404",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 61.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.3581586,
-      "application_id": "095da773-8be1-4228-99c3-c6d22706c1df",
+      "timestamp": 1784732453.188881,
+      "application_id": "bb219e8f-48a8-42b1-bb28-059b9c578776",
       "gender": "female",
       "location": "semi_urban",
       "employment_type": "self_employed",
       "decision": "rejected",
-      "risk_score": 61.6,
+      "risk_score": null,
+      "risk_category": "MEDIUM",
       "bias_detected": false
     },
     {
-      "timestamp": 1783854815.3722494,
-      "application_id": "525b89cc-a403-42e0-81a9-dbe3fd6d0949",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 57.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.3862753,
-      "application_id": "51790a0f-6f54-4027-9798-7abe168a039f",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 30.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.4427526,
-      "application_id": "72cba16e-aaea-4fe3-95dd-a2a595f6273d",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 58.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.503447,
-      "application_id": "a744051a-ad58-4721-a350-49ae4a72b53b",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 58.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.5157416,
-      "application_id": "ed950128-4593-48a4-9922-8aaab92e3a29",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 60.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.5283647,
-      "application_id": "59248fbf-a723-4769-a5c3-00ea87928f41",
+      "timestamp": 1784732453.1922028,
+      "application_id": "8fd4e0a3-0688-4923-9869-6c3d66eddfe6",
       "gender": "male",
       "location": "urban",
       "employment_type": "salaried",
       "decision": "rejected",
-      "risk_score": 61.5,
+      "risk_score": null,
+      "risk_category": "MEDIUM",
       "bias_detected": false
     },
     {
-      "timestamp": 1783854815.5411758,
-      "application_id": "f1a8a1a4-4ea6-4711-a74a-68b9fa562058",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 76.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.5471992,
-      "application_id": "d3f9c791-1819-457e-b797-657043374e04",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 95.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.7357223,
-      "application_id": "4d8e4999-fb5d-4395-af55-50f0973cc6ed",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "escalated",
-      "risk_score": 47.1,
-      "bias_detected": true
-    },
-    {
-      "timestamp": 1783854815.7913234,
-      "application_id": "9ec3b4d9-eaad-4f04-af9d-5434d271a38e",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.803642,
-      "application_id": "3caa9d26-e9d0-4e73-9e7c-1484076479a7",
+      "timestamp": 1784732453.195573,
+      "application_id": "f6cf4baf-4166-403b-a878-9b82c6790d52",
       "gender": "male",
       "location": "urban",
       "employment_type": "salaried",
       "decision": "rejected",
-      "risk_score": 62.4,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.8171675,
-      "application_id": "38d53708-9b29-448b-ace6-024c5a9231a1",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 28.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.873579,
-      "application_id": "00eb397c-8a3b-4d0f-9c5c-2528039eabe1",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 59.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.886049,
-      "application_id": "bbc50863-555e-4a49-a9c5-a93cc77264f5",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "rejected",
-      "risk_score": 60.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.8985398,
-      "application_id": "95f45587-5c07-4a57-8cbb-597b28efe4ad",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 69.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854815.9601285,
-      "application_id": "7d479790-ae11-4da5-9bc1-ed978abb1c9b",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 56.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.0172567,
-      "application_id": "1b848806-c658-46fc-927a-5e453a9a2f26",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.0774605,
-      "application_id": "691886f0-698d-4fdb-bd4e-92aaf692fb1e",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 57.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.0924244,
-      "application_id": "5f8eb500-600c-4757-b7eb-7dbf160e2a0e",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 30.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.148448,
-      "application_id": "3603ef86-8a31-4b2d-a411-b99aab424685",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 59.9,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.20681,
-      "application_id": "6651ed75-6b05-4f7d-ab41-112c7c85277a",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 58.8,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.2635536,
-      "application_id": "ca9543d4-7cca-43a0-8203-5fb44545562c",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "approved",
-      "risk_score": 59.6,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.2777007,
-      "application_id": "6a181805-e98a-4ebf-a533-4139c0c08001",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "business",
-      "decision": "rejected",
-      "risk_score": 62.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.3359852,
-      "application_id": "bcd8ad6e-159e-41ca-a0ea-97d81fda8d56",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 58.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.3493466,
-      "application_id": "5a225c71-4b78-460a-9b77-8c72f0846710",
-      "gender": "female",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 61.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.4071178,
-      "application_id": "9607a3ad-22b8-4b17-97a4-c25c226af78f",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 56.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.4205263,
-      "application_id": "053ad104-7d59-4c86-adc5-4235ea415876",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "business",
-      "decision": "rejected",
-      "risk_score": 62.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.434813,
-      "application_id": "e4103bff-128a-4566-a8b1-24bcfc2474d7",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 64.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.4997857,
-      "application_id": "8f0c24b4-d8c2-4d39-b23c-3b76dbe9ef14",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 54.2,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.5569,
-      "application_id": "5eeff9ce-6b54-40be-b74d-05197767eef4",
-      "gender": "male",
-      "location": "rural",
-      "employment_type": "business",
-      "decision": "approved",
-      "risk_score": 54.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.6154344,
-      "application_id": "da60e863-c1fe-48d5-b4d4-69a90835fde0",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 53.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.6282806,
-      "application_id": "cfff85aa-f2a0-41df-9802-8124144dbc20",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 75.7,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.6408985,
-      "application_id": "f34530ef-a2f7-441b-9daa-8e7c5ad83d6c",
-      "gender": "female",
-      "location": "semi_urban",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 76.1,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.697079,
-      "application_id": "f09ae29e-bdff-483e-8fea-c979c3443a37",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "salaried",
-      "decision": "approved",
-      "risk_score": 53.5,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.893676,
-      "application_id": "2c5e19ee-0aa8-4dc2-ab13-80b9603be267",
-      "gender": "female",
-      "location": "rural",
-      "employment_type": "business",
-      "decision": "escalated",
-      "risk_score": 35.8,
-      "bias_detected": true
-    },
-    {
-      "timestamp": 1783854816.9071949,
-      "application_id": "bd08baa3-1289-4ed9-9c3f-a1e2355711e5",
-      "gender": "male",
-      "location": "urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 64.3,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.9199414,
-      "application_id": "fa4fc258-5a8e-40e5-a1da-887e94a2274c",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "self_employed",
-      "decision": "rejected",
-      "risk_score": 62.0,
-      "bias_detected": false
-    },
-    {
-      "timestamp": 1783854816.9334502,
-      "application_id": "7e64926a-a7ac-4bce-8901-e23592df1395",
-      "gender": "male",
-      "location": "semi_urban",
-      "employment_type": "unemployed",
-      "decision": "rejected",
-      "risk_score": 75.5,
+      "risk_score": null,
+      "risk_category": "MEDIUM",
       "bias_detected": false
     }
   ],
   "insights": {
-    "records_analyzed": 100,
+    "records_analyzed": 40,
     "status": "analyzed",
     "gender_approval_rates": {
-      "male": 0.604,
-      "female": 0.532
+      "male": 0.0,
+      "female": 0.0
     },
-    "gender_bias_gap": 0.072,
+    "gender_bias_gap": 0.0,
     "gender_bias_alert": {
       "detected": false,
-      "gap": 0.072
+      "gap": 0.0
     },
     "location_approval_rates": {
-      "urban": 0.579,
-      "semi_urban": 0.455,
-      "rural": 0.69
+      "rural": 0.0,
+      "semi_urban": 0.0,
+      "urban": 0.0
     },
     "employment_approval_rates": {
-      "salaried": 0.795,
-      "self_employed": 0.259,
-      "business": 0.75,
-      "unemployed": 0.0
+      "self_employed": 0.0,
+      "unemployed": 0.0,
+      "business": 0.0,
+      "salaried": 0.0
     },
-    "escalation_rate": 0.02
+    "escalation_rate": 0.0,
+    "risk_approval_rates": {
+      "LOW": 0.0,
+      "MEDIUM": 0.0,
+      "HIGH": 0.0
+    },
+    "risk_threshold_alert": {
+      "detected": false
+    }
   },
-  "last_updated": 1783854816.9341753
+  "last_updated": 1784732453.196844
 }

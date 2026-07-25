@@ -30,7 +30,7 @@ from agents.state import AgentState
 from agents.intake_agent import intake_agent, policy_agent_node
 from agents.risk_agent import risk_agent
 from agents.fairness_agent import fairness_agent
-from agents.orchestrator_agent import orchestrator_decide
+from agents.orchestrator_agent import orchestrator_decide, generate_initial_plan
 from agents.reporting_agent import reporting_agent
 
 # ── Decision Nodes ───────────────────────────────────────
@@ -142,7 +142,7 @@ def fan_out(state: AgentState) -> AgentState:
 def route_after_intake(state: AgentState) -> str:
     if state.get("fraud_detected") or state.get("data_agent_early_stop"):
         return "auto_reject"
-    return "fan_out"
+    return "planner"
 
 
 def route_orchestrator(state: AgentState) -> str:
@@ -164,6 +164,7 @@ def build_loan_graph() -> StateGraph:
 
     # Nodes
     graph.add_node("intake_agent", intake_agent)
+    graph.add_node("planner", generate_initial_plan)
     graph.add_node("fan_out", fan_out)
     graph.add_node("risk_agent", risk_agent)
     graph.add_node("policy_agent", policy_agent_node)
@@ -179,11 +180,14 @@ def build_loan_graph() -> StateGraph:
     # Entry
     graph.set_entry_point("intake_agent")
 
-    # Intake → auto_reject (hard fail) OR fan_out (parallel branches)
+    # Intake → auto_reject (hard fail) OR planner
     graph.add_conditional_edges("intake_agent", route_after_intake, {
         "auto_reject": "auto_reject",
-        "fan_out": "fan_out",
+        "planner": "planner",
     })
+    
+    # Planner → fan_out
+    graph.add_edge("planner", "fan_out")
 
     # Fan-out: both edges fire concurrently
     graph.add_edge("fan_out", "risk_agent")

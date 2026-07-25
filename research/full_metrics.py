@@ -178,10 +178,8 @@ def run_full_metrics():
                 cf_row = row.copy()
                 if row["applicant_gender"] == 1:
                     cf_row["applicant_gender"] = 0
-                    cf_row["credit_score"] = min(850, row["credit_score"] + 100)
                 else:
                     cf_row["applicant_gender"] = 1
-                    cf_row["credit_score"] = max(300, row["credit_score"] - 100)
 
                 cf_features_row = cf_row[features].to_frame().T
                 cf_proba = rf_model.predict_proba(cf_features_row)[0]
@@ -268,9 +266,9 @@ def run_full_metrics():
     print(f"  Fairness Escalations:      {escalations:4d} ({escalations/total:.1%})")
     print(f"  Normal Processing:         {total - agent['Hard Rejects'] - agent['Hard Fast-Tracks']:4d}")
 
-    # ── 5. Bias Reduction Summary ─────────────────────────
+    # ── 5. Trade-off Summary ──────────────────────────────
     print("\n┌─────────────────────────────────────────────────────────────────┐")
-    print("│                    BIAS REDUCTION SUMMARY                      │")
+    print("│                    TRADE-OFF SUMMARY                           │")
     print("└─────────────────────────────────────────────────────────────────┘")
 
     rf_result = all_results[1]  # Random Forest baseline
@@ -280,11 +278,16 @@ def run_full_metrics():
     eo_reduction = (1 - abs(agent_result["Equalized Odds Diff"]) / abs(rf_result["Equalized Odds Diff"])) * 100
     gap_reduction = (1 - abs(agent_result["Approval Gap (M-F)"]) / abs(rf_result["Approval Gap (M-F)"])) * 100
     acc_cost = (rf_result["Accuracy"] - agent_result["Accuracy"]) * 100
+    spec_drop = rf_result["Specificity"] - agent_result["Specificity"]
+    mcc_drop = rf_result["MCC"] - agent_result["MCC"]
 
-    print(f"  Demographic Parity improvement: {dp_reduction:.1f}%")
-    print(f"  Equalized Odds improvement:     {eo_reduction:.1f}%")
-    print(f"  Approval Gap reduction:         {gap_reduction:.1f}%")
-    print(f"  Accuracy cost:                  {acc_cost:.1f}% (intentional fairness trade-off)")
+    print(f"  Demographic Parity improvement: {dp_reduction:.1f}% reduction in bias")
+    print(f"  Equalized Odds improvement:     {eo_reduction:.1f}% reduction in bias")
+    print(f"  Approval Gap reduction:         {gap_reduction:.1f}% reduction in bias")
+    print(f"  --- Costs ---")
+    print(f"  Accuracy Cost:                  {acc_cost:.1f}% drop")
+    print(f"  Specificity Cost:               {spec_drop:.3f} drop ({rf_result['Specificity']:.2f} → {agent_result['Specificity']:.2f})")
+    print(f"  MCC Cost:                       {mcc_drop:.3f} drop ({rf_result['MCC']:.2f} → {agent_result['MCC']:.2f})")
 
     # ── Save to files ─────────────────────────────────────
     output_dir = os.path.dirname(__file__)
@@ -310,12 +313,14 @@ def run_full_metrics():
         f.write(f"| Hard Fast-Tracks | {agent['Hard Fast-Tracks']} ({agent['Hard Fast-Tracks']/total:.1%}) |\n")
         f.write(f"| Fairness Escalations | {escalations} ({escalations/total:.1%}) |\n")
 
-        f.write("\n\n## 5. Bias Reduction Summary\n\n")
-        f.write(f"| Metric | Improvement |\n|---|---|\n")
-        f.write(f"| Demographic Parity | {dp_reduction:.1f}% reduction |\n")
-        f.write(f"| Equalized Odds | {eo_reduction:.1f}% reduction |\n")
-        f.write(f"| Approval Gap (M-F) | {gap_reduction:.1f}% reduction |\n")
-        f.write(f"| Accuracy Cost | {acc_cost:.1f}% (intentional) |\n")
+        f.write("\n\n## 5. Trade-off Summary\n\n")
+        f.write(f"| Metric | Change |\n|---|---|\n")
+        f.write(f"| Demographic Parity | {dp_reduction:.1f}% reduction in bias |\n")
+        f.write(f"| Equalized Odds | {eo_reduction:.1f}% reduction in bias |\n")
+        f.write(f"| Approval Gap (M-F) | {gap_reduction:.1f}% reduction in bias |\n")
+        f.write(f"| **Accuracy Cost** | {acc_cost:.1f}% drop |\n")
+        f.write(f"| **Specificity Cost** | {spec_drop:.3f} drop ({rf_result['Specificity']:.2f} → {agent_result['Specificity']:.2f}) |\n")
+        f.write(f"| **MCC Cost** | {mcc_drop:.3f} drop ({rf_result['MCC']:.2f} → {agent_result['MCC']:.2f}) |\n")
 
     print(f"\n✅ Full report saved to:")
     print(f"   {os.path.join(output_dir, 'full_metrics.csv')}")
