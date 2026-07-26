@@ -9,13 +9,13 @@ This table compares the **enhanced** Agentic AI system against standard ML basel
 | Logistic Regression           |      0.868 |      0.915 |                     0.184 |                 0.261 | 0.0%              |
 | Random Forest                 |      0.871 |      0.917 |                     0.178 |                 0.24  | 0.0%              |
 | XGBoost                       |      0.863 |      0.911 |                     0.18  |                 0.255 | 0.0%              |
-| Agentic System v2 (LangGraph) |      0.809 |      0.881 |                     0.037 |                 0.071 | 8.3%              |
+| Agentic System v2 (LangGraph) |      0.797 |      0.875 |                     0.068 |                 0.041 | 4.8%              |
 
 ## Agentic Pipeline Telemetry
 
 - **Hard Rejects** (pre-screening): 7 (0.5%)
 - **Hard Fast-Tracks** (pre-screening): 83 (5.5%)
-- **Fairness Escalations**: 125 (8.3%)
+- **Fairness Escalations**: 72 (4.8%)
 
 ## ROC Curve Comparison
 

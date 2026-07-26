@@ -13,6 +13,7 @@ import sys
 import pandas as pd
 import asyncio
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from orchestrator.graph import loan_pipeline
@@ -109,17 +110,28 @@ async def main():
     data_path = os.path.join(os.path.dirname(__file__), "data", "indian_credit_risk_dataset.csv")
     full_df = pd.read_csv(data_path)
     
+    # Seed mock verification databases with dataset applicants for evaluation testing
+    from tools.mock_pan import seed_from_dataframe as seed_pan
+    from tools.mock_aadhaar import seed_from_dataframe as seed_aadhaar
+    seed_pan(full_df)
+    seed_aadhaar(full_df)
+
     features = [
         "credit_score", "dti_ratio", "loan_to_income",
         "employment_score", "applicant_age", "defaults",
         "credit_utilisation", "applicant_gender"
     ]
     
+    # Split into train/test to prevent data leakage (RF must not train on test samples)
+    train_df, test_df = train_test_split(
+        full_df, test_size=0.3, random_state=42, stratify=full_df["target_default"]
+    )
+    
     print("Training RF model for simulation benchmark...")
     rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
-    rf_model.fit(full_df[features], full_df["target_default"])
+    rf_model.fit(train_df[features], train_df["target_default"])
 
-    df = full_df.sample(30, random_state=42)
+    df = test_df.sample(30, random_state=42)
     
     print(f"\nRunning spot check on {len(df)} samples...")
     print(f"{'Sim':<5} | {'Live':<5} | {'Match':<5} | {'Income':<10} | {'Credit':<6} | {'Gender'}")

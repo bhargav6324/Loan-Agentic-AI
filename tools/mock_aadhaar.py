@@ -59,3 +59,25 @@ def verify_aadhaar(
             "address": None,
             "verified": False,
         }
+
+
+def seed_from_dataframe(df) -> int:
+    """
+    Evaluation helper: seeds the mock Aadhaar database with records from a pandas DataFrame
+    (e.g., indian_credit_risk_dataset.csv) so synthetic evaluation runs pass KYC verification.
+    Does not affect production verification logic or existing database entries.
+    """
+    count = 0
+    for _, row in df.iterrows():
+        aadhaar = str(row.get("applicant_aadhaar", "")).strip()
+        if aadhaar and aadhaar != "nan" and aadhaar not in _MOCK_AADHAAR_DATABASE:
+            _MOCK_AADHAAR_DATABASE[aadhaar] = {
+                "name": str(row.get("applicant_name", "Test User")),
+                "dob": "1990-01-01",
+                "gender": "female" if row.get("applicant_gender") == 1 else "male",
+                "address": "Urban, India",
+                "status": "active",
+            }
+            count += 1
+    return count
+

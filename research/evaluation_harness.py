@@ -258,10 +258,8 @@ def run_evaluation():
                 cf_row = row.copy()
                 if row["applicant_gender"] == 1:
                     cf_row["applicant_gender"] = 0
-                    cf_row["credit_score"] = min(850, row["credit_score"] + 100)
                 else:
                     cf_row["applicant_gender"] = 1
-                    cf_row["credit_score"] = max(300, row["credit_score"] - 100)
 
                 # Recalculate ML Score with counterfactual features
                 cf_features = cf_row[features].to_frame().T

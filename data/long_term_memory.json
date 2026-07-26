@@ -439,40 +439,662 @@
       "risk_score": null,
       "risk_category": "MEDIUM",
       "bias_detected": false
+    },
+    {
+      "timestamp": 1785053946.408429,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785053955.3605201,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785053964.9504046,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785053973.4791634,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785053982.767246,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785053991.57191,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054000.4212127,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054009.0680578,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054017.9874737,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054026.9018874,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054040.1159265,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054048.9676685,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054058.2322192,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054067.1601262,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054076.1768706,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054085.0014057,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054094.0883899,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054103.493742,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054112.7363946,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054122.0275552,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054130.5275984,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054139.4162753,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054148.7722332,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054157.6623528,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054167.299138,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054176.3044865,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054185.451547,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054194.5382018,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054203.5975804,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785054214.7119598,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "rejected",
+      "risk_score": null,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056301.4231243,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 28.5,
+      "risk_category": "LOW",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056310.655897,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 28.5,
+      "risk_category": "LOW",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056326.0086908,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "approved",
+      "risk_score": 72.5,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056335.1425815,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "approved",
+      "risk_score": 72.5,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056348.1425164,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 45.0,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056357.1541111,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 45.0,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056373.137092,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 62.5,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056382.3054051,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 62.5,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056395.6982272,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "approved",
+      "risk_score": 25.0,
+      "risk_category": "LOW",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056405.2424428,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "approved",
+      "risk_score": 25.0,
+      "risk_category": "LOW",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056418.8658957,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "approved",
+      "risk_score": 73.4,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056432.7331228,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "approved",
+      "risk_score": 72.5,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056447.8872511,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 75.2,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056456.9443543,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 75.2,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056475.740948,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "approved",
+      "risk_score": 55.1,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056484.7140274,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "approved",
+      "risk_score": 55.1,
+      "risk_category": "MEDIUM",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056497.7589977,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 82.1,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056513.4332707,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "approved",
+      "risk_score": 75.0,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056522.7000031,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "approved",
+      "risk_score": 75.0,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056536.2732174,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 72.5,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056549.7617679,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "rejected",
+      "risk_score": 85.0,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056563.0152183,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 62.1,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056576.6624248,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "approved",
+      "risk_score": 75.0,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056601.941141,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "approved",
+      "risk_score": 65.0,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056625.3103514,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "approved",
+      "risk_score": 65.0,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785056676.3772147,
+      "application_id": "spot_check",
+      "gender": "female",
+      "location": "urban",
+      "employment_type": "business",
+      "decision": "approved",
+      "risk_score": 60.5,
+      "risk_category": "HIGH",
+      "bias_detected": false
     }
   ],
   "insights": {
-    "records_analyzed": 40,
+    "records_analyzed": 96,
     "status": "analyzed",
     "gender_approval_rates": {
-      "male": 0.0,
-      "female": 0.0
+      "male": 0.14,
+      "female": 0.391
     },
-    "gender_bias_gap": 0.0,
+    "gender_bias_gap": 0.251,
     "gender_bias_alert": {
-      "detected": false,
-      "gap": 0.0
+      "detected": true,
+      "gap": 0.251,
+      "most_disadvantaged_group": "male",
+      "approval_rate": 0.14,
+      "recommendation": "Tighten fairness thresholds \u2014 male applicants approved at 14% vs others at higher rates"
     },
     "location_approval_rates": {
       "rural": 0.0,
       "semi_urban": 0.0,
-      "urban": 0.0
+      "urban": 0.368
     },
     "employment_approval_rates": {
-      "self_employed": 0.0,
+      "self_employed": 0.259,
       "unemployed": 0.0,
-      "business": 0.0,
-      "salaried": 0.0
+      "business": 0.35,
+      "salaried": 0.244
     },
     "escalation_rate": 0.0,
     "risk_approval_rates": {
-      "LOW": 0.0,
-      "MEDIUM": 0.0,
-      "HIGH": 0.0
+      "LOW": 1.0,
+      "MEDIUM": 0.054,
+      "HIGH": 0.944
     },
     "risk_threshold_alert": {
-      "detected": false
+      "detected": true,
+      "high_risk_approval_rate": 0.944,
+      "avg_approved_score": 60.2,
+      "recommendation": "TIGHTEN RISK THRESHOLDS. HIGH risk approval rate is 94.4% and average approved score is 60.2/100. Lower auto-approve threshold from 40 to 35."
     }
   },
-  "last_updated": 1784732453.196844
+  "last_updated": 1785056676.3808095
 }

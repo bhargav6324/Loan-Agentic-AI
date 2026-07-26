@@ -2,4 +2,4 @@ Model,Accuracy,F1 Score,Demographic Parity Diff,Equalized Odds Diff,Escalation R
 Logistic Regression,0.868,0.915,0.184,0.261,0.0%
 Random Forest,0.871,0.917,0.178,0.240,0.0%
 XGBoost,0.863,0.911,0.180,0.255,0.0%
-Agentic System v2 (LangGraph),0.809,0.881,0.037,0.071,8.3%
+Agentic System v2 (LangGraph),0.797,0.875,0.068,0.041,4.8%
