@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\caption{Comprehensive Comparative Analysis: Standalone ML vs. Multi-Agent Underwriting}
+\label{tab:rf_vs_agentic}
+\begin{tabular}{lcccc}
+\hline
+Metric Category & Metric & Random Forest Baseline & Agentic System v7 & Relative Difference \\
+\hline
+Predictive Accuracy & F1 Score & 0.9167 & 0.8748 & -4.57\% (Acceptable Guardrail Trade-off) \\
+Predictive Accuracy & ROC-AUC & 0.7921 & 0.7859 & -0.78\% (Near Parity) \\
+Demographic Fairness & Demographic Parity Diff (ΔDP) & 0.1794 & 0.0626 & -65.11\% (Major Bias Reduction) \\
+Demographic Fairness & Equalized Odds Diff (ΔEO) & 0.2397 & 0.0361 & -84.94\% (Major Error Parity Improvement) \\
+Regulatory Compliance & Hard Policy Violations & 46 & 0 & -100.0\% (Total Regulatory Elimination) \\
+Operational Workload & Human Review Escalations & 0 (0.00\%) & 56 (3.73\%) & +3.73\% Workload for Compliance Guarantee \\
+\hline
+\end{tabular}
+\end{table}

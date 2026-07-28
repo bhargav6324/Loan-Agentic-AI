@@ -1055,46 +1055,101 @@
       "risk_score": 60.5,
       "risk_category": "HIGH",
       "bias_detected": false
+    },
+    {
+      "timestamp": 1785065304.8662987,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 30.0,
+      "risk_category": "LOW",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785065314.1995294,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 30.0,
+      "risk_category": "LOW",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785065329.4433544,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "approved",
+      "risk_score": 75.5,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785065338.5383987,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "self_employed",
+      "decision": "approved",
+      "risk_score": 75.5,
+      "risk_category": "HIGH",
+      "bias_detected": false
+    },
+    {
+      "timestamp": 1785065351.583682,
+      "application_id": "spot_check",
+      "gender": "male",
+      "location": "urban",
+      "employment_type": "salaried",
+      "decision": "approved",
+      "risk_score": 35.0,
+      "risk_category": "LOW",
+      "bias_detected": false
     }
   ],
   "insights": {
-    "records_analyzed": 96,
+    "records_analyzed": 100,
     "status": "analyzed",
     "gender_approval_rates": {
-      "male": 0.14,
+      "male": 0.222,
       "female": 0.391
     },
-    "gender_bias_gap": 0.251,
+    "gender_bias_gap": 0.169,
     "gender_bias_alert": {
       "detected": true,
-      "gap": 0.251,
+      "gap": 0.169,
       "most_disadvantaged_group": "male",
-      "approval_rate": 0.14,
-      "recommendation": "Tighten fairness thresholds \u2014 male applicants approved at 14% vs others at higher rates"
+      "approval_rate": 0.222,
+      "recommendation": "Tighten fairness thresholds \u2014 male applicants approved at 22% vs others at higher rates"
     },
     "location_approval_rates": {
       "rural": 0.0,
       "semi_urban": 0.0,
-      "urban": 0.368
+      "urban": 0.411
     },
     "employment_approval_rates": {
-      "self_employed": 0.259,
       "unemployed": 0.0,
       "business": 0.35,
-      "salaried": 0.244
+      "self_employed": 0.321,
+      "salaried": 0.292
     },
     "escalation_rate": 0.0,
     "risk_approval_rates": {
       "LOW": 1.0,
-      "MEDIUM": 0.054,
-      "HIGH": 0.944
+      "MEDIUM": 0.055,
+      "HIGH": 0.95
     },
     "risk_threshold_alert": {
       "detected": true,
-      "high_risk_approval_rate": 0.944,
-      "avg_approved_score": 60.2,
-      "recommendation": "TIGHTEN RISK THRESHOLDS. HIGH risk approval rate is 94.4% and average approved score is 60.2/100. Lower auto-approve threshold from 40 to 35."
+      "high_risk_approval_rate": 0.95,
+      "avg_approved_score": 58.4,
+      "recommendation": "TIGHTEN RISK THRESHOLDS. HIGH risk approval rate is 95.0% and average approved score is 58.4/100. Lower auto-approve threshold from 40 to 35."
     }
   },
-  "last_updated": 1785056676.3808095
+  "last_updated": 1785065351.5861447
 }

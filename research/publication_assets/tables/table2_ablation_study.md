@@ -1,0 +1,8 @@
+# Table 2: Controlled Architecture Ablation Study ($N=1,500$, $\epsilon=6.0$)
+
+| Configuration                    |   Accuracy |   Precision |   Recall |     F1 |   ROC-AUC |   Demographic Parity Diff |   Equalized Odds Diff | Approval Rate   |   Policy Violations |   Human Escalations | Escalation Rate   |   Bias Escalations Triggered |
+|:---------------------------------|-----------:|------------:|---------:|-------:|----------:|--------------------------:|----------------------:|:----------------|--------------------:|--------------------:|:------------------|-----------------------------:|
+| Config 1: Full Agentic System    |     0.7967 |      0.8009 |   0.9638 | 0.8748 |    0.7859 |                    0.0626 |                0.0361 | 88.7%           |                  34 |                  56 | 3.73%             |                           56 |
+| Config 2: Agentic - Fairness     |     0.7953 |      0.7966 |   0.9702 | 0.8748 |    0.7859 |                    0.0634 |                0.0433 | 89.8%           |                  34 |                   0 | 0.00%             |                            0 |
+| Config 3: Agentic - Policy       |     0.7407 |      0.7447 |   0.9864 | 0.8487 |    0.7859 |                    0.0062 |                0.0055 | 97.7%           |                 168 |                  92 | 6.13%             |                           92 |
+| Config 4: Random Forest Baseline |     0.8707 |      0.8725 |   0.9656 | 0.9167 |    0.7921 |                    0.1794 |                0.2397 | 81.6%           |                  46 |                   0 | 0.00%             |                            0 |

@@ -159,7 +159,7 @@ def route_after_join(state: AgentState) -> str:
 
 # ── Build the Graph ──────────────────────────────────────
 
-def build_loan_graph() -> StateGraph:
+def build_loan_graph(disable_fairness: bool = False, disable_policy: bool = False) -> StateGraph:
     graph = StateGraph(AgentState)
 
     # Nodes
@@ -167,9 +167,9 @@ def build_loan_graph() -> StateGraph:
     graph.add_node("planner", generate_initial_plan)
     graph.add_node("fan_out", fan_out)
     graph.add_node("risk_agent", risk_agent)
-    graph.add_node("policy_agent", policy_agent_node)
+    graph.add_node("policy_agent", (lambda state: state) if disable_policy else policy_agent_node)
     graph.add_node("orchestrator_decide", orchestrator_decide)
-    graph.add_node("fairness_agent", fairness_agent)
+    graph.add_node("fairness_agent", (lambda state: state) if disable_fairness else fairness_agent)
     graph.add_node("risk_reeval", risk_agent)
     graph.add_node("policy_join", policy_join)
     graph.add_node("auto_approve", auto_approve)
