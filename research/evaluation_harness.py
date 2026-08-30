@@ -11,7 +11,9 @@ and compares them against the Agentic AI pipeline that uses:
   - Counterfactual fairness escalation
 """
 
+import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -24,91 +26,6 @@ from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, f1_score, roc_curve, auc
 from fairlearn.metrics import demographic_parity_difference, equalized_odds_difference
-
-
-# ══════════════════════════════════════════════════════════
-#  ENHANCED HEURISTIC SCORE  (mirrors risk_agent.py v2)
-# ══════════════════════════════════════════════════════════
-
-def compute_heuristic_score(row):
-    """
-    Enhanced rule-based risk score (0-100, higher = riskier).
-    """
-    score = 50.0
-
-    # ── Credit score impact ───────────────────────────────
-    cs = row["credit_score"]
-    if cs >= 750:   score -= 20
-    elif cs >= 700: score -= 10
-    elif cs >= 650: score -= 0
-    elif cs >= 600: score += 10
-    else:           score += 25
-
-    # ── DTI ratio ─────────────────────────────────────────
-    dti = row["dti_ratio"]
-    if dti > 0.6:   score += 15
-    elif dti > 0.4: score += 8
-    elif dti < 0.2: score -= 5
-
-    # ── Loan-to-income ────────────────────────────────────
-    lti = row["loan_to_income"]
-    if lti > 5:    score += 15
-    elif lti > 3:  score += 8
-    elif lti < 1:  score -= 5
-
-    # ── Improvement #2: Exponential penalty for defaults ──
-    defaults = row["defaults"]
-    score += min(40, 10 * (2 ** defaults - 1))
-
-    # ── Credit utilisation (exponential at high end) ──────
-    cu = row["credit_utilisation"]
-    if cu > 90:    score += 15
-    elif cu > 80:  score += 10
-    elif cu > 60:  score += 5
-    elif cu < 30:  score -= 5
-
-    # ── Employment stability ──────────────────────────────
-    emp = row["employment_score"]
-    if emp == 3:   score -= 5
-    elif emp == 1: score += 5
-
-    # ── Improvement #3a: Loan Tenure Risk ─────────────────
-    tenure = row.get("loan_tenure_years", 10)
-    if tenure > 20:  score += 8
-    elif tenure > 10: score += 4
-
-    # ── Improvement #3b: Income Stability (Job Tenure) ────
-    emp_years = row.get("employment_years", 3)
-    if emp_years < 1:    score += 10
-    elif emp_years < 3:  score += 5
-    elif emp_years > 7:  score -= 5
-
-    # ── Improvement #3c: Loan Purpose Risk ────────────────
-    purpose_risk = {
-        "home": -8, "education": -5, "personal": 0,
-        "business": 10, "medical": 5,
-    }
-    score += purpose_risk.get(row.get("loan_purpose", "personal"), 0)
-
-    # ── Improvement #4: Risk Interaction Penalty ──────────
-    danger_flags = sum([
-        dti > 0.60,
-        defaults > 0,
-        cu > 80,
-        cs < 600,
-    ])
-    if danger_flags >= 3:   score += 20
-    elif danger_flags == 2: score += 8
-
-    # ── Improvement #5: Creditworthiness Bonus ────────────
-    bonus = 0
-    if cs > 800:                         bonus -= 5
-    if defaults == 0 and emp_years > 5:  bonus -= 5
-    if dti < 0.20:                       bonus -= 5
-    if cu < 20:                          bonus -= 3
-    score += max(bonus, -15)
-
-    return max(0, min(100, score))
 
 
 # ══════════════════════════════════════════════════════════
@@ -201,7 +118,7 @@ def run_evaluation():
             "F1 Score": f"{f1:.3f}",
             "Demographic Parity Diff": f"{dp_diff:.3f}",
             "Equalized Odds Diff": f"{eo_diff:.3f}",
-            "Escalation Rate": "0.0%",
+            "Override Trigger Rate": "0.0%",
         })
 
     # ── Simulate Agentic AI Pipeline (v2 — Enhanced) ─────
@@ -233,16 +150,8 @@ def run_evaluation():
             continue
 
         # ── 1. Risk Agent ─────────────────────────────────
-        proba_approve, proba_reject = rf_proba[i][0], rf_proba[i][1]
-        ml_score = proba_reject * 100
-
-        # Improvement #1: Dynamic Confidence-Based Weighting
-        ml_confidence = max(rf_proba[i])
-        ml_weight = 0.4 + (0.4 * ml_confidence)    # 0.4 → 0.8
-        heuristic_weight = 1 - ml_weight
-
-        heuristic_score = compute_heuristic_score(row)
-        risk_score = ml_weight * ml_score + heuristic_weight * heuristic_score
+        from ml.canonical_model_contract import compute_composite_score
+        _, _, risk_score = compute_composite_score(row.to_dict())
 
         # ── 2. Routing ────────────────────────────────────
         if risk_score <= 35:
@@ -261,22 +170,13 @@ def run_evaluation():
                 else:
                     cf_row["applicant_gender"] = 1
 
-                # Recalculate ML Score with counterfactual features
-                cf_features = cf_row[features].to_frame().T
-                cf_proba = rf_model.predict_proba(cf_features)[0]
-                cf_ml_score = cf_proba[1] * 100
-                cf_ml_confidence = max(cf_proba)
-                cf_ml_weight = 0.4 + (0.4 * cf_ml_confidence)
-                cf_heuristic_weight = 1 - cf_ml_weight
-
-                cf_heuristic = compute_heuristic_score(cf_row)
-                cf_risk_score = cf_ml_weight * cf_ml_score + cf_heuristic_weight * cf_heuristic
+                _, _, cf_risk_score = compute_composite_score(cf_row.to_dict())
 
                 if abs(cf_risk_score - risk_score) > 5:
                     escalations += 1
                     # If risk DROPS when we flip gender → model was unfairly harsh
                     if cf_risk_score < risk_score - 5:
-                        agent_approved.append(1)   # human overrides bias
+                        agent_approved.append(1)   # override rule overrides bias
                     else:
                         agent_approved.append(0)
                 else:
@@ -304,7 +204,7 @@ def run_evaluation():
         "F1 Score": f"{f1:.3f}",
         "Demographic Parity Diff": f"{dp_diff:.3f}",
         "Equalized Odds Diff": f"{eo_diff:.3f}",
-        "Escalation Rate": f"{esc_rate:.1%}",
+        "Override Trigger Rate": f"{esc_rate:.1%}",
     })
 
     # ── Output Results ────────────────────────────────────
@@ -340,11 +240,7 @@ def run_evaluation():
         if override == "HARD_FAST_TRACK":
             agent_scores.append(1.0)       # certainty of approval
             continue
-        proba_i = rf_model.predict_proba(X_test.iloc[[i]])[0]
-        ml_score_i = proba_i[1] * 100
-        ml_w = 0.4 + 0.4 * max(proba_i)
-        h_score_i = compute_heuristic_score(row)
-        risk_i = ml_w * ml_score_i + (1 - ml_w) * h_score_i
+        _, _, risk_i = compute_composite_score(row.to_dict())
         agent_scores.append(1.0 - risk_i / 100.0)   # invert: high score = approve
 
     agent_scores = np.array(agent_scores)
@@ -386,7 +282,7 @@ def run_evaluation():
         f.write("\n### Metrics Explanation\n\n")
         f.write("- **Demographic Parity Diff**: Difference in approval rates between Male and Female applicants. Closer to 0 is fairer.\n")
         f.write("- **Equalized Odds Diff**: Difference in error rates between groups. Closer to 0 is fairer.\n")
-        f.write("- **Escalation Rate**: Percentage of applications routed to human reviewers by the Fairness Agent.\n")
+        f.write("- **Override Trigger Rate**: Percentage of applications routed to the override rule by the Fairness Agent.\n")
 
     print(f"\nEvaluation complete. Results saved to:\n  {output_csv}\n  {output_md}")
     print(f"  ROC curve: {roc_path}")

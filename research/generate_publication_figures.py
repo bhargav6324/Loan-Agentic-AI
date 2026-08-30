@@ -1,12 +1,11 @@
 """
 Publication Asset Generator — High-Resolution Figures (300 DPI)
 ────────────────────────────────────────────────────────────────────────
-Generates 5 publication-quality figures for IEEE/Springer manuscripts:
+Generates 4 publication-quality figures for IEEE/Springer manuscripts:
   1. ROC Curve (ML Baseline vs. Agentic System)
-  2. Pareto Frontier (Fairness vs. Predictive Accuracy Trade-off)
-  3. Ablation Comparison Figure
-  4. Fairness Escalation Distribution (with threshold line at ε=6.0)
-  5. Policy Violation Comparison
+    2. Ablation Comparison Figure
+  3. Counterfactual Score Difference Distribution (with threshold line at ε=6.0)
+  4. Policy Violation Comparison
 
 All figures are exported in both 300 DPI PNG and vector SVG formats
 to research/publication_assets/figures/
@@ -112,87 +111,63 @@ def main():
     plt.close()
     print("✅ Generated fig1_roc_curve (.png & .svg)")
 
-    # ── 2. Pareto Frontier ────────────────────────────────────────
-    print("Generating Figure 2: Pareto Frontier...")
-    fig, ax = plt.subplots(figsize=(8, 6))
-    # Points: (DP Diff, F1 Score)
-    points = [
-        ("RF Baseline", 0.1794, 0.9167, "#66a61e", "s"),
-        ("No Policy", 0.0062, 0.8487, "#7570b3", "^"),
-        ("No Fairness", 0.0634, 0.8748, "#d95f02", "o"),
-        ("Full System (ε=6.0)", 0.0626, 0.8748, "#2b5c8f", "D"),
-    ]
     
-    for name, dp, f1, color, marker in points:
-        ax.scatter(dp, f1, color=color, s=140, marker=marker, edgecolors="black", zorder=5, label=name)
-        offset_y = 0.005 if name != "No Fairness" else -0.012
-        ax.annotate(name, (dp, f1), xytext=(0, 12), textcoords="offset points", ha="center", fontweight="bold", fontsize=10)
-
-    # Plot frontier curve connecting non-dominated points
-    f_dp = [0.0062, 0.0626, 0.1794]
-    f_f1 = [0.8487, 0.8748, 0.9167]
-    ax.plot(f_dp, f_f1, linestyle="--", color="gray", lw=1.5, zorder=3, label="Optimal Pareto Frontier")
-
-    ax.set_xlabel(r"Demographic Parity Disparity ($\Delta_{DP}$ — Lower is Better)")
-    ax.set_ylabel("Predictive Performance (F1 Score — Higher is Better)")
-    ax.set_title("Pareto Trade-off Frontier: Fairness vs. Predictive Performance")
-    ax.set_xlim(-0.01, 0.20)
-    ax.set_ylim(0.83, 0.93)
-    ax.grid(True, linestyle="--", alpha=0.5)
-    ax.legend(loc="lower right", frameon=True)
-    plt.tight_layout()
-    plt.savefig(os.path.join(out_dir, "fig2_pareto_frontier.png"), dpi=300)
-    plt.savefig(os.path.join(out_dir, "fig2_pareto_frontier.svg"))
-    plt.close()
-    print("✅ Generated fig2_pareto_frontier (.png & .svg)")
-
-    # ── 3. Ablation Comparison Figure ─────────────────────────────
-    print("Generating Figure 3: Ablation Comparison Figure...")
-    ablation_df = pd.read_csv(os.path.join(os.path.dirname(__file__), "final_results", "ablation_results.csv"))
+    # ── 2. Ablation Comparison Figure ─────────────────────────────
+    print("Generating Figure 2: Ablation Comparison Figure...")
+    ablation_df = pd.read_csv(os.path.join(os.path.dirname(__file__), "final_results", "ablation_results_per_seed.csv"), comment='#')
     
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
     labels = ["Full System", "No Fairness", "No Policy", "RF Baseline"]
     colors = ["#2b5c8f", "#d95f02", "#7570b3", "#66a61e"]
 
+    conf_names = ["Config 1: Full Agentic System", "Config 2: Agentic - Fairness", "Config 3: Agentic - Policy", "Config 4: Random Forest Baseline"]
+    def get_stats(col):
+        m, s = [], []
+        for name in conf_names:
+            series = ablation_df[ablation_df["Configuration"] == name][col]
+            m.append(series.mean())
+            s.append(series.std())
+        return m, s
+
     # Subplot 1: F1 Score
-    f1_vals = ablation_df["F1"].values
-    axes[0].bar(labels, f1_vals, color=colors, width=0.5, edgecolor="black")
+    f1_m, f1_s = get_stats("F1")
+    axes[0].bar(labels, f1_m, yerr=f1_s, color=colors, width=0.5, edgecolor="black", capsize=5)
     axes[0].set_title("F1 Score (Predictive)", fontweight="bold")
     axes[0].set_ylim(0.7, 1.0)
-    for i, v in enumerate(f1_vals):
-        axes[0].text(i, v + 0.01, f"{v:.3f}", ha="center", fontweight="bold")
+    for i, (m, s) in enumerate(zip(f1_m, f1_s)):
+        axes[0].text(i, m + 0.01 + s, f"{m:.3f}", ha="center", fontweight="bold")
     axes[0].grid(axis="y", linestyle="--", alpha=0.5)
     axes[0].tick_params(axis="x", rotation=15)
 
     # Subplot 2: Policy Violations
-    viol_vals = ablation_df["Policy Violations"].values
-    axes[1].bar(labels, viol_vals, color=colors, width=0.5, edgecolor="black")
+    viol_m, viol_s = get_stats("Policy Violations")
+    axes[1].bar(labels, viol_m, yerr=viol_s, color=colors, width=0.5, edgecolor="black", capsize=5)
     axes[1].set_title("Regulatory Policy Violations", fontweight="bold")
-    axes[1].set_ylim(0, max(viol_vals) * 1.2)
-    for i, v in enumerate(viol_vals):
-        axes[1].text(i, v + 3, str(v), ha="center", fontweight="bold")
+    axes[1].set_ylim(0, max([m+s for m,s in zip(viol_m, viol_s)]) * 1.2)
+    for i, (m, s) in enumerate(zip(viol_m, viol_s)):
+        axes[1].text(i, m + 2 + s, f"{m:.1f}", ha="center", fontweight="bold")
     axes[1].grid(axis="y", linestyle="--", alpha=0.5)
     axes[1].tick_params(axis="x", rotation=15)
 
-    # Subplot 3: Escalations
-    esc_vals = ablation_df["Human Escalations"].values
-    axes[2].bar(labels, esc_vals, color=colors, width=0.5, edgecolor="black")
-    axes[2].set_title("Human Review Escalations", fontweight="bold")
-    axes[2].set_ylim(0, max(esc_vals) * 1.2 if max(esc_vals) > 0 else 50)
-    for i, v in enumerate(esc_vals):
-        axes[2].text(i, v + 2, str(v), ha="center", fontweight="bold")
+    # 3. Operational Workload (Override Rule Triggers)
+    esc_m, esc_s = get_stats("Override Rule Triggers")
+    axes[2].bar(labels, esc_m, yerr=esc_s, color=["#cc0000", "#5c5c8a", "#2d862d", "#333333"], edgecolor="black", capsize=5)
+    axes[2].set_title("Override Rule Triggers", fontweight="bold")
+    axes[2].set_ylim(0, max([m+s for m,s in zip(esc_m, esc_s)]) * 1.2 if max(esc_m) > 0 else 50)
+    for i, (m, s) in enumerate(zip(esc_m, esc_s)):
+        axes[2].text(i, m + 1 + s, f"{m:.1f}", ha="center", fontweight="bold")
     axes[2].grid(axis="y", linestyle="--", alpha=0.5)
     axes[2].tick_params(axis="x", rotation=15)
 
-    fig.suptitle("Controlled Multi-Agent Architecture Ablation Comparison", fontsize=15, fontweight="bold", y=0.98)
+    fig.suptitle("Controlled Multi-Agent Architecture Ablation Comparison (n=10)", fontsize=15, fontweight="bold", y=0.98)
     plt.tight_layout(rect=[0, 0, 1, 0.95])
-    plt.savefig(os.path.join(out_dir, "fig3_ablation_comparison.png"), dpi=300)
-    plt.savefig(os.path.join(out_dir, "fig3_ablation_comparison.svg"))
+    plt.savefig(os.path.join(out_dir, "fig2_ablation_comparison.png"), dpi=300)
+    plt.savefig(os.path.join(out_dir, "fig2_ablation_comparison.svg"))
     plt.close()
-    print("✅ Generated fig3_ablation_comparison (.png & .svg)")
+    print("✅ Generated fig2_ablation_comparison (.png & .svg)")
 
-    # ── 4. Fairness Escalation Distribution ───────────────────────
-    print("Generating Figure 4: Fairness Escalation Distribution...")
+    # ── 3. Counterfactual Score Difference Distribution ───────────────────────
+    print("Generating Figure 3: Counterfactual Score Difference Distribution...")
     fig, ax = plt.subplots(figsize=(8, 5))
     n_bins, bins, patches = ax.hist(deltas, bins=30, color="#2b5c8f", edgecolor="black", alpha=0.85)
     
@@ -208,35 +183,36 @@ def main():
     ax.legend(loc="upper right", frameon=True)
     ax.grid(True, linestyle="--", alpha=0.5)
     plt.tight_layout()
-    plt.savefig(os.path.join(out_dir, "fig4_fairness_distribution.png"), dpi=300)
-    plt.savefig(os.path.join(out_dir, "fig4_fairness_distribution.svg"))
+    plt.savefig(os.path.join(out_dir, "fig3_fairness_distribution.png"), dpi=300)
+    plt.savefig(os.path.join(out_dir, "fig3_fairness_distribution.svg"))
     plt.close()
-    print("✅ Generated fig4_fairness_distribution (.png & .svg)")
+    print("✅ Generated fig3_fairness_distribution (.png & .svg)")
 
-    # ── 5. Policy Violation Comparison ────────────────────────────
-    print("Generating Figure 5: Policy Violation Comparison...")
+    # ── 4. Policy Violation Comparison ────────────────────────────
+    print("Generating Figure 4: Policy Violation Comparison...")
     fig, ax = plt.subplots(figsize=(8, 5))
-    bars = ax.bar(labels, viol_vals, color=["#2b5c8f", "#2b5c8f", "#d95f02", "#66a61e"], width=0.5, edgecolor="black")
+    viol_m, viol_s = get_stats("Policy Violations")
+    bars = ax.bar(labels, viol_m, yerr=viol_s, color=["#2b5c8f", "#2b5c8f", "#d95f02", "#66a61e"], width=0.5, edgecolor="black", capsize=5)
     
     # Highlight No Policy bar
     bars[2].set_facecolor("#d95f02")
     bars[2].set_edgecolor("red")
     bars[2].set_linewidth(2)
 
-    for i, v in enumerate(viol_vals):
-        ax.text(i, v + 4, f"{v}\n({'0%' if v==0 else f'{(v/1500)*100:.1f}%'})", ha="center", fontweight="bold", fontsize=10)
+    for i, (m, s) in enumerate(zip(viol_m, viol_s)):
+        ax.text(i, m + 4 + s, f"{m:.1f}\\n({'0%' if m==0 else f'{(m/1500)*100:.1f}%'})", ha="center", fontweight="bold", fontsize=10)
 
     ax.set_ylabel("Number of Illegal Policy Approvals")
     ax.set_title("Regulatory Compliance: Hard Policy Violations by Configuration")
     ax.set_ylim(0, 200)
     ax.grid(axis="y", linestyle="--", alpha=0.5)
     plt.tight_layout()
-    plt.savefig(os.path.join(out_dir, "fig5_policy_violations.png"), dpi=300)
-    plt.savefig(os.path.join(out_dir, "fig5_policy_violations.svg"))
+    plt.savefig(os.path.join(out_dir, "fig4_policy_violations.png"), dpi=300)
+    plt.savefig(os.path.join(out_dir, "fig4_policy_violations.svg"))
     plt.close()
-    print("✅ Generated fig5_policy_violations (.png & .svg)")
+    print("✅ Generated fig4_policy_violations (.png & .svg)")
 
-    print("\n✅ All 5 publication figures exported successfully (300 DPI PNG & SVG)!")
+    print("\n✅ All 4 publication figures exported successfully (300 DPI PNG & SVG)!")
 
 
 if __name__ == "__main__":

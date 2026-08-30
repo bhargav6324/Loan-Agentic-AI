@@ -133,7 +133,7 @@ def generate_decision_workflow(out_dir):
     draw_box(ax, 5.0, 2.0, 3.5, 0.7, "Counterfactual Fairness Audit\n(Flip Sensitive Attribute & Check |ΔCF|)", "#ffe6e6", "#cc0000")
     draw_arrow(ax, 5.0, 3.15, 5.0, 2.35, "Policy Pass")
 
-    draw_box(ax, 5.0, 0.5, 3.0, 0.6, "Terminal Action\n(Approve / Escalate to Human)", "#d9f2d9", "#006600", style="square,pad=0.1")
+    draw_box(ax, 5.0, 0.5, 3.0, 0.6, "Terminal Action\n(Approve / Route to Override Rule)", "#d9f2d9", "#006600", style="square,pad=0.1")
     draw_arrow(ax, 5.0, 1.65, 5.0, 0.8)
     draw_arrow(ax, 2.0, 4.7, 3.5, 0.5, "Approved", rad=0.2, color="#006600")
     draw_arrow(ax, 1.5, 7.9, 3.5, 0.5, "Approved", rad=0.4, color="#006600")
@@ -152,7 +152,7 @@ def generate_fairness_workflow(out_dir):
     ax.set_ylim(0, 10)
     ax.axis("off")
 
-    ax.text(5, 9.5, "Counterfactual Fairness Audit & Human Escalation Workflow", ha="center", fontsize=15, fontweight="bold")
+    ax.text(5, 9.5, "Counterfactual Fairness Audit & Override Rule Trigger Workflow", ha="center", fontsize=15, fontweight="bold")
 
     draw_box(ax, 5, 8.3, 4.5, 0.7, "Medium-Risk Applicant Profile\n(Original Gender G, Original Risk Score R)", "#fff0f5", "#b30047")
     draw_box(ax, 5, 6.8, 4.5, 0.7, "Counterfactual Feature Cloning\n(Invert Protected Attribute: G_cf = 1 - G)", "#e6f2ff", "#2b5c8f")
@@ -165,11 +165,11 @@ def generate_fairness_workflow(out_dir):
     draw_arrow(ax, 5, 4.95, 5, 4.15)
 
     draw_box(ax, 2.5, 2.0, 3.2, 0.7, "No Severe Bias (ΔCF ≤ 6.0)\nProceed to Standard Approval", "#d9f2d9", "#006600")
-    draw_box(ax, 7.5, 2.0, 3.2, 0.7, "Bias Alert (ΔCF > 6.0)\nTrigger Human Review Escalation", "#ffe6e6", "#cc0000")
+    draw_box(ax, 7.5, 2.0, 3.2, 0.7, "Bias Alert (ΔCF > 6.0)\nRoute to the Override Rule", "#ffe6e6", "#cc0000")
     draw_arrow(ax, 4.0, 3.45, 2.5, 2.35, "ΔCF ≤ 6.0", color="#006600")
     draw_arrow(ax, 6.0, 3.45, 7.5, 2.35, "ΔCF > 6.0", color="#cc0000")
 
-    draw_box(ax, 7.5, 0.5, 3.5, 0.6, "Human Auditor Audit\n(Override Harsh Bias / Confirm Policy)", "#f2f2f2", "#333333", style="square,pad=0.1")
+    draw_box(ax, 7.5, 0.5, 3.5, 0.6, "Automated Override Rule\n(Override Harsh Bias / Confirm Policy)", "#f2f2f2", "#333333", style="square,pad=0.1")
     draw_arrow(ax, 7.5, 1.65, 7.5, 0.8, "Audit Case")
 
     plt.tight_layout()

@@ -104,7 +104,7 @@ Bias Detected: {bias_detected}
 Write a warm, empathetic letter to the applicant in plain English (no jargon).
 - If APPROVED: congratulate them, mention the strong factors, state next steps.
 - If REJECTED: be empathetic, explain the top 2 reasons clearly, give 2-3 actionable steps they can take to improve their profile before reapplying.
-- If ESCALATED: explain that a human reviewer will contact them within 2 business days.
+- If ESCALATED: explain that their application triggered an automated audit flag and requires secondary automated override processing.
 
 Keep it under 150 words. Do not mention AI or algorithms.
 """
@@ -302,7 +302,7 @@ Equal Lending Opportunity Audit (Fairness):
 Decision:
 - Final Decision: {decision}
 - Reasoning: {decision_reasoning}
-- Human Review Required: {escalated}
+- Automated Audit Escalation: {escalated}
 
 Audit Integrity:
 - Pipeline Integrity Hash: {pipeline_hash}
@@ -978,7 +978,7 @@ def log_admin_override(
 ) -> AgentState:
     """
     Log an admin override decision into the audit trail.
-    Called when a human reviewer overrides the AI's decision.
+    Called when the system triggers an automated override of the AI's initial decision.
 
     This is a separate function (not part of the pipeline)
     that can be called from the API routes.

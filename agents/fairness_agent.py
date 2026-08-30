@@ -15,19 +15,20 @@ from agents.llm_client import call_groq
 """
 Fairness Agent — Counterfactual Bias Detection
 ───────────────────────────────────────────────
-Runs counterfactual analysis on MEDIUM-risk (borderline) cases
+Runs gender attribute-flip sensitivity audit on MEDIUM-risk (borderline) cases
 to detect potential demographic bias.
 
 Methodology:
   1. Takes the original risk score
   2. Recalculates with protected attributes flipped (gender, age group, location)
   3. Logs the SIGNED delta score (cf_score - original_score) for every test
-  4. If the decision changes → bias detected → escalate to human review
+  4. If the decision changes → bias detected → trigger automated override
   5. If no bias → approve the borderline case
 
 Key patent claim: every bias determination is backed by a concrete, verifiable
 numerical delta — not a black-box flag. The signed delta shows *direction*
-(positive = applicant was scored more harshly with the original attribute).
+(positive = counterfactual risk higher, so original was scored leniently;
+ negative = counterfactual risk lower, so original was scored harshly).
 """
 
 
@@ -91,13 +92,13 @@ def _run_fairness_math(state: AgentState) -> AgentState:
     """
     Fairness Agent node for LangGraph.
 
-    Only runs for MEDIUM-risk cases. Performs counterfactual analysis
+    Only runs for MEDIUM-risk cases. Performs gender attribute-flip sensitivity audit
     across three protected attributes: gender, age, and location.
 
     Every result records:
       - signed_delta = cf_score - original_score
-          Positive → original was scored MORE harshly (possible adverse treatment)
-          Negative → flip made score WORSE (possible adverse impact on that group)
+          Positive → original was scored MORE leniently (counterfactual risk higher)
+          Negative → original was scored MORE harshly (counterfactual risk lower)
       - score_difference = |signed_delta| (absolute magnitude)
       - bias_flag = True if magnitude exceeds per-attribute threshold
 
@@ -362,27 +363,19 @@ def _run_fairness_math(state: AgentState) -> AgentState:
         "bias_detected": bias_detected,
         "recommendation": "escalate" if bias_detected else "approve",
         "summary": (
-            "⚠️ Potential bias detected — decision varies with protected attributes. Escalating to human review."
+            "⚠️ Potential bias detected — decision varies with protected attributes. Flagged for automated override trigger."
             if bias_detected else
             "✅ No demographic bias detected — decision is consistent across all protected attributes."
         ),
     }
 
     if bias_detected:
-        flagged_attrs = [a for a, v in counterfactual_delta_summary.items() if v["bias_flagged"]]
-        summary = (
-            f"⚠️ BIAS DETECTED in: {', '.join(flagged_attrs)} — "
-            f"Worst delta: gender Δ={counterfactual_delta_summary['gender']['worst_signed_delta']:+.2f}, "
-            f"age Δ={counterfactual_delta_summary['age']['worst_signed_delta']:+.2f}, "
-            f"location Δ={counterfactual_delta_summary['location']['worst_signed_delta']:+.2f} — "
-            f"Recommending escalation to human reviewer"
-        )
+        flags = [
+            (a, v["worst_signed_delta"]) for a, v in counterfactual_delta_summary.items() if v["bias_flagged"]
+        ]
+        summary = f"Flagged for automated override trigger. {len(flags)} bias concern(s) detected: {'; '.join(f'{attr} Δ={delta:+.2f}' for attr, delta in flags)}"
     else:
-        summary = (
-            f"✅ No bias detected — gender Δ={counterfactual_delta_summary['gender']['worst_signed_delta']:+.2f}, "
-            f"age Δ={counterfactual_delta_summary['age']['worst_signed_delta']:+.2f}, "
-            f"location Δ={counterfactual_delta_summary['location']['worst_signed_delta']:+.2f} — Fairness check passed"
-        )
+        summary = "No significant bias detected across counterfactual scenarios. Approved for final commitment."
 
     logs.append({
         "agent": "fairness_agent",
@@ -484,7 +477,7 @@ Respond ONLY with valid JSON:
 {{
     "verdict": "ACCEPT_DEFENSE" or "REJECT_DEFENSE",
     "reasoning": "why you accept or reject the defense",
-    "escalate_to_human": true or false
+    "trigger_automated_override": true or false
 }}
 """
 
@@ -614,7 +607,7 @@ def _run_fairness_debate(state: AgentState) -> AgentState:
             fairness_verdict = {
                 "verdict": "REJECT_DEFENSE",
                 "reasoning": f"Fallback: Cannot verify defense for {bias_source}. Rejecting to ensure compliance.",
-                "escalate_to_human": True,
+                "trigger_automated_override": True,
             }
 
         logs.append({
@@ -633,8 +626,8 @@ def _run_fairness_debate(state: AgentState) -> AgentState:
         new_score = max(0.0, min(100.0, float(new_score)))
         outcome = "CONCEDED"
         outcome_detail = (
-            f"Risk Officer conceded: {risk_response.get('argument', 'N/A')}. "
-            f"Score adjusted {current_score:.1f} → {new_score:.1f}."
+            f"Risk score changed by {delta:+.1f} points when {bias_source} was flipped to '{cf_value}'. "
+            f"{'Original was scored more leniently' if delta > 0 else 'Original was scored more harshly'}."
         )
         state = {**state, "risk_score": new_score, "bias_detected": False}
 
@@ -647,7 +640,7 @@ def _run_fairness_debate(state: AgentState) -> AgentState:
             f"Defense rejected: {fairness_verdict.get('reasoning', 'N/A')}. "
             f"Bias in {bias_source} confirmed. Score adjusted {current_score:.1f} → {new_score:.1f}."
         )
-        escalate = fairness_verdict.get("escalate_to_human", False)
+        escalate = fairness_verdict.get("trigger_automated_override", False)
         state = {
             **state,
             "risk_score": new_score,

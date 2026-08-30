@@ -54,12 +54,10 @@ AGENT_REGISTRY = {
         "Re-runs fraud checks. Useful if initial check was borderline (REVIEW) "
         "and you want higher confidence before approving."
     ),
-    "auto_approve": "[TERMINAL] Approve immediately. Use for LOW risk, clean KYC, no policy issues.",
-    "auto_reject": "[TERMINAL] Reject immediately. Use for HIGH risk, KYC failure, fraud, critical violations.",
-    "final_decision": "[TERMINAL] Nuanced decision for MEDIUM-risk or borderline cases after full review.",
+    "decision_commit": "[TERMINAL] Propose a final decision (approve, reject, escalate) and route to commitment.",
 }
 
-TERMINAL_AGENTS = {"auto_approve", "auto_reject", "final_decision"}
+TERMINAL_AGENTS = {"decision_commit", "policy_join"}
 VALID_AGENTS = set(AGENT_REGISTRY.keys())
 
 
@@ -170,12 +168,13 @@ Step {iteration} of {max_iterations} (you MUST terminate before step {max_iterat
    an updated risk assessment.
 6. Do NOT re-run an agent that already executed UNLESS state has changed \
    since (e.g., risk_reeval after fairness adjustments).
-7. For borderline cases where you are uncertain, use final_decision.
-8. You MUST terminate with auto_approve, auto_reject, or final_decision.
+7. For borderline cases where you are uncertain, propose escalate or reject.
+8. You MUST terminate with decision_commit or policy_join.
 
 Respond ONLY with valid JSON:
 {{
     "next_agent": "agent_name",
+    "decision_proposal": "approve, reject, or escalate (only required if next_agent is decision_commit or policy_join)",
     "reasoning": "2-3 sentences explaining your decision, referencing specific state data."
 }}
 """
@@ -203,9 +202,8 @@ You need to plan the sequence of agents to run AFTER intake.
 1. The typical path for a normal application is:
    ['fan_out', 'policy_join', 'final_decision']
    (Note: fan_out automatically triggers risk_agent and policy_agent in parallel)
-2. If you see immediate obvious reasons for rejection (e.g. extremely young age, \
-   astronomical loan amount for low income), you can plan to skip fairness and \
-   go straight to ['fan_out', 'policy_join', 'auto_reject'].
+2. If you see immediate obvious reasons for rejection, you can plan to skip fairness and \
+   go straight to ['fan_out', 'policy_join'].
 3. If the profile has demographics known to historically suffer bias (e.g. rural, \
    certain employments), explicitly include 'fairness_agent' after the join.
 4. Your plan is a STARTING POINT. The orchestrator will still dynamically route \
@@ -282,16 +280,16 @@ def _fallback_decide(state: AgentState, iteration: int) -> dict:
 
     # Immediate rejection cases
     if fraud_detected or kyc_failed:
-        return {"next_agent": "auto_reject", "reasoning": "Fallback: KYC/fraud failure → auto-reject."}
+        return {"next_agent": "policy_join", "decision_proposal": "reject", "reasoning": "Fallback: KYC/fraud failure → reject."}
 
     if risk_category == "HIGH":
-        return {"next_agent": "auto_reject", "reasoning": "Fallback: HIGH risk → auto-reject."}
+        return {"next_agent": "policy_join", "decision_proposal": "reject", "reasoning": "Fallback: HIGH risk → reject."}
 
     if risk_category == "LOW" and "policy_agent" in agents_run:
         if state.get("policy_passed", True):
-            return {"next_agent": "auto_approve", "reasoning": "Fallback: LOW risk + policy passed → auto-approve."}
+            return {"next_agent": "policy_join", "decision_proposal": "approve", "reasoning": "Fallback: LOW risk + policy passed → approve."}
         else:
-            return {"next_agent": "auto_reject", "reasoning": "Fallback: LOW risk but policy failed → auto-reject."}
+            return {"next_agent": "policy_join", "decision_proposal": "reject", "reasoning": "Fallback: LOW risk but policy failed → reject."}
 
     # LOW risk, policy not yet run
     if risk_category == "LOW" and "policy_agent" not in agents_run:
@@ -303,7 +301,7 @@ def _fallback_decide(state: AgentState, iteration: int) -> dict:
 
     # Check if policy failed
     if not state.get("policy_passed", True):
-        return {"next_agent": "auto_reject", "reasoning": "Fallback: Policy violations found → auto-reject."}
+        return {"next_agent": "policy_join", "decision_proposal": "reject", "reasoning": "Fallback: Policy violations found → reject."}
 
     if "fairness_agent" not in agents_run:
         return {"next_agent": "fairness_agent", "reasoning": "Fallback: MEDIUM risk, running fairness analysis."}
@@ -312,7 +310,8 @@ def _fallback_decide(state: AgentState, iteration: int) -> dict:
     if "risk_reeval" not in agents_run and state.get("bias_detected"):
         return {"next_agent": "risk_reeval", "reasoning": "Fallback: Bias detected, re-evaluating risk."}
 
-    return {"next_agent": "final_decision", "reasoning": "Fallback: All checks done, making final decision."}
+    decision_prop = "escalate" if state.get("bias_detected") else "approve"
+    return {"next_agent": "policy_join", "decision_proposal": decision_prop, "reasoning": "Fallback: All checks done, making final decision."}
 
 
 # ══════════════════════════════════════════════════════════
@@ -415,7 +414,7 @@ def _call_llm_orchestrator(state: AgentState, iteration: int) -> dict:
         parsed = json.loads(content)
 
         next_agent = parsed.get("next_agent", "").strip()
-        reasoning = parsed.get("reasoning", "No reasoning provided.")
+        decision_proposal = parsed.get("decision_proposal", "approve") if next_agent in TERMINAL_AGENTS else None
 
         # Validate
         if next_agent not in VALID_AGENTS:
@@ -423,7 +422,7 @@ def _call_llm_orchestrator(state: AgentState, iteration: int) -> dict:
             fb["reasoning"] = f"LLM returned invalid agent '{next_agent}'. {fb['reasoning']}"
             return fb
 
-        return {"next_agent": next_agent, "reasoning": f"[LLM-Agentic] {reasoning}"}
+        return {"next_agent": next_agent, "decision_proposal": decision_proposal, "reasoning": f"[LLM-Agentic] {reasoning}"}
 
     except Exception as e:
         print(f"Orchestrator LLM failed: {e}")
@@ -478,6 +477,7 @@ def orchestrator_decide(state: AgentState) -> AgentState:
 
     next_agent = decision["next_agent"]
     reasoning = decision["reasoning"]
+    decision_proposal = decision.get("decision_proposal")
 
     # Record this decision
     history.append({
@@ -503,7 +503,7 @@ def orchestrator_decide(state: AgentState) -> AgentState:
     # Build a running plan list for backward compatibility with frontend
     executed_agents = [h["agent"] for h in history]
 
-    return {
+    ret_state = {
         **state,
         "orchestrator_next_agent": next_agent,
         "orchestrator_history": history,
@@ -515,4 +515,9 @@ def orchestrator_decide(state: AgentState) -> AgentState:
         ),
         "agent_logs": logs,
     }
+    
+    if decision_proposal:
+        ret_state["decision_proposal"] = decision_proposal
+        
+    return ret_state
 

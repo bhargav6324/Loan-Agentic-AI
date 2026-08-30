@@ -125,7 +125,7 @@ def run_full_metrics():
         metrics = compute_all_metrics(
             true_approved, approved, proba, gender_features, name
         )
-        metrics["Escalation Rate"] = 0.0
+        metrics["Override Trigger Rate"] = 0.0
         metrics["Hard Rejects"] = 0
         metrics["Hard Fast-Tracks"] = 0
         all_results.append(metrics)
@@ -207,7 +207,7 @@ def run_full_metrics():
         true_approved, agent_approved, agent_scores, gender_features,
         "Agentic System v2 (LangGraph)"
     )
-    agent_metrics["Escalation Rate"] = escalations / len(X_test)
+    agent_metrics["Override Trigger Rate"] = escalations / len(X_test)
     agent_metrics["Hard Rejects"] = hard_rejects
     agent_metrics["Hard Fast-Tracks"] = hard_fast_tracks
     all_results.append(agent_metrics)

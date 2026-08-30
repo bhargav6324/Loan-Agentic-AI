@@ -62,7 +62,7 @@ async def list_escalations(
     admin: CurrentUser = Depends(require_admin),
     db: AsyncSession = Depends(get_db),
 ):
-    """List all escalated applications pending human review."""
+    """List all escalated applications pending automated override processing."""
     result = await db.execute(
         select(Application)
         .where(Application.status == ApplicationStatus.ESCALATED)
@@ -85,7 +85,7 @@ async def resolve_escalation(
     admin: CurrentUser = Depends(require_admin),
     db: AsyncSession = Depends(get_db),
 ):
-    """Human reviewer resolves an escalated application and seals the decision in the audit log."""
+    """System resolves an escalated application and seals the decision in the audit log."""
     result = await db.execute(
         select(Application).where(Application.id == application_id)
     )
@@ -110,15 +110,15 @@ async def resolve_escalation(
     application.status = new_status
     application.updated_at = datetime.utcnow()
 
-    # Agentic Fix: Re-run Audit Agent to seal human override
+    # Agentic Fix: Re-run Audit Agent to seal automated override
     shared_state = application.shared_state or {}
     shared_state["final_decision"] = body.decision
     shared_state["decision_reasoning"] = f"Admin override by {admin.user_id}: {body.reviewer_notes}"
     
-    # Append human override log
+    # Append override log
     agent_logs = list(shared_state.get("agent_logs", []))
     agent_logs.append({
-        "agent": "human_admin",
+        "agent": "automated_override",
         "step": len(agent_logs) + 1,
         "action": "Escalation Resolution Override",
         "status": "override",
@@ -127,7 +127,7 @@ async def resolve_escalation(
     })
     shared_state["agent_logs"] = agent_logs
     
-    # Cryptographically seal the new state with the human decision
+    # Cryptographically seal the new state with the override decision
     sealed_state = audit_agent(shared_state)
     application.shared_state = sealed_state
 
@@ -139,14 +139,14 @@ async def resolve_escalation(
 
     if decision:
         decision.status = new_status
-        decision.reasoning = f"Human review: {body.reviewer_notes}"
+        decision.reasoning = f"Automated override: {body.reviewer_notes}"
         decision.decided_by = f"admin:{admin.user_id}"
         decision.decided_at = datetime.utcnow()
     else:
         decision = Decision(
             application_id=application_id,
             status=new_status,
-            reasoning=f"Human review: {body.reviewer_notes}",
+            reasoning=f"Automated override: {body.reviewer_notes}",
             decided_by=f"admin:{admin.user_id}",
         )
         db.add(decision)

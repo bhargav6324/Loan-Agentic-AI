@@ -66,18 +66,18 @@ def generate_case_studies(df, features, rf_model, X_test):
             if diff > 6.0:
                 # Determine action
                 if cf_risk_score < risk_score - 6.0:
-                    action = "Escalated → Human Override (Approved)"
+                    action = "Routed to Override Rule (Approved)"
                     reason = (
                         f"Model exhibited severe proxy bias: original profile ({orig_gender_str}) "
                         f"received risk score {risk_score:.1f}, but counterfactual ({cf_gender_str}) "
-                        f"dropped to {cf_risk_score:.1f} (Δ={diff:.1f} pts). Human reviewer overrode "
+                        f"dropped to {cf_risk_score:.1f} (Δ={diff:.1f} pts). The override rule overrode "
                         f"the harsh ML score to approve."
                     )
                 else:
-                    action = "Escalated → Human Review (Rejected)"
+                    action = "Routed to Override Rule (Rejected)"
                     reason = (
                         f"Model sensitivity alert: flipping demographic attribute changed risk score "
-                        f"by {diff:.1f} points (>6.0 threshold). Human audit confirmed high debt-to-income "
+                        f"by {diff:.1f} points (>6.0 threshold). Automated audit confirmed high debt-to-income "
                         f"and maintained rejection."
                     )
 
@@ -140,10 +140,10 @@ def main():
     print("✅ Generated Table 4 (Case Studies)")
 
     # ── 2. Table 1: Overall System Performance ────────────────────
-    ablation_df = pd.read_csv(os.path.join(os.path.dirname(__file__), "final_results", "ablation_results.csv"))
+    ablation_df = pd.read_csv(os.path.join(os.path.dirname(__file__), "final_results", "ablation_results.csv"), comment='#')
     t1_df = ablation_df[ablation_df["Configuration"].isin(["Config 1: Full Agentic System", "Config 4: Random Forest Baseline"])].copy()
     t1_df["Configuration"] = t1_df["Configuration"].replace({"Config 1: Full Agentic System": "LangGraph Agentic System v7", "Config 4: Random Forest Baseline": "Unconstrained RF Baseline"})
-    t1_cols = ["Configuration", "Accuracy", "F1", "ROC-AUC", "Demographic Parity Diff", "Equalized Odds Diff", "Policy Violations", "Escalation Rate"]
+    t1_cols = ["Configuration", "Accuracy", "F1", "ROC-AUC", "Demographic Parity Diff", "Equalized Odds Diff", "Policy Violations", "Override Trigger Rate"]
     t1_df = t1_df[t1_cols]
 
     with open(os.path.join(out_dir, "table1_overall_performance.md"), "w") as f:
@@ -160,13 +160,46 @@ def main():
     print("✅ Generated Table 2 (Ablation Study)")
 
     # ── 4. Table 3: Random Forest vs Agentic System ───────────────
+    seed_df = pd.read_csv(os.path.join(os.path.dirname(__file__), "final_results", "ablation_results_per_seed.csv"))
+    def get_mean(conf, metric):
+        return seed_df[seed_df["Configuration"] == conf][metric].mean()
+
+    c1 = "Config 1: Full Agentic System"
+    c4 = "Config 4: Random Forest Baseline"
+    
+    rf_f1 = get_mean(c4, "F1")
+    ag_f1 = get_mean(c1, "F1")
+    diff_f1 = (ag_f1 - rf_f1) / rf_f1 * 100 if rf_f1 > 0 else 0
+
+    rf_auc = get_mean(c4, "ROC-AUC")
+    ag_auc = get_mean(c1, "ROC-AUC")
+    diff_auc = (ag_auc - rf_auc) / rf_auc * 100 if rf_auc > 0 else 0
+
+    rf_dp = get_mean(c4, "Demographic Parity Diff")
+    ag_dp = get_mean(c1, "Demographic Parity Diff")
+    diff_dp = (ag_dp - rf_dp) / rf_dp * 100 if rf_dp > 0 else 0
+
+    rf_eo = get_mean(c4, "Equalized Odds Diff")
+    ag_eo = get_mean(c1, "Equalized Odds Diff")
+    diff_eo = (ag_eo - rf_eo) / rf_eo * 100 if rf_eo > 0 else 0
+
+    rf_pol = get_mean(c4, "Policy Violations")
+    ag_pol = get_mean(c1, "Policy Violations")
+    diff_pol = (ag_pol - rf_pol) / rf_pol * 100 if rf_pol > 0 else 0
+
+    rf_esc = get_mean(c4, "Override Rule Triggers")
+    rf_esc_rate = get_mean(c4, "Override Trigger Rate")
+    ag_esc = get_mean(c1, "Override Rule Triggers")
+    ag_esc_rate = get_mean(c1, "Override Trigger Rate")
+    diff_esc = (ag_esc_rate - rf_esc_rate) * 100
+
     t3_df = pd.DataFrame([
-        {"Metric Category": "Predictive Accuracy", "Metric": "F1 Score", "Random Forest Baseline": "0.9167", "Agentic System v7": "0.8748", "Relative Difference": "-4.57% (Acceptable Guardrail Trade-off)"},
-        {"Metric Category": "Predictive Accuracy", "Metric": "ROC-AUC", "Random Forest Baseline": "0.7921", "Agentic System v7": "0.7859", "Relative Difference": "-0.78% (Near Parity)"},
-        {"Metric Category": "Demographic Fairness", "Metric": "Demographic Parity Diff (ΔDP)", "Random Forest Baseline": "0.1794", "Agentic System v7": "0.0626", "Relative Difference": "-65.11% (Major Bias Reduction)"},
-        {"Metric Category": "Demographic Fairness", "Metric": "Equalized Odds Diff (ΔEO)", "Random Forest Baseline": "0.2397", "Agentic System v7": "0.0361", "Relative Difference": "-84.94% (Major Error Parity Improvement)"},
-        {"Metric Category": "Regulatory Compliance", "Metric": "Hard Policy Violations", "Random Forest Baseline": "46", "Agentic System v7": "0", "Relative Difference": "-100.0% (Total Regulatory Elimination)"},
-        {"Metric Category": "Operational Workload", "Metric": "Human Review Escalations", "Random Forest Baseline": "0 (0.00%)", "Agentic System v7": "56 (3.73%)", "Relative Difference": "+3.73% Workload for Compliance Guarantee"},
+        {"Metric Category": "Predictive Accuracy", "Metric": "F1 Score", "Random Forest Baseline": f"{rf_f1:.4f}", "Agentic System v7": f"{ag_f1:.4f}", "Relative Difference": f"{diff_f1:+.2f}%"},
+        {"Metric Category": "Predictive Accuracy", "Metric": "ROC-AUC", "Random Forest Baseline": f"{rf_auc:.4f}", "Agentic System v7": f"{ag_auc:.4f}", "Relative Difference": f"{diff_auc:+.2f}%"},
+        {"Metric Category": "Demographic Fairness", "Metric": "Demographic Parity Diff (ΔDP)", "Random Forest Baseline": f"{rf_dp:.4f}", "Agentic System v7": f"{ag_dp:.4f}", "Relative Difference": f"{diff_dp:+.2f}%"},
+        {"Metric Category": "Demographic Fairness", "Metric": "Equalized Odds Diff (ΔEO)", "Random Forest Baseline": f"{rf_eo:.4f}", "Agentic System v7": f"{ag_eo:.4f}", "Relative Difference": f"{diff_eo:+.2f}%"},
+        {"Metric Category": "Regulatory Compliance", "Metric": "Hard Policy Violations", "Random Forest Baseline": f"{rf_pol:.1f}", "Agentic System v7": f"{ag_pol:.1f}", "Relative Difference": f"{diff_pol:+.2f}%"},
+        {"Metric Category": "Operational Workload", "Metric": "Override Rule Triggers", "Random Forest Baseline": f"{rf_esc:.1f} ({rf_esc_rate:.2%})", "Agentic System v7": f"{ag_esc:.1f} ({ag_esc_rate:.2%})", "Relative Difference": f"{diff_esc:+.2f}%"},
     ])
     with open(os.path.join(out_dir, "table3_rf_vs_agentic.md"), "w") as f:
         f.write("# Table 3: Comprehensive Comparative Analysis — Random Forest vs. Agentic System\n\n" + t3_df.to_markdown(index=False))

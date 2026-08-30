@@ -55,7 +55,7 @@ async def run_live_pipeline(row):
         decision = state.get("final_decision", "unknown").lower()
         if decision == "approved": return 1
         elif decision == "rejected": return 0
-        elif decision == "escalated": return 1 # Escalated means human review, practically not an auto-reject
+        elif decision == "escalated": return 1 # Escalated means counterfactual override, practically not an auto-reject
         return 0
     except Exception as e:
         print(f"Error in live pipeline: {e}")

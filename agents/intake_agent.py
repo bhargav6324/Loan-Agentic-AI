@@ -743,6 +743,11 @@ def _run_policy(state: AgentState) -> AgentState:
         "policy_agent_summary": summary,
         "policy_rag_reasoning": reasoning,
         "policy_retrieval_score": retrieval_score,
+        "policy_certificate": {
+            "timestamp": time.time(),
+            "passed": policy_passed,
+            "violations_count": len(violations)
+        },
         "agent_logs": logs,
         "errors": errors,
     }

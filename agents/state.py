@@ -78,6 +78,14 @@ class AgentState(TypedDict, total=False):
     # ── Final Decision ───────────────────────────────────
     final_decision: Annotated[Optional[str], _last]
     decision_reasoning: Annotated[Optional[str], _last]
+    
+    # ── Decision Commitment (Phase 2) ────────────────────
+    risk_certificate: Annotated[Optional[dict], _last]
+    policy_certificate: Annotated[Optional[dict], _last]
+    audit_certificate: Annotated[Optional[dict], _last]
+    decision_proposal: Annotated[Optional[str], _last]
+    commit_status: Annotated[Optional[str], _last]
+    commit_reason: Annotated[Optional[str], _last]
 
     # ── Learning Agent Outputs ───────────────────────────
     learning_insights: Annotated[Optional[dict], _last]

@@ -18,22 +18,9 @@ import time
 import os
 import numpy as np
 from agents.state import AgentState
+from ml.canonical_model_contract import compute_composite_score, compute_heuristic_score
 
-# Try to load the trained model; fall back to heuristic-only if not available
-_model = None
-_feature_names = [
-    "credit_score", "dti_ratio", "loan_to_income",
-    "employment_score", "age", "defaults", "credit_utilisation",
-    "gender_encoded", "location_encoded",  # V3: demographics for emergent bias
-]
-
-try:
-    import joblib
-    model_path = os.path.join(os.path.dirname(__file__), "..", "ml", "model", "risk_model.joblib")
-    if os.path.exists(model_path):
-        _model = joblib.load(model_path)
-except Exception:
-    _model = None
+# Model loading handled by canonical_model_contract now.
 
 
 def _extract_features(state: AgentState) -> dict:
@@ -113,130 +100,13 @@ def _check_hard_overrides(features: dict) -> str | None:
     return None
 
 
-def _compute_heuristic_score(features: dict) -> tuple[float, str]:
+def _compute_heuristic_score_wrapped(features: dict) -> tuple[float, str]:
     """
-    Enhanced rule-based risk score (0-100, higher = riskier).
-    Returns (score, justification_string)
+    Wrapper around canonical compute_heuristic_score to provide justification string.
     """
-    score = 50.0  # Start neutral
-    justification_parts = ["Started with neutral baseline (50)."]
-
-    # ── Credit score impact (most important) ──────────────
-    cs = features["credit_score"]
-    if cs >= 750:
-        score -= 20
-    elif cs >= 700:
-        score -= 10
-    elif cs >= 650:
-        score -= 0
-    elif cs >= 600:
-        score += 10
-    else:
-        score += 25
-
-    # ── DTI ratio ─────────────────────────────────────────
-    dti = features["dti_ratio"]
-    if dti > 0.6:
-        score += 15
-    elif dti > 0.4:
-        score += 8
-    elif dti < 0.2:
-        score -= 5
-
-    # ── Loan-to-income ────────────────────────────────────
-    lti = features["loan_to_income"]
-    if lti > 5:
-        score += 15
-    elif lti > 3:
-        score += 8
-    elif lti < 1:
-        score -= 5
-
-    # ── Improvement #2: Exponential penalty for defaults ──
-    defaults = features["defaults"]
-    score += min(40, 10 * (2 ** defaults - 1))
-
-    # ── Credit utilisation (exponential at high end) ──────
-    cu = features["credit_utilisation"]
-    if cu > 90:
-        score += 15  # catastrophic utilisation
-    elif cu > 80:
-        score += 10
-    elif cu > 60:
-        score += 5
-    elif cu < 30:
-        score -= 5
-
-    # ── Employment stability ──────────────────────────────
-    emp = features["employment_score"]
-    if emp == 3:
-        score -= 5
-    elif emp == 1:
-        score += 5
-
-    # ── Improvement #3a: Loan Tenure Risk ─────────────────
-    tenure = features.get("loan_tenure_years", 10)
-    if tenure > 20:
-        score += 8
-    elif tenure > 10:
-        score += 4
-
-    # ── Improvement #3b: Income Stability (Job Tenure) ────
-    emp_years = features.get("employment_years", 3)
-    if emp_years < 1:
-        score += 10
-    elif emp_years < 3:
-        score += 5
-    elif emp_years > 7:
-        score -= 5
-
-    # ── Improvement #3c: Loan Purpose Risk ────────────────
-    purpose_risk = {
-        "home": -8,        # secured, lower risk
-        "education": -5,   # generally good repayment
-        "personal": 0,
-        "business": 10,    # higher volatility
-        "medical": 5,
-    }
-    loan_purpose = features.get("loan_purpose", "personal")
-    score += purpose_risk.get(loan_purpose, 0)
-
-    # ── Improvement #4: Risk Interaction / Stacking Penalty
-    danger_flags = sum([
-        dti > 0.60,
-        defaults > 0,
-        cu > 80,
-        cs < 600,
-    ])
-    if danger_flags >= 3:
-        score += 20  # compounding risk penalty
-    elif danger_flags == 2:
-        score += 8
-
-    # ── Improvement #5: Creditworthiness Bonus ────────────
-    bonus = 0
-    if cs > 800:
-        bonus -= 5   # exceptional credit
-    if defaults == 0 and emp_years > 5:
-        bonus -= 5   # clean + stable
-    if dti < 0.20:
-        bonus -= 5   # very low debt burden
-    if cu < 20:
-        bonus -= 3   # responsible credit use
-    score += max(bonus, -15)  # cap total bonus at -15 points
-
-    # ── NOTE: Demographic bias REMOVED from heuristics (V3) ─
-    # V2 had hardcoded lines like `if gender == "female": score += 6`
-    # and `if location == "rural": score += 5`.  This was methodologically
-    # invalid: the Fairness Agent was "detecting" bias that was explicitly
-    # injected.  In V3, bias is emergent from the ML model trained on
-    # biased synthetic data (gender + location are ML features).
-    # The heuristic engine is now demographic-blind.
-    # The Fairness Agent detects real learned bias via counterfactual testing.
-
-    final_score = max(0.0, min(100.0, float(score)))
-    justification = " ".join(justification_parts)
-    return final_score, justification
+    score = compute_heuristic_score(features)
+    justification = f"Heuristic Score ({score:.1f}) calculated via canonical rules."
+    return score, justification
 
 
 def _identify_risk_factors(features: dict) -> list:
@@ -279,11 +149,8 @@ def _identify_risk_factors(features: dict) -> list:
     return factors
 
 
-# NOTE: ML model trained without demographic features (by design).
-# Fairness Agent counterfactuals test heuristic bias only.
-# This is architecturally intentional — the ML model is 
-# deliberately kept demographic-blind; heuristic rules are 
-# the bias vector under test.
+# NOTE: ML model trained with demographic features to simulate real-world bias.
+# This allows the fairness agent to test for discriminatory outcomes. 
 def evaluate_profile(features: dict, state: AgentState) -> dict:
     """
     Core risk evaluation logic extracted for inter-agent communication.
@@ -293,64 +160,44 @@ def evaluate_profile(features: dict, state: AgentState) -> dict:
     internal_logs = []
     errors = []
 
-    # ── ML Model Prediction ──────────────────────────────
-    ml_score = None
-    ml_confidence = 0.5  # default: uncertain
-    if _model is not None:
-        try:
-            # Encode demographics for ML model (V3: emergent bias)
-            gender_map = {"male": 0, "female": 1, "other": 2}
-            location_map = {"urban": 0, "semi_urban": 1, "rural": 2}
-            gender_encoded = gender_map.get(features.get("gender", "male"), 0)
-            location_encoded = location_map.get(features.get("location", "semi_urban"), 1)
-
-            X = np.array([[
-                features["credit_score"],
-                features["dti_ratio"],
-                features["loan_to_income"],
-                features["employment_score"],
-                features["age"],
-                features["defaults"],
-                features["credit_utilisation"],
-                gender_encoded,
-                location_encoded,
-            ]])
-            # Model predicts probabilities for [approve, review, reject]
-            proba = _model.predict_proba(X)[0]
-            # Convert to risk score: weighted sum (approve=low, reject=high)
-            ml_score = float(proba[1] * 50 + proba[2] * 100)  # review*50 + reject*100
-            # Improvement #1: ML confidence = max probability
-            ml_confidence = float(np.max(proba))
+    # ── ML + Heuristic via Canonical Contract ────────────
+    try:
+        ml_score, heuristic_score, risk_score = compute_composite_score(features)
+        risk_score = round(risk_score, 1)
+        
+        # Determine confidence for logging
+        if ml_score is not None:
+            ml_confidence = 1.0 - (2.0 * abs((ml_score / 100.0) - 0.5))
             internal_logs.append({
                 "action": "ML model prediction",
                 "status": "success",
-                "details": f"Probabilities: approve={proba[0]:.2f}, review={proba[1]:.2f}, reject={proba[2]:.2f} | Confidence={ml_confidence:.2f}",
+                "details": f"ML Score: {ml_score:.1f}, Confidence: {ml_confidence:.2f}",
             })
-        except Exception as e:
-            errors.append(f"ML model failed: {e}")
+            
+            ml_weight = max(0.1, min(0.9, 0.4 + ml_confidence * 0.4))
+            heur_weight = 1.0 - ml_weight
+            internal_logs.append({
+                "action": "Dynamic weight blending",
+                "status": "success",
+                "details": f"ML weight={ml_weight:.2f}, Heuristic weight={heur_weight:.2f} (confidence={ml_confidence:.2f})",
+            })
+        else:
+            ml_confidence = 0.5
             internal_logs.append({
                 "action": "ML model prediction",
                 "status": "error",
-                "details": str(e),
+                "details": "Model failed or not loaded. Used heuristic only.",
             })
 
-    # ── Heuristic Score ──────────────────────────────────
-    heuristic_score, heuristic_justification = _compute_heuristic_score(features)
+    except Exception as e:
+        errors.append(f"Model contract failed: {e}")
+        # Fallback to pure heuristic
+        _, heuristic_score, risk_score = compute_composite_score(features)
+        ml_score = None
+        ml_confidence = 0.5
+        risk_score = round(risk_score, 1)
 
-    # ── Improvement #1: Dynamic Confidence-Based Weighting
-    if ml_score is not None:
-        # When ML is confident (e.g., 0.92), trust it more (weight up to 0.8)
-        # When ML is uncertain (e.g., 0.51), lean on heuristics (weight down to 0.4)
-        ml_weight = 0.4 + (0.4 * ml_confidence)   # ranges from 0.4 to 0.8
-        heuristic_weight = 1 - ml_weight
-        risk_score = round(float(ml_weight * ml_score + heuristic_weight * heuristic_score), 1)
-        internal_logs.append({
-            "action": "Dynamic weight blending",
-            "status": "success",
-            "details": f"ML weight={ml_weight:.2f}, Heuristic weight={heuristic_weight:.2f} (confidence={ml_confidence:.2f})",
-        })
-    else:
-        risk_score = round(float(heuristic_score), 1)
+    heuristic_justification = f"Heuristic Score ({heuristic_score:.1f}) calculated via canonical rules."
 
     # Compile the final agent justification text for the debate
     agent_justification = (
@@ -537,6 +384,11 @@ def risk_agent(state: AgentState) -> AgentState:
         "risk_agent_summary": summary,
         "risk_agent_reflection": reflection,
         "risk_ml_confidence": eval_result.get("ml_confidence", 0.5),
+        "risk_certificate": {
+            "timestamp": time.time(),
+            "risk_score": risk_score,
+            "risk_category": risk_category
+        },
         "agent_logs": logs,
         "errors": errors,
     }
