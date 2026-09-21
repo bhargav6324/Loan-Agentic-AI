@@ -1,0 +1,60 @@
+============================================================
+  ABLATION HARNESS — PAPER MODE (ZERO LLM)
+============================================================
+  Seeds:    [42]
+  Configs:  ['A0', 'A1', 'A1R', 'A2', 'A3']
+  Split:    0.3
+  Epsilon:  6.0
+  Dry run:  False
+============================================================
+
+[Seed 42] Training RF (n_estimators=100, random_state=42)...
+  Train: 3500 | Test: 1500 | Default prevalence (test): 0.1240
+  Config A0... 1500 ok, 0 fail, 9186ms
+  Config A1... 1500 ok, 0 fail, 11352ms
+  Config A1R... 1500 ok, 0 fail, 13758ms
+  Config A2... 1500 ok, 0 fail, 173528ms
+  Config A3... 1500 ok, 0 fail, 180192ms
+
+============================================================
+  RESULTS SUMMARY
+============================================================
+  LLM calls attempted: 0
+  Failures logged: 0
+
+  [A0] seed=42
+    n=1500  approve=1408  reject=92
+    accuracy=0.8973  prec=0.9119  rec=0.9772  f1=0.9434
+    specificity=0.3333  mcc=0.4265
+    roc_auc_default=0.8641  pr_auc_default=0.5273
+    policy_violations=92  audit_triggers=0  blocked=0
+
+  [A1] seed=42
+    n=1500  approve=1268  reject=232
+    accuracy=0.8613  prec=0.9361  rec=0.9033  f1=0.9194
+    specificity=0.5645  mcc=0.4265
+    roc_auc_default=0.8641  pr_auc_default=0.5273
+    policy_violations=0  audit_triggers=324  blocked=0
+
+  [A1R] seed=42
+    n=1500  approve=1266  reject=234
+    accuracy=0.8600  prec=0.9360  rec=0.9018  f1=0.9186
+    specificity=0.5645  mcc=0.4236
+    roc_auc_default=0.8641  pr_auc_default=0.5273
+    policy_violations=0  audit_triggers=695  blocked=0
+
+  [A2] seed=42
+    n=1500  approve=1266  reject=234
+    accuracy=0.8600  prec=0.9360  rec=0.9018  f1=0.9186
+    specificity=0.5645  mcc=0.4236
+    roc_auc_default=0.8641  pr_auc_default=0.5273
+    policy_violations=0  audit_triggers=553  blocked=13272
+
+  [A3] seed=42
+    n=1500  approve=1266  reject=234
+    accuracy=0.8600  prec=0.9360  rec=0.9018  f1=0.9186
+    specificity=0.5645  mcc=0.4236
+    roc_auc_default=0.8641  pr_auc_default=0.5273
+    policy_violations=0  audit_triggers=553  blocked=13272
+
+============================================================

@@ -1,0 +1,49 @@
+{
+  "experiment_id": "ablation_v2_20260904_161917",
+  "created_at": "2026-09-04T16:19:17.675938",
+  "paper_mode": true,
+  "llm_calls_attempted": 0,
+  "configurations": [
+    "A0",
+    "A1",
+    "A1R",
+    "A2",
+    "A3"
+  ],
+  "seeds": [
+    42
+  ],
+  "test_split": 0.3,
+  "fairness_epsilon": 6.0,
+  "rf_params": {
+    "n_estimators": 100,
+    "random_state": "per-seed"
+  },
+  "dataset_columns": [
+    "credit_score",
+    "dti_ratio",
+    "loan_to_income",
+    "employment_score",
+    "applicant_age",
+    "defaults",
+    "credit_utilisation",
+    "applicant_gender"
+  ],
+  "canonical_internal_fields": [
+    "credit_score",
+    "dti_ratio",
+    "loan_to_income",
+    "employment_score",
+    "age",
+    "defaults",
+    "credit_utilisation",
+    "gender_encoded"
+  ],
+  "dataset_sha256": "669ff7aeda69a60200732a2b22b7b9cf46bb38681c10892bfb68cc2c38f75f1a",
+  "code_sha256": "87b03bfdf13c4bdd131efbc683a9f512b69d1c5b78d231ec549ec336e0336e06",
+  "threshold": 0.5,
+  "final_binary_mapping": "blocked/escalated \u2192 rejected",
+  "git_commit": "b808b2caa5d9be245c95fc78f7ad323d1052c8a2",
+  "python_version": "3.12.3",
+  "dry_run": false
+}

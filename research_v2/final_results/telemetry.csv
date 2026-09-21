@@ -1,0 +1,4 @@
+seed,configuration,n_evaluated,n_failed,total_ms,mean_latency_ms
+42,A0,1500,0,5597.5,3.636
+42,A1,1500,0,6430.2,4.21
+42,A1R,1500,0,7798.7,5.117

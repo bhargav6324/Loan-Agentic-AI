@@ -1,0 +1,29 @@
+{
+  "seeds": [
+    42
+  ],
+  "configurations": [
+    "C0a",
+    "A0",
+    "A1",
+    "A1R",
+    "A2",
+    "A3"
+  ],
+  "test_split": 0.3,
+  "epsilon": 6.0,
+  "random_forest": {
+    "n_estimators": 100,
+    "random_state": "seed"
+  },
+  "split_strategy": "unstratified train_test_split with random_state=seed",
+  "approval_positive_metrics": [
+    "precision_approve",
+    "recall_approve",
+    "f1_approve"
+  ],
+  "default_positive_ranking_metrics": [
+    "roc_auc_default",
+    "pr_auc_default"
+  ]
+}

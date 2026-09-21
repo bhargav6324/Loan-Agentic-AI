@@ -1,0 +1,30 @@
+{
+  "protocol_status": "frozen_pending_native_graph_verification",
+  "seeds": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51],
+  "configurations": ["C0a", "A0", "A1", "A1R", "A2", "A3"],
+  "test_split": 0.30,
+  "split_strategy": "unstratified train_test_split with random_state=seed",
+  "epsilon": 6.0,
+  "random_forest": {
+    "n_estimators": 100,
+    "random_state": "seed",
+    "other_parameters": "scikit-learn defaults"
+  },
+  "approval_positive_metrics": [
+    "precision_approve",
+    "recall_approve",
+    "f1_approve",
+    "specificity",
+    "balanced_accuracy",
+    "mcc"
+  ],
+  "default_positive_ranking_metrics": [
+    "roc_auc_default",
+    "pr_auc_default"
+  ],
+  "fairness_outcome_convention": "approval is the favorable outcome",
+  "statistical_unit": "paired seed-level differences",
+  "multiplicity_adjustment": "Holm",
+  "paper_mode": true,
+  "llm_enabled": false
+}

@@ -1,0 +1,47 @@
+{
+  "experiment_id": "ablation_v2_20260907_134628",
+  "created_at": "2026-09-07T13:46:28.803294",
+  "paper_mode": true,
+  "llm_calls_attempted": 0,
+  "configurations": [
+    "A0",
+    "A1",
+    "A1R"
+  ],
+  "seeds": [
+    42
+  ],
+  "test_split": 0.3,
+  "fairness_epsilon": 6.0,
+  "rf_params": {
+    "n_estimators": 100,
+    "random_state": "per-seed"
+  },
+  "dataset_columns": [
+    "credit_score",
+    "dti_ratio",
+    "loan_to_income",
+    "employment_score",
+    "applicant_age",
+    "defaults",
+    "credit_utilisation",
+    "applicant_gender"
+  ],
+  "canonical_internal_fields": [
+    "credit_score",
+    "dti_ratio",
+    "loan_to_income",
+    "employment_score",
+    "age",
+    "defaults",
+    "credit_utilisation",
+    "gender_encoded"
+  ],
+  "dataset_sha256": "669ff7aeda69a60200732a2b22b7b9cf46bb38681c10892bfb68cc2c38f75f1a",
+  "code_sha256": "c885a9cf2f9cee2c830094e5368e022dc3a1a929397fdedc58f9ecca0d104f06",
+  "threshold": 0.5,
+  "final_binary_mapping": "only committed_approve \u2192 approved; all other terminal states \u2192 rejected",
+  "git_commit": "",
+  "python_version": "3.12.13",
+  "dry_run": false
+}

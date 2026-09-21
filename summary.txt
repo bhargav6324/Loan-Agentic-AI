@@ -1,0 +1,200 @@
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: cannot import name 'store_episode' from 'memory.episodic_memory' (/home/bhargav-patil/Loan-Agentic-AI/memory/episodic_memory.py)
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: cannot import name 'retrieve_similar_cases' from 'memory.episodic_memory' (/home/bhargav-patil/Loan-Agentic-AI/memory/episodic_memory.py)
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: cannot import name 'store_episode' from 'memory.episodic_memory' (/home/bhargav-patil/Loan-Agentic-AI/memory/episodic_memory.py)
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: cannot import name 'retrieve_similar_cases' from 'memory.episodic_memory' (/home/bhargav-patil/Loan-Agentic-AI/memory/episodic_memory.py)
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: cannot import name 'retrieve_similar_cases' from 'memory.episodic_memory' (/home/bhargav-patil/Loan-Agentic-AI/memory/episodic_memory.py)
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: cannot import name 'store_episode' from 'memory.episodic_memory' (/home/bhargav-patil/Loan-Agentic-AI/memory/episodic_memory.py)
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: cannot import name 'store_episode' from 'memory.episodic_memory' (/home/bhargav-patil/Loan-Agentic-AI/memory/episodic_memory.py)
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Failed to retrieve episodic memory: cannot import name 'retrieve_similar_cases' from 'memory.episodic_memory' (/home/bhargav-patil/Loan-Agentic-AI/memory/episodic_memory.py)
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+🧠 Planner: Generating initial execution plan...
+Failed to retrieve episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+Warning: Failed to store in episodic memory: No module named 'chromadb'
+1500 ok, 0 fail, 165627ms
+
+============================================================
+  RESULTS SUMMARY
+============================================================
+  LLM calls attempted: 0
+  Failures logged: 0
+
+  [A0] seed=42
+    n=1500  approve=1408  reject=92
+    accuracy=0.8973  prec=0.9119  rec=0.9772  f1=0.9434
+    specificity=0.3333  mcc=0.4265
+    roc_auc_default=0.8641  pr_auc_default=0.5273
+    policy_violations=0  audit_triggers=0  blocked=0
+
+  [A1] seed=42
+    n=1500  approve=1178  reject=322
+    accuracy=0.8320  prec=0.9508  rec=0.8524  f1=0.8989
+    specificity=0.6882  mcc=0.4339
+    roc_auc_default=0.8641  pr_auc_default=0.5273
+    policy_violations=216  audit_triggers=1500  blocked=85
+
+  [A1R] seed=42
+    n=1500  approve=1172  reject=328
+    accuracy=0.8293  prec=0.9514  rec=0.8486  f1=0.8970
+    specificity=0.6935  mcc=0.4322
+    roc_auc_default=0.8641  pr_auc_default=0.5273
+    policy_violations=216  audit_triggers=1500  blocked=82
+
+  [A2] seed=42
+    n=1500  approve=926  reject=574
+    accuracy=0.7107  prec=0.9752  rec=0.6872  f1=0.8063
+    specificity=0.8763  mcc=0.3821
+    roc_auc_default=0.8641  pr_auc_default=0.5273
+    policy_violations=129  audit_triggers=329  blocked=47
+
+  [A3] seed=42
+    n=1500  approve=926  reject=574
+    accuracy=0.7107  prec=0.9752  rec=0.6872  f1=0.8063
+    specificity=0.8763  mcc=0.3821
+    roc_auc_default=0.8641  pr_auc_default=0.5273
+    policy_violations=129  audit_triggers=329  blocked=47
+
+============================================================

@@ -1,0 +1,135 @@
+{
+    "dataset_checksum": "669ff7aeda69a60200732a2b22b7b9cf46bb38681c10892bfb68cc2c38f75f1a",
+    "generator_checksum": "bdcb361730e59d193817b0d2f4eef7f7db2e28f998e02de00364f289490e7892",
+    "validation_passed": true,
+    "issues": [],
+    "stats": {
+        "row_count": 5000,
+        "col_count": 17,
+        "missing_values": 0,
+        "duplicate_ids": 0,
+        "duplicate_rows": 0,
+        "default_prevalence": 0.1134,
+        "numeric_stats": {
+            "applicant_age": {
+                "min": 21.0,
+                "max": 64.0,
+                "mean": 42.575,
+                "median": 43.0,
+                "std": 12.554596711153886,
+                "outliers": 0
+            },
+            "monthly_income": {
+                "min": 15000.0,
+                "max": 167741.52,
+                "mean": 87344.03555799999,
+                "median": 87622.32,
+                "std": 24628.296542086453,
+                "outliers": 3
+            },
+            "loan_amount": {
+                "min": 133626.22,
+                "max": 3000000.0,
+                "mean": 2103308.1119440002,
+                "median": 2172950.94,
+                "std": 817490.3731700934,
+                "outliers": 0
+            },
+            "employment_years": {
+                "min": 0.0,
+                "max": 25.0,
+                "mean": 8.279,
+                "median": 8.0,
+                "std": 5.538203078496466,
+                "outliers": 2
+            },
+            "loan_tenure_years": {
+                "min": 1.0,
+                "max": 30.0,
+                "mean": 15.4382,
+                "median": 15.0,
+                "std": 8.704052669106117,
+                "outliers": 0
+            },
+            "credit_score": {
+                "min": 300.0,
+                "max": 850.0,
+                "mean": 663.262,
+                "median": 674.0,
+                "std": 101.71366324077593,
+                "outliers": 14
+            },
+            "current_outstanding": {
+                "min": 0.0,
+                "max": 1339980.72,
+                "mean": 332571.966502,
+                "median": 297317.435,
+                "std": 198823.04363421397,
+                "outliers": 47
+            },
+            "dti_ratio": {
+                "min": 0.0,
+                "max": 0.85,
+                "mean": 0.32111722,
+                "median": 0.3041,
+                "std": 0.16659645706128529,
+                "outliers": 11
+            },
+            "loan_to_income": {
+                "min": 0.3475,
+                "max": 7.2756,
+                "mean": 2.07083878,
+                "median": 2.0336499999999997,
+                "std": 0.8360417228192445,
+                "outliers": 44
+            },
+            "defaults": {
+                "min": 0.0,
+                "max": 3.0,
+                "mean": 0.6666,
+                "median": 0.0,
+                "std": 0.9402240393910644,
+                "outliers": 0
+            },
+            "credit_utilisation": {
+                "min": 5.0,
+                "max": 95.0,
+                "mean": 52.122388,
+                "median": 51.47,
+                "std": 20.553986792154614,
+                "outliers": 0
+            }
+        },
+        "constant_columns": [],
+        "gender_distribution": {
+            "0": 2990,
+            "1": 2010
+        },
+        "default_prevalence_gender": {
+            "0": 0.09197324414715718,
+            "1": 0.14527363184079603
+        },
+        "approval_prevalence_gender": {
+            "0": 0.9080267558528428,
+            "1": 0.854726368159204
+        },
+        "reachable_policies": {
+            "DTI > 0.6": true,
+            "Credit Score < 600": true,
+            "Utilisation > 80%": true,
+            "Defaults > 0": true
+        },
+        "split_overlap_counts": {
+            "42": 0,
+            "43": 0,
+            "44": 0,
+            "45": 0,
+            "46": 0,
+            "47": 0,
+            "48": 0,
+            "49": 0,
+            "50": 0,
+            "51": 0
+        }
+    }
+}
