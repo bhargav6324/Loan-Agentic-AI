@@ -1,0 +1,10 @@
+disagreement_cause,transition,count
+certificate_commitment_gate,approved→escalated,82
+certificate_commitment_gate,rejected→escalated,27
+fairness,approved→escalated,15
+fairness,approved→rejected,18
+fairness,rejected→escalated,2
+reassessment,approved→escalated,4
+reassessment,rejected→escalated,5
+unexplained,approved→escalated,9
+unexplained,rejected→escalated,2

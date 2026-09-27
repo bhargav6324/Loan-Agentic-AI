@@ -683,9 +683,48 @@ def _call_llm_policy(applicant_data_str: str, policy_text: str) -> dict:
 def _run_policy(state: AgentState) -> AgentState:
     logs = list(state.get("agent_logs", []))
     errors = list(state.get("errors", []))
+    start = time.time()
+
+    # ── PAPER_MODE: use canonical policy contract for deterministic parity ──
+    if getattr(settings, "PAPER_MODE", False):
+        from core.canonical_contracts import canonical_policy_check
+        # canonical_policy_check expects a flat dict with top-level keys
+        flat = {}
+        flat.update(state.get("credit_report", {}) or {})
+        flat.update(state.get("applicant_data", {}) or {})
+        # Map field names: canonical uses "defaults", credit_report has "total_defaults"
+        if "total_defaults" in flat and "defaults" not in flat:
+            flat["defaults"] = flat["total_defaults"]
+        policy_passed, violations = canonical_policy_check(flat)
+        duration = int((time.time() - start) * 1000)
+        summary = "All policy checks passed ✅" if policy_passed else (
+            f"{len(violations)} policy violation(s) found: {'; '.join(violations)}"
+        )
+        logs.append({
+            "agent": "policy_agent",
+            "step": len(logs) + 1,
+            "action": "Policy assessment (canonical contract)",
+            "status": "success" if policy_passed else "violations_found",
+            "details": summary,
+            "duration_ms": duration,
+        })
+        return {
+            "policy_violations": violations,
+            "policy_passed": policy_passed,
+            "policy_agent_summary": summary,
+            "policy_rag_reasoning": "PAPER_MODE: canonical_policy_check used.",
+            "policy_retrieval_score": 0.0,
+            "policy_certificate": {
+                "timestamp": time.time(),
+                "passed": policy_passed,
+                "violations_count": len(violations)
+            },
+            "agent_logs": logs,
+            "errors": errors,
+        }
+
     violations = []
     reasoning = ""
-    start = time.time()
     
     # Construct applicant query string
     app = state.get("applicant_data", {}) or {}

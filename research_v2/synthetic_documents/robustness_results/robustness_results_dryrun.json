@@ -1,0 +1,184 @@
+[
+  {
+    "case_id": "salary-clean-001",
+    "variant": "clean_baseline",
+    "ocr_success": true,
+    "ocr_confidence": 95.94,
+    "income_extraction_accuracy": true,
+    "employer_extraction_accuracy": true,
+    "fault_detection": true,
+    "safe_blocking": false,
+    "false_blocking": true,
+    "ocr_latency": 0.297,
+    "llm_latency": 14.444,
+    "total_latency": 14.742,
+    "gate_status": "commit_blocked",
+    "gate_reasons": [
+      "execution:stale_risk_score"
+    ]
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "rotation_-5",
+    "ocr_success": true,
+    "ocr_confidence": 87.88,
+    "income_extraction_accuracy": true,
+    "employer_extraction_accuracy": true,
+    "fault_detection": true,
+    "safe_blocking": false,
+    "false_blocking": true,
+    "ocr_latency": 0.284,
+    "llm_latency": 11.31,
+    "total_latency": 11.596,
+    "gate_status": "commit_blocked",
+    "gate_reasons": [
+      "execution:stale_risk_score"
+    ]
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "blur_low",
+    "ocr_success": true,
+    "ocr_confidence": 95.62,
+    "income_extraction_accuracy": true,
+    "employer_extraction_accuracy": true,
+    "fault_detection": true,
+    "safe_blocking": false,
+    "false_blocking": true,
+    "ocr_latency": 0.274,
+    "llm_latency": 11.005,
+    "total_latency": 11.279,
+    "gate_status": "commit_blocked",
+    "gate_reasons": [
+      "execution:stale_risk_score"
+    ]
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "noise_low",
+    "ocr_success": true,
+    "ocr_confidence": 95.79,
+    "income_extraction_accuracy": true,
+    "employer_extraction_accuracy": true,
+    "fault_detection": true,
+    "safe_blocking": false,
+    "false_blocking": true,
+    "ocr_latency": 0.35,
+    "llm_latency": 11.124,
+    "total_latency": 11.475,
+    "gate_status": "commit_blocked",
+    "gate_reasons": [
+      "execution:stale_risk_score"
+    ]
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "low_contrast",
+    "ocr_success": true,
+    "ocr_confidence": 95.85,
+    "income_extraction_accuracy": true,
+    "employer_extraction_accuracy": true,
+    "fault_detection": true,
+    "safe_blocking": false,
+    "false_blocking": true,
+    "ocr_latency": 0.322,
+    "llm_latency": 10.43,
+    "total_latency": 10.753,
+    "gate_status": "commit_blocked",
+    "gate_reasons": [
+      "execution:stale_risk_score"
+    ]
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "low_brightness",
+    "ocr_success": true,
+    "ocr_confidence": 95.7,
+    "income_extraction_accuracy": true,
+    "employer_extraction_accuracy": true,
+    "fault_detection": true,
+    "safe_blocking": false,
+    "false_blocking": true,
+    "ocr_latency": 0.286,
+    "llm_latency": 10.674,
+    "total_latency": 10.96,
+    "gate_status": "commit_blocked",
+    "gate_reasons": [
+      "execution:stale_risk_score"
+    ]
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "partial_edge_crop",
+    "ocr_success": true,
+    "ocr_confidence": 95.94,
+    "income_extraction_accuracy": true,
+    "employer_extraction_accuracy": true,
+    "fault_detection": true,
+    "safe_blocking": false,
+    "false_blocking": true,
+    "ocr_latency": 0.283,
+    "llm_latency": 10.595,
+    "total_latency": 10.878,
+    "gate_status": "commit_blocked",
+    "gate_reasons": [
+      "execution:stale_risk_score"
+    ]
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "critical_field_crop",
+    "ocr_success": true,
+    "ocr_confidence": 96.02,
+    "income_extraction_accuracy": true,
+    "employer_extraction_accuracy": true,
+    "fault_detection": true,
+    "safe_blocking": true,
+    "false_blocking": false,
+    "ocr_latency": 0.249,
+    "llm_latency": 10.821,
+    "total_latency": 11.07,
+    "gate_status": "commit_blocked",
+    "gate_reasons": [
+      "execution:stale_risk_score"
+    ]
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "altered_income",
+    "ocr_success": true,
+    "ocr_confidence": 95.93,
+    "income_extraction_accuracy": true,
+    "employer_extraction_accuracy": true,
+    "fault_detection": true,
+    "safe_blocking": true,
+    "false_blocking": false,
+    "ocr_latency": 0.283,
+    "llm_latency": 13.368,
+    "total_latency": 13.651,
+    "gate_status": "commit_blocked",
+    "gate_reasons": [
+      "evidence:income_contradiction",
+      "execution:stale_risk_score"
+    ]
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "altered_employer",
+    "ocr_success": true,
+    "ocr_confidence": 95.99,
+    "income_extraction_accuracy": true,
+    "employer_extraction_accuracy": true,
+    "fault_detection": true,
+    "safe_blocking": true,
+    "false_blocking": false,
+    "ocr_latency": 0.287,
+    "llm_latency": 10.96,
+    "total_latency": 11.248,
+    "gate_status": "commit_blocked",
+    "gate_reasons": [
+      "evidence:employer_contradiction",
+      "execution:stale_risk_score"
+    ]
+  }
+]

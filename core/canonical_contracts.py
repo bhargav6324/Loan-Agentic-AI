@@ -3,7 +3,10 @@ Canonical Deterministic Contracts for Loan Agentic AI
 These functions represent the absolute source of truth for business logic.
 They must remain PURE (no LangGraph or agent imports).
 """
+from __future__ import annotations
+
 import copy
+from typing import Optional
 
 # ── 1. Schema ─────────────────────────────────────────────────────────
 
@@ -42,7 +45,7 @@ def canonical_risk_category(score: float) -> str:
     return "HIGH"
 
 # ── 3. Hard Overrides ────────────────────────────────────────────────
-def canonical_hard_overrides(features: dict) -> str | None:
+def canonical_hard_overrides(features: dict) -> Optional[str]:
     """
     Hard Override Pre-Screening Layer.
     Some conditions should bypass scoring entirely.
@@ -158,14 +161,14 @@ def canonical_audit_flip(
     from ml.canonical_model_contract import compute_heuristic_score
     heuristic_score_flip = compute_heuristic_score(f_flip)
     
-    _, _, counterfactual_composite_score = canonical_composite_score(p_default_flip, heuristic_score_flip)
+    ml_score_flip, _, counterfactual_composite_score = canonical_composite_score(p_default_flip, heuristic_score_flip)
     
     # Match the configuration being audited: A1 has no reassessment, while
     # A1R/A2/A3 apply the same deterministic reassessment to both worlds.
     if apply_reassessment:
         reassessment = canonical_risk_reassessment(
             counterfactual_composite_score,
-            p_default_flip * 100.0,
+            ml_score_flip,
             heuristic_score_flip,
             f_flip,
         )
@@ -226,7 +229,21 @@ def canonical_final_decision(
     """
     Determines final commit status and decision reasoning.
     Returns (status, reasoning)
+
+    Governance invariant (non-negotiable):
+      - Fairness may allow the original deterministic decision to continue (proceed).
+      - Fairness may block or escalate for human review.
+      - Fairness must NEVER convert a deterministic reject into an approval.
+      - Fairness must NEVER override a policy rejection.
+      - Only deterministic risk and policy logic may authorize approval.
+
+    Ordering:
+      1. Policy rejection is terminal — committed_reject without waiting for audit.
+      2. Missing audit blocks only if policy passed (audit was required but skipped).
+      3. Audit flag may escalate but never approve a rejection.
+      4. Decision proposal drives the final outcome.
     """
+    # 1. Policy rejection is terminal — does not require a fairness audit.
     if not policy_passed:
         if decision_proposal == "approve":
             status = "blocked_policy_violation"
@@ -234,19 +251,50 @@ def canonical_final_decision(
         else:
             status = "committed_reject"
             reasoning = "Application rejected due to policy violations."
+
+    # 2. Audit required but not executed (only applies when policy passed).
     elif audit_required and not audit_executed:
         status = "blocked_missing_audit"
         reasoning = "Commitment blocked: required gender attribute-flip sensitivity audit was not executed."
+
+    # 3. Audit ran and flagged a bias.
     elif audit_flagged:
-        if audit_recommended_action == "approve":
-            status = "committed_approve"
-            reasoning = "Automated audit override: original applicant was scored more harshly than the gender-flipped profile."
-        elif audit_recommended_action == "reject":
+        if audit_recommended_action == "reject":
+            # Conservative: original applicant scored more leniently than flipped profile → reject.
             status = "committed_reject"
-            reasoning = "Automated audit override: original applicant was scored more leniently than the gender-flipped profile."
+            reasoning = "Audit override: original applicant scored more leniently than gender-flipped profile."
+        elif audit_recommended_action == "approve":
+            # Governance invariant: fairness may NOT convert a reject into an approve.
+            # Escalate for human review regardless of the audit recommendation.
+            if decision_proposal in ("reject", "escalate"):
+                status = "automated_escalated_status"
+                reasoning = (
+                    "Fairness audit flagged demographic disparity (original applicant scored more harshly). "
+                    "Escalated for human review — fairness may not unilaterally approve a deterministic rejection."
+                )
+            else:
+                # Proposal is approve and fairness confirms no disparity disadvantage → approve.
+                status = "committed_approve"
+                reasoning = (
+                    "Application approved: risk and policy passed; fairness audit found no demographic "
+                    "disadvantage to original applicant."
+                )
+        elif audit_recommended_action == "proceed":
+            # No significant delta — proceed with original proposal.
+            if decision_proposal == "approve":
+                status = "committed_approve"
+                reasoning = "Application approved. All checks passed; fairness audit found no disparity."
+            elif decision_proposal == "reject":
+                status = "committed_reject"
+                reasoning = "Application rejected based on risk evaluation; fairness audit found no disparity."
+            else:
+                status = "automated_escalated_status"
+                reasoning = "Application escalated per orchestrator proposal."
         else:
             status = "blocked_invalid_audit_action"
             reasoning = "Commitment blocked: sensitivity flag lacks a valid deterministic downstream action."
+
+    # 4. No audit issue — commit per proposal.
     elif decision_proposal == "approve":
         status = "committed_approve"
         reasoning = "Application approved. All checks passed."
@@ -259,5 +307,5 @@ def canonical_final_decision(
     else:
         status = "blocked_branch_conflict"
         reasoning = f"Commitment blocked: unknown or missing decision proposal '{decision_proposal}'."
-        
+
     return status, reasoning

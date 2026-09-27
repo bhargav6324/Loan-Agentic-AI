@@ -187,7 +187,8 @@ class TestMockPAN:
 
         result = verify_pan("NEWPN0000A", "New Person")
 
-        assert result["verified"] is True  # Default for unknown
+        assert result["verified"] is False  # Securely rejected
+        assert result["status"] == "not_found"
 
     def test_fraud_pan(self):
         from tools.mock_pan import verify_pan

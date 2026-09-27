@@ -1,0 +1,22 @@
+{
+  "git_commit": "48dd43162a6f0f6f3621736144ec674469937f8c",
+  "git_dirty_files": 55,
+  "note": "HEAD commit alone does not identify analyzed code (working tree is dirty). Source file hashes are the authoritative reproducibility record.",
+  "dataset_hash": "fae2e0e34f42c524",
+  "model_hash": "8373730b47d818e0",
+  "model_config": {
+    "n_estimators": 100,
+    "random_state": 42,
+    "test_split": 0.3
+  },
+  "source_hashes": {
+    "core/canonical_contracts.py": "a011fe01a87338d4",
+    "orchestrator/graph.py": "8fbc23dfabc2e162",
+    "agents/risk_agent.py": "645b796ede55462a",
+    "agents/intake_agent.py": "25ca07d2c85a4199",
+    "agents/orchestrator_agent.py": "82c6ce2574ae394c",
+    "agents/fairness_agent.py": "233c220937a06f18",
+    "ml/canonical_model_contract.py": "fc3b4f030665a842",
+    "research_v2/run_agentic_ablation.py": "526d850581375c53"
+  }
+}

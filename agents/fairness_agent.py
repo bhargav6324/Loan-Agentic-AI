@@ -710,6 +710,10 @@ def fairness_agent(state: AgentState) -> AgentState:
     """
     state = _run_fairness_math(state)
 
+    from config import settings as _settings
+    if getattr(_settings, "PAPER_MODE", False):
+        return state
+
     # Trigger debate for every attribute where counterfactual math flagged bias
     debate_log = state.get("fairness_debate_log", [])
     flagged_entries = [

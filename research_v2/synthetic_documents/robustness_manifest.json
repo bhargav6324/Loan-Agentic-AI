@@ -1,0 +1,112 @@
+[
+  {
+    "case_id": "salary-clean-001",
+    "variant": "clean_baseline",
+    "image_path": "output/images/synthetic_salary_slips/robustness/salary-clean-001_clean_baseline.png",
+    "expected_clean": true,
+    "fault_type": "none",
+    "declared_income": 50000,
+    "declared_employer": "Example Pvt Ltd",
+    "document_income": 50000,
+    "document_employer": "Example Pvt Ltd"
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "rotation_-5",
+    "image_path": "output/images/synthetic_salary_slips/robustness/salary-clean-001_rotation_-5.png",
+    "expected_clean": true,
+    "fault_type": "none",
+    "declared_income": 50000,
+    "declared_employer": "Example Pvt Ltd",
+    "document_income": 50000,
+    "document_employer": "Example Pvt Ltd"
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "blur_low",
+    "image_path": "output/images/synthetic_salary_slips/robustness/salary-clean-001_blur_low.png",
+    "expected_clean": true,
+    "fault_type": "none",
+    "declared_income": 50000,
+    "declared_employer": "Example Pvt Ltd",
+    "document_income": 50000,
+    "document_employer": "Example Pvt Ltd"
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "noise_low",
+    "image_path": "output/images/synthetic_salary_slips/robustness/salary-clean-001_noise_low.png",
+    "expected_clean": true,
+    "fault_type": "none",
+    "declared_income": 50000,
+    "declared_employer": "Example Pvt Ltd",
+    "document_income": 50000,
+    "document_employer": "Example Pvt Ltd"
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "low_contrast",
+    "image_path": "output/images/synthetic_salary_slips/robustness/salary-clean-001_low_contrast.png",
+    "expected_clean": true,
+    "fault_type": "none",
+    "declared_income": 50000,
+    "declared_employer": "Example Pvt Ltd",
+    "document_income": 50000,
+    "document_employer": "Example Pvt Ltd"
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "low_brightness",
+    "image_path": "output/images/synthetic_salary_slips/robustness/salary-clean-001_low_brightness.png",
+    "expected_clean": true,
+    "fault_type": "none",
+    "declared_income": 50000,
+    "declared_employer": "Example Pvt Ltd",
+    "document_income": 50000,
+    "document_employer": "Example Pvt Ltd"
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "partial_edge_crop",
+    "image_path": "output/images/synthetic_salary_slips/robustness/salary-clean-001_partial_edge_crop.png",
+    "expected_clean": true,
+    "fault_type": "none",
+    "declared_income": 50000,
+    "declared_employer": "Example Pvt Ltd",
+    "document_income": 50000,
+    "document_employer": "Example Pvt Ltd"
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "critical_field_crop",
+    "image_path": "output/images/synthetic_salary_slips/robustness/salary-clean-001_critical_field_crop.png",
+    "expected_clean": false,
+    "fault_type": "missing_salary_slip",
+    "declared_income": 50000,
+    "declared_employer": "Example Pvt Ltd",
+    "document_income": 50000,
+    "document_employer": "Example Pvt Ltd"
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "altered_income",
+    "image_path": "output/images/synthetic_salary_slips/robustness/salary-clean-001_altered_income.png",
+    "expected_clean": false,
+    "fault_type": "income_contradiction",
+    "declared_income": 50000,
+    "declared_employer": "Example Pvt Ltd",
+    "document_income": 999999.0,
+    "document_employer": "Example Pvt Ltd"
+  },
+  {
+    "case_id": "salary-clean-001",
+    "variant": "altered_employer",
+    "image_path": "output/images/synthetic_salary_slips/robustness/salary-clean-001_altered_employer.png",
+    "expected_clean": false,
+    "fault_type": "employer_contradiction",
+    "declared_income": 50000,
+    "declared_employer": "Example Pvt Ltd",
+    "document_income": 50000,
+    "document_employer": "Fake Company Inc"
+  }
+]

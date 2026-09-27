@@ -81,11 +81,17 @@ def test_final_decision_golden():
     status, reason = canonical_final_decision("MEDIUM", True, [], True, False, False, "approve")
     assert status == "blocked_missing_audit"
 
+    # Governance invariant: fairness MUST NOT convert a deterministic rejection
+    # into an approval. When audit flags bias (recommend=approve) but the
+    # decision_proposal is reject, the correct outcome is escalation for human
+    # review — never a committed_approve.
     status, _ = canonical_final_decision(
         "MEDIUM", True, [], True, True, True, "reject",
         audit_recommended_action="approve",
     )
-    assert status == "committed_approve"
+    assert status == "automated_escalated_status", (
+        f"Fairness must not unilaterally approve a deterministic rejection. Got {status}"
+    )
 
     status, _ = canonical_final_decision(
         "MEDIUM", True, [], True, True, True, "approve",

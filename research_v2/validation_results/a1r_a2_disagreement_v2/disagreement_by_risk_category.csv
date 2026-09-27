@@ -1,0 +1,6 @@
+a1r_risk_category,a2_risk_category,transition,disagreement_cause,count
+HIGH,HIGH,rejected→escalated,certificate_commitment_gate,7
+LOW,LOW,approved→escalated,certificate_commitment_gate,81
+LOW,LOW,rejected→escalated,certificate_commitment_gate,2
+MEDIUM,MEDIUM,approved→escalated,fairness,27
+MEDIUM,MEDIUM,rejected→escalated,fairness,10

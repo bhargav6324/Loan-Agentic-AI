@@ -44,21 +44,12 @@ def _llm_sentinel(*args, **kwargs):
 # These replicate the exact deterministic-fallback logic from the agents
 # WITHOUT importing the full agent modules (which try to connect to DBs/LLMs).
 
+from ml.canonical_model_contract import extract_canonical_features
+
 def _canonical_features(row):
-    """Extract 8 canonical features from a dataset row."""
-    return {
-        "credit_score": float(row.get("credit_score", 0)),
-        "dti_ratio": float(row.get("dti_ratio", 0)),
-        "loan_to_income": float(row.get("loan_to_income", 0)),
-        "employment_score": float(row.get("employment_score", 0)),
-        "age": float(row.get("applicant_age", row.get("age", 0))),
-        "defaults": float(row.get("defaults", 0)),
-        "credit_utilisation": float(row.get("credit_utilisation", 0)),
-        "gender_encoded": float(row.get("applicant_gender", row.get("gender_encoded", -1))),
-        "employment_years": row.get("employment_years", 3),
-        "loan_tenure_years": row.get("loan_tenure_years", 10),
-        "loan_purpose": row.get("loan_purpose", "personal"),
-    }
+    """Extract canonical features from a dataset row."""
+    row_dict = row.to_dict() if hasattr(row, 'to_dict') else dict(row)
+    return extract_canonical_features(row_dict)
 
 def _validate_gender(row):
     """Return (valid: bool, encoded: float). Raises nothing."""
@@ -455,9 +446,9 @@ def _run_a1r(row, model, model_hash, epsilon):
         composite = canonical_hard_override_score(hard_override)
         reassess = {"revised": False}
     else:
-        _, _, composite = canonical_composite_score(p, h)
+        ml_score, heur_score, composite = canonical_composite_score(p, h)
         # ── Deterministic Risk Reassessment (Same as Risk Agent) ──
-        reassess = canonical_risk_reassessment(composite, p * 100.0, h, feats)
+        reassess = canonical_risk_reassessment(composite, ml_score, heur_score, feats)
         if reassess["revised"]:
             composite = reassess["revised_score"]
             
@@ -595,38 +586,55 @@ def _invoke_graph_runner(row, model, model_hash, epsilon, use_critic=False):
         feats["gender_encoded"] = gender_enc
         p = _predict_proba(model, feats)
         h = compute_heuristic_score(feats)
-        _, _, composite = canonical_composite_score(p, h)
-        
-        # Pull revised score from state if risk agent did a reassessment
-        if "risk_score" in final_state:
-            composite = final_state["risk_score"]
-            
-        cat = canonical_risk_category(composite)        
+
+        # Read real graph outputs — do NOT recompute canonically
+        composite = final_state.get("risk_score")
+        if composite is None:
+            # Fallback: graph didn't produce a risk_score (shouldn't happen)
+            _, _, composite = canonical_composite_score(p, h)
+        cat = canonical_risk_category(composite)
+
         commit_status = final_state.get("commit_status", "")
         decision = final_state.get("decision_proposal", "approve")
-        final_decision = "approved" if commit_status == "committed_approve" else "rejected"
-        
-        fairness_report = final_state.get("fairness_report")
-        audit_triggered = fairness_report is not None
-        if audit_triggered:
-            audit_delta = fairness_report.get("signed_delta", 0.0)
-            audit_flagged = fairness_report.get("bias_detected", False)
-            audit_action = fairness_report.get("recommended_action")
+        if commit_status == "committed_approve":
+            final_decision = "approved"
+        elif commit_status == "committed_reject":
+            final_decision = "rejected"
         else:
-            audit_delta = None
-            audit_flagged = False
-            audit_action = None
+            final_decision = "escalated"
+
+        nodes_executed = ",".join(list(dict.fromkeys([log["agent"] for log in final_state.get("agent_logs", []) if "agent" in log])))
+
+        # The graph uses fairness_report to record deterministic math execution
+        fairness_report = final_state.get("fairness_report")
+        debate_log = final_state.get("fairness_debate_log")
+        
+        audit_triggered = fairness_report is not None or "fairness_agent" in nodes_executed
+        
+        # New fairness reporting fields
+        fairness_audit_triggered = audit_triggered
+        fairness_bias_flagged = final_state.get("bias_detected", False)
+        fairness_counterfactual_delta_summary = None
+        if fairness_report:
+            fairness_counterfactual_delta_summary = fairness_report.get("counterfactual_delta_summary")
+        fairness_recommendation = "override" if fairness_bias_flagged else "proceed"
+        fairness_debate_triggered = debate_log is not None and len(debate_log) > 0
+        
+        # We explicitly nullify the legacy A1R fields in A2 because A2's fairness
+        # agent is architecturally distinct and operates on multiple attributes.
+        audit_delta = None
+        audit_flagged = False
+        audit_action = None
             
         critique = None
         if use_critic:
             if decision == "approve" and final_state.get("policy_passed") is False:
                 critique = "STRUCTURAL INCONSISTENCY: Proposed 'approve' but policy_passed is False."
-            elif audit_triggered and audit_delta is None:
+            elif audit_triggered and audit_delta is None and fairness_counterfactual_delta_summary is None:
                 critique = "STRUCTURAL INCONSISTENCY: Audit triggered but delta is missing."
             elif audit_triggered is False and cat == "MEDIUM" and final_state.get("policy_passed") is True:
                 critique = "STRUCTURAL INCONSISTENCY: MEDIUM risk did not trigger audit."
                 
-        nodes_executed = ",".join(list(dict.fromkeys([log["agent"] for log in final_state.get("agent_logs", []) if "agent" in log])))
         # Parallel reducers can duplicate prior log entries. Count unique block
         # reasons per applicant rather than raw merged log rows.
         block_signatures = {
@@ -639,7 +647,7 @@ def _invoke_graph_runner(row, model, model_hash, epsilon, use_critic=False):
         if use_critic:
             nodes_executed += ",critic"
             
-        det_reass = 1 if final_state.get("risk_agent_reassessment", {}).get("revised") else 0
+        det_reass = 1 if final_state.get("risk_agent_reflection", {}).get("revised") else 0
             
         return {
             "model_hash": model_hash, "threshold": 0.5, "p_default": p,
@@ -648,6 +656,11 @@ def _invoke_graph_runner(row, model, model_hash, epsilon, use_critic=False):
             "policy_violations": ",".join(final_state.get("policy_violations", [])),
             "audit_triggered": audit_triggered, "audit_bias_flagged": audit_flagged,
             "audit_signed_delta": audit_delta, "audit_recommended_action": audit_action,
+            "fairness_audit_triggered": fairness_audit_triggered,
+            "fairness_bias_flagged": fairness_bias_flagged,
+            "fairness_counterfactual_delta_summary": json.dumps(fairness_counterfactual_delta_summary) if fairness_counterfactual_delta_summary else None,
+            "fairness_recommendation": fairness_recommendation,
+            "fairness_debate_triggered": fairness_debate_triggered,
             "decision": decision, "final_decision": final_decision,
             "commit_status": commit_status, 
             "latency_ms": (time.time()-start)*1000,
@@ -680,6 +693,12 @@ def main():
     parser.add_argument("--seeds", type=str, default="42")
     parser.add_argument("--configurations", type=str, default="A0,A1,A1R,A2,A3")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default=None,
+        help="Optional explicit output directory; must not already contain result files.",
+    )
     parser.add_argument("--test-split", type=float, default=0.30)
     parser.add_argument("--epsilon", type=float, default=6.0)
     args = parser.parse_args()
@@ -696,7 +715,11 @@ def main():
         and configs == ["C0a", "A0", "A1", "A1R", "A2", "A3"]
         and not args.dry_run
     )
-    if args.dry_run:
+    if args.output_dir:
+        results_dir = os.path.abspath(args.output_dir)
+        if os.path.isdir(results_dir) and os.listdir(results_dir):
+            parser.error(f"Output directory is not empty: {results_dir}")
+    elif args.dry_run:
         results_dir = DRY_RUN_RESULTS_DIR
     elif frozen_final:
         results_dir = FINAL_RESULTS_DIR

@@ -22,11 +22,15 @@ class Settings(BaseSettings):
     # ── LLM ───────────────────────────────────────────
     GROQ_API_KEY: Optional[str] = None
     GEMINI_API_KEY: str = ""
+    OLLAMA_BASE_URL: str = "http://127.0.0.1:11434"
+    OLLAMA_MODEL: str = "qwen3:8b"
+    OLLAMA_TIMEOUT: float = 60.0
 
     # ── App ───────────────────────────────────────────
     APP_ENV: str = "development"
     UPLOAD_DIR: str = "uploads"
     MAX_UPLOAD_SIZE_MB: int = 10
+    PAPER_MODE: bool = False
 
     @property
     def max_upload_bytes(self) -> int:

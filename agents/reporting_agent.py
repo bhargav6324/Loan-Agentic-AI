@@ -1211,6 +1211,11 @@ def reporting_agent(state: AgentState) -> AgentState:
     state = _run_explainability(state)
     state = _run_audit(state)
 
+    # Research evaluations must be side-effect free. In particular, paper
+    # mode must not start asynchronous learning or mutate long-term memory.
+    if getattr(settings, "PAPER_MODE", False):
+        return state
+
     # Fire-and-forget: Learning writes to disk/Chroma after the user
     # already has their result. Daemon=True ensures it doesn't block
     # process shutdown if the server terminates while writing.

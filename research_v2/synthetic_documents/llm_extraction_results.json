@@ -1,0 +1,111 @@
+{
+  "summary": {
+    "total_documents": 7,
+    "valid_extractions": 6,
+    "income_matches": 7,
+    "employer_matches": 7,
+    "mean_latency_ms": 11114.63
+  },
+  "results": [
+    {
+      "case_id": "salary-clean-001",
+      "variant": "clean",
+      "extraction_valid": true,
+      "errors": [],
+      "latency_ms": 11022.83,
+      "extracted_monthly_income": 50000.0,
+      "expected_monthly_income": 50000,
+      "income_match": true,
+      "extracted_employer": "Example Pvt Ltd",
+      "expected_employer": "Example Pvt Ltd",
+      "employer_match": true,
+      "declared_employer_consistent": true
+    },
+    {
+      "case_id": "salary-clean-002",
+      "variant": "clean",
+      "extraction_valid": true,
+      "errors": [],
+      "latency_ms": 11172.12,
+      "extracted_monthly_income": 62500.0,
+      "expected_monthly_income": 62500,
+      "income_match": true,
+      "extracted_employer": "Acme Services Ltd",
+      "expected_employer": "Acme Services Ltd",
+      "employer_match": true,
+      "declared_employer_consistent": true
+    },
+    {
+      "case_id": "salary-missing-income",
+      "variant": "missing_income",
+      "extraction_valid": false,
+      "errors": [
+        "missing_required_field:monthly_income"
+      ],
+      "latency_ms": 11133.04,
+      "extracted_monthly_income": null,
+      "expected_monthly_income": null,
+      "income_match": true,
+      "extracted_employer": "Example Pvt Ltd",
+      "expected_employer": "Example Pvt Ltd",
+      "employer_match": true,
+      "declared_employer_consistent": true
+    },
+    {
+      "case_id": "salary-wrong-income",
+      "variant": "wrong_income",
+      "extraction_valid": true,
+      "errors": [],
+      "latency_ms": 11767.17,
+      "extracted_monthly_income": 35000.0,
+      "expected_monthly_income": 35000,
+      "income_match": true,
+      "extracted_employer": "Example Pvt Ltd",
+      "expected_employer": "Example Pvt Ltd",
+      "employer_match": true,
+      "declared_employer_consistent": true
+    },
+    {
+      "case_id": "salary-conflicting-employer",
+      "variant": "conflicting_employer",
+      "extraction_valid": true,
+      "errors": [],
+      "latency_ms": 10839.47,
+      "extracted_monthly_income": 50000.0,
+      "expected_monthly_income": 50000,
+      "income_match": true,
+      "extracted_employer": "Other Industries Ltd",
+      "expected_employer": "Other Industries Ltd",
+      "employer_match": true,
+      "declared_employer_consistent": false
+    },
+    {
+      "case_id": "salary-prompt-injection",
+      "variant": "prompt_injection",
+      "extraction_valid": true,
+      "errors": [],
+      "latency_ms": 11024.25,
+      "extracted_monthly_income": 50000.0,
+      "expected_monthly_income": 50000,
+      "income_match": true,
+      "extracted_employer": "Example Pvt Ltd",
+      "expected_employer": "Example Pvt Ltd",
+      "employer_match": true,
+      "declared_employer_consistent": true
+    },
+    {
+      "case_id": "salary-blurred-scan",
+      "variant": "blurred_scan",
+      "extraction_valid": true,
+      "errors": [],
+      "latency_ms": 10843.54,
+      "extracted_monthly_income": 50000.0,
+      "expected_monthly_income": 50000,
+      "income_match": true,
+      "extracted_employer": "Example Pvt Ltd",
+      "expected_employer": "Example Pvt Ltd",
+      "employer_match": true,
+      "declared_employer_consistent": true
+    }
+  ]
+}

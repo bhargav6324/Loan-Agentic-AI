@@ -1,0 +1,38 @@
+{
+  "analysis": "a1r_a2_disagreement_v1",
+  "generated_at": "2026-09-27T23:52:13.864818",
+  "git_commit": "48dd43162a6f0f6f3621736144ec674469937f8c",
+  "git_dirty_files": 51,
+  "seed": 42,
+  "test_split": 0.3,
+  "epsilon": 6.0,
+  "dataset_hash": "fae2e0e34f42c524",
+  "model_hash": "8373730b47d818e0",
+  "n_test": 1500,
+  "n_agree": 1336,
+  "n_disagree": 164,
+  "agree_rate": 0.8906666666666667,
+  "disagree_rate": 0.10933333333333328,
+  "transitions": {
+    "approved\u2192escalated": 110,
+    "rejected\u2192escalated": 36,
+    "approved\u2192rejected": 18
+  },
+  "a1r_audit_triggered": 423,
+  "a2_audit_triggered": 137,
+  "a1r_bias_flagged": 78,
+  "a2_bias_flagged": 37,
+  "safe_block_count": 0,
+  "unsafe_count": 0,
+  "escalation_count_a2": 146,
+  "disagreement_causes": {
+    "certificate_commitment_gate": 109,
+    "fairness": 35,
+    "unexplained": 11,
+    "reassessment": 9
+  },
+  "frozen_manifests_ok": true,
+  "n_fail_a1r": 0,
+  "n_fail_a2": 0,
+  "paper_mode": true
+}

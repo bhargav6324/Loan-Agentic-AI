@@ -37,23 +37,51 @@ def decision_commit(state: AgentState) -> AgentState:
     """
     Strict barrier node for committing final decisions.
     Requires both risk and policy certificates.
+
+    Governance invariant:
+      - Fairness may allow the original deterministic decision to continue.
+      - Fairness may escalate for human review.
+      - Fairness must NEVER approve a deterministic rejection.
+      - Fairness must NEVER override a policy rejection.
+      - Policy rejection is terminal and does NOT require a fairness audit.
     """
     logs = list(state.get("agent_logs", []))
     proposal = state.get("decision_proposal")
     policy_passed = state.get("policy_passed")
     risk_cert = state.get("risk_certificate")
     policy_cert = state.get("policy_certificate")
-    
+
+    # The certificate is authoritative when a graph branch returns it without
+    # separately materialising the derived state fields.
+    if policy_passed is None and policy_cert:
+        policy_passed = policy_cert.get("passed")
+    policy_violations = state.get("policy_violations")
+    if policy_violations is None and policy_cert:
+        policy_violations = policy_cert.get("violations", [])
+
+    # ── Certificate recovery: parallel fan-out race ──────────────────────────
+    # Certificates must come from their producer agents. Ordinary state fields
+    # are never used to reconstruct or synthesise missing certificates.
+    # ── Gate 1: certificate presence ──
     if not risk_cert or not policy_cert:
         status = "blocked_missing_certificate"
         reasoning = f"Commitment blocked: missing certificates. Risk: {bool(risk_cert)}, Policy: {bool(policy_cert)}"
+
+    # ── Gate 2: policy rejection is terminal — no audit required ──
     elif policy_passed is False:
         if proposal == "approve":
             status = "blocked_policy_violation"
-            reasoning = f"Commitment blocked: Orchestrator proposed approve but policy failed. Violations: {state.get('policy_violations')}"
+            reasoning = f"Commitment blocked: Orchestrator proposed approve but policy failed. Violations: {policy_violations}"
         else:
             status = "committed_reject"
             reasoning = "Application rejected due to policy violations."
+
+    # ── Gate 3: MEDIUM risk requires fairness audit (only when policy passed) ──
+    elif state.get("risk_category") == "MEDIUM" and not state.get("fairness_report"):
+        status = "blocked_missing_audit"
+        reasoning = "Commitment blocked: medium-risk application has no fairness audit."
+
+    # ── Gate 4: proposal-based commit ──
     elif proposal == "approve":
         status = "committed_approve"
         reasoning = "Application approved. All checks passed."
@@ -77,6 +105,7 @@ def decision_commit(state: AgentState) -> AgentState:
         "decision_reasoning": reasoning,
         "agent_logs": logs
     }
+
 
 def policy_join(state: AgentState) -> AgentState:
     """
@@ -146,8 +175,9 @@ def build_loan_graph(disable_fairness: bool = False, disable_policy: bool = Fals
     graph.add_edge("fan_out", "risk_agent")
     graph.add_edge("fan_out", "policy_agent")
 
-    # Risk branch → orchestrator loop
-    graph.add_edge("risk_agent", "orchestrator_decide")
+    # True fan-in barrier: wait for both parallel producers before allowing
+    # orchestration or commitment to continue.
+    graph.add_edge(["risk_agent", "policy_agent"], "orchestrator_decide")
 
     routing_map = {
         "fairness_agent": "fairness_agent",
@@ -161,10 +191,8 @@ def build_loan_graph(disable_fairness: bool = False, disable_policy: bool = Fals
     graph.add_edge("fairness_agent", "orchestrator_decide")
     graph.add_edge("risk_reeval", "orchestrator_decide")
 
-    # Policy branch always joins before terminal decisions
-    graph.add_edge("policy_agent", "policy_join")
-
-    # Join → decision_commit
+    # Terminal orchestrator routes pass through this no-op node. Parallel
+    # synchronization is handled by the waiting edge above.
     graph.add_conditional_edges("policy_join", route_after_join, {
         "decision_commit": "decision_commit",
     })

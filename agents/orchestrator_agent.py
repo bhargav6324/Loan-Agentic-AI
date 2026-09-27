@@ -95,7 +95,12 @@ def _build_state_summary(state: AgentState) -> str:
     # Add results of agents that have already run
     if state.get("policy_passed") is not None:
         violations = state.get("policy_violations", [])
-        lines.append(f"Policy: {'PASSED ✅' if state['policy_passed'] else f'FAILED ❌ ({len(violations)} violations: {'; '.join(violations[:2])})'}")
+        if state["policy_passed"]:
+            policy_summary = "PASSED ✅"
+        else:
+            violation_summary = "; ".join(violations[:2])
+            policy_summary = f"FAILED ❌ ({len(violations)} violations: {violation_summary})"
+        lines.append(f"Policy: {policy_summary}")
 
     if state.get("fairness_report"):
         lines.append(f"Fairness: Bias={'DETECTED ⚠' if state.get('bias_detected') else 'None'} | Debate turns: {state.get('negotiation_turns', 0)}")
@@ -285,24 +290,15 @@ def _fallback_decide(state: AgentState, iteration: int) -> dict:
     if risk_category == "HIGH":
         return {"next_agent": "policy_join", "decision_proposal": "reject", "reasoning": "Fallback: HIGH risk → reject."}
 
-    if risk_category == "LOW" and "policy_agent" in agents_run:
-        if state.get("policy_passed", True):
-            return {"next_agent": "policy_join", "decision_proposal": "approve", "reasoning": "Fallback: LOW risk + policy passed → approve."}
-        else:
-            return {"next_agent": "policy_join", "decision_proposal": "reject", "reasoning": "Fallback: LOW risk but policy failed → reject."}
-
-    # LOW risk, policy not yet run
-    if risk_category == "LOW" and "policy_agent" not in agents_run:
-        return {"next_agent": "policy_agent", "reasoning": "Fallback: LOW risk, running policy check first."}
-
-    # MEDIUM risk — sequential execution
-    if "policy_agent" not in agents_run:
-        return {"next_agent": "policy_agent", "reasoning": "Fallback: MEDIUM risk, policy check first."}
-
-    # Check if policy failed
-    if not state.get("policy_passed", True):
+    # Policy agent runs in parallel in V7, so we do not route to it.
+    # However, if it happens to fail early and we see it, we can short-circuit.
+    if state.get("policy_passed") is False:
         return {"next_agent": "policy_join", "decision_proposal": "reject", "reasoning": "Fallback: Policy violations found → reject."}
 
+    if risk_category == "LOW":
+        return {"next_agent": "policy_join", "decision_proposal": "approve", "reasoning": "Fallback: LOW risk → approve."}
+
+    # MEDIUM risk
     if "fairness_agent" not in agents_run:
         return {"next_agent": "fairness_agent", "reasoning": "Fallback: MEDIUM risk, running fairness analysis."}
 
@@ -520,4 +516,3 @@ def orchestrator_decide(state: AgentState) -> AgentState:
         ret_state["decision_proposal"] = decision_proposal
         
     return ret_state
-

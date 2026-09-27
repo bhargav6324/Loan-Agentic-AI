@@ -23,58 +23,11 @@ from ml.canonical_model_contract import compute_composite_score, compute_heurist
 # Model loading handled by canonical_model_contract now.
 
 
+from ml.canonical_model_contract import extract_canonical_features
+
 def _extract_features(state: AgentState) -> dict:
-    """Extract ML features from the enriched state."""
-    applicant = state.get("applicant_data", {})
-    credit = state.get("credit_report", {})
-
-    monthly_income = applicant.get("monthly_income") or 50000
-    loan_amount = applicant.get("loan_amount", 0)
-    annual_income = monthly_income * 12
-
-    credit_score = credit.get("credit_score", 650) if credit else 650
-    current_outstanding = credit.get("current_outstanding", 0) if credit else 0
-    total_defaults = credit.get("total_defaults", 0) if credit else 0
-    credit_utilisation = credit.get("credit_utilisation_pct", 40) if credit else 40
-
-    # Debt-to-Income ratio (existing debt / annual income)
-    dti_ratio = current_outstanding / annual_income if annual_income > 0 else 1.0
-
-    # Loan-to-Income ratio (requested loan / annual income)
-    loan_to_income = loan_amount / annual_income if annual_income > 0 else 10.0
-
-    # Employment score
-    emp_type = applicant.get("employment_type", "")
-    employment_scores = {"salaried": 3, "business": 2, "self_employed": 1}
-    employment_score = employment_scores.get(emp_type, 1)
-
-    age = applicant.get("applicant_age") or 30
-    location = applicant.get("applicant_location", "semi_urban")
-
-    # NEW: Additional features for enhanced heuristics
-    employment_years = applicant.get("employment_years", 3)
-    loan_tenure_years = applicant.get("loan_tenure_years", 10)
-    loan_purpose = applicant.get("loan_purpose", "personal")
-
-    return {
-        "credit_score": credit_score,
-        "dti_ratio": round(dti_ratio, 3),
-        "loan_to_income": round(loan_to_income, 3),
-        "employment_score": employment_score,
-        "age": age,
-        "defaults": total_defaults,
-        "credit_utilisation": credit_utilisation,
-        # NEW enhanced features
-        "employment_years": employment_years,
-        "loan_tenure_years": loan_tenure_years,
-        "loan_purpose": loan_purpose,
-        # Extra for reasoning
-        "monthly_income": monthly_income,
-        "loan_amount": loan_amount,
-        "annual_income": annual_income,
-        "location": location,
-        "gender": applicant.get("applicant_gender", "male"),
-    }
+    """Extract ML features from the enriched state using the canonical contract."""
+    return extract_canonical_features(state)
 
 
 def _check_hard_overrides(features: dict) -> str | None:
@@ -165,16 +118,16 @@ def evaluate_profile(features: dict, state: AgentState) -> dict:
         ml_score, heuristic_score, risk_score = compute_composite_score(features)
         risk_score = round(risk_score, 1)
         
-        # Determine confidence for logging
+        # Determine confidence for logging (must match canonical formula)
         if ml_score is not None:
-            ml_confidence = 1.0 - (2.0 * abs((ml_score / 100.0) - 0.5))
+            ml_confidence = max(ml_score / 100.0, 1.0 - (ml_score / 100.0))
             internal_logs.append({
                 "action": "ML model prediction",
                 "status": "success",
                 "details": f"ML Score: {ml_score:.1f}, Confidence: {ml_confidence:.2f}",
             })
             
-            ml_weight = max(0.1, min(0.9, 0.4 + ml_confidence * 0.4))
+            ml_weight = 0.4 + 0.4 * ml_confidence
             heur_weight = 1.0 - ml_weight
             internal_logs.append({
                 "action": "Dynamic weight blending",
@@ -189,13 +142,13 @@ def evaluate_profile(features: dict, state: AgentState) -> dict:
                 "details": "Model failed or not loaded. Used heuristic only.",
             })
 
-    except Exception as e:
-        errors.append(f"Model contract failed: {e}")
+    except FileNotFoundError as e:
+        errors.append(f"Model not found: {e}. Falling back to pure heuristic.")
         # Fallback to pure heuristic
-        _, heuristic_score, risk_score = compute_composite_score(features)
+        heuristic_score = compute_heuristic_score(features)
+        risk_score = round(heuristic_score, 1)
         ml_score = None
         ml_confidence = 0.5
-        risk_score = round(risk_score, 1)
 
     heuristic_justification = f"Heuristic Score ({heuristic_score:.1f}) calculated via canonical rules."
 
@@ -212,15 +165,25 @@ def evaluate_profile(features: dict, state: AgentState) -> dict:
     # After computing the initial score, the agent reflects on whether
     # the result is internally consistent.  This is what makes it agentic:
     # a pipeline would accept the first score; an agent can challenge itself.
+    #
+    # In PAPER_MODE, we use the canonical deterministic reassessment to
+    # guarantee parity between the static (A1R) and graph (A2) paths.
 
-    reflection = _reflect_on_score(
-        risk_score=risk_score,
-        ml_score=ml_score,
-        heuristic_score=heuristic_score,
-        ml_confidence=ml_confidence,
-        features=features,
-        state=state,
-    )
+    from config import settings as _settings
+    if getattr(_settings, "PAPER_MODE", False):
+        from core.canonical_contracts import canonical_risk_reassessment
+        reflection = canonical_risk_reassessment(
+            risk_score, ml_score, heuristic_score, features
+        )
+    else:
+        reflection = _reflect_on_score(
+            risk_score=risk_score,
+            ml_score=ml_score,
+            heuristic_score=heuristic_score,
+            ml_confidence=ml_confidence,
+            features=features,
+            state=state,
+        )
 
     # Apply reflection adjustments
     original_score = risk_score
@@ -249,13 +212,9 @@ def evaluate_profile(features: dict, state: AgentState) -> dict:
             "details": contradiction,
         })
 
-    # ── Categorise ───────────────────────────────────────
-    if risk_score <= 35:
-        risk_category = "LOW"
-    elif risk_score <= 60:
-        risk_category = "MEDIUM"
-    else:
-        risk_category = "HIGH"
+    # ── Categorise (using canonical boundaries) ─────────
+    from core.canonical_contracts import canonical_risk_category
+    risk_category = canonical_risk_category(risk_score)
 
     # ── Risk Factors ─────────────────────────────────────
     risk_factors = _identify_risk_factors(features)
@@ -312,6 +271,12 @@ def risk_agent(state: AgentState) -> AgentState:
             "risk_factors": risk_factors,
             "risk_agent_summary": summary,
             "risk_ml_confidence": 1.0,  # Hard override = full confidence
+            "risk_certificate": {
+                "timestamp": time.time(),
+                "risk_score": 95.0,
+                "risk_category": "HIGH",
+                "decision_path": "hard_reject",
+            },
             "agent_logs": logs,
             "errors": errors,
         }
@@ -334,6 +299,12 @@ def risk_agent(state: AgentState) -> AgentState:
             "risk_factors": ["Strong financial profile"],
             "risk_agent_summary": summary,
             "risk_ml_confidence": 1.0,  # Hard override = full confidence
+            "risk_certificate": {
+                "timestamp": time.time(),
+                "risk_score": 10.0,
+                "risk_category": "LOW",
+                "decision_path": "hard_fast_track",
+            },
             "agent_logs": logs,
             "errors": errors,
         }
@@ -668,4 +639,3 @@ def _reflect_on_score(
         "reflection_summary": " ".join(summary_parts),
         "reflection_source": "deterministic_fallback",
     }
-

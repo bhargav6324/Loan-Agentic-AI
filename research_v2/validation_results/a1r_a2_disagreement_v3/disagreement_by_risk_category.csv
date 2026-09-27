@@ -1,0 +1,3 @@
+a1r_risk_category,a2_risk_category,transition,disagreement_cause,count
+MEDIUM,MEDIUM,approved→escalated,fairness,27
+MEDIUM,MEDIUM,rejected→escalated,fairness,10
