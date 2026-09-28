@@ -46,3 +46,7 @@ audit_logs/
 frontend/node_modules/
 frontend/dist/
 frontend/vite.log
+
+# Downloaded external research datasets
+research_v2/external_data/
+research_v2/external_validation/**/results*/
