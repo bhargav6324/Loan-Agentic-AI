@@ -22,7 +22,7 @@ SCRIPT_PATH = os.path.abspath(
 )
 OUTPUT_DIR = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', '..', 'research_v2',
-                 'validation_results', 'a1r_a2_disagreement_v1')
+                 'validation_results', 'a1r_a2_disagreement_v3')
 )
 FROZEN_DIRS = [
     os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'research_v2', 'final_results')),
@@ -150,7 +150,7 @@ def test_frozen_directories_untouched(analysis_result):
     _, before = analysis_result
     for fpath, size_before in before.items():
         # Exclude the new output dir itself (which is inside validation_results)
-        if "a1r_a2_disagreement_v1" in fpath:
+        if os.path.commonpath([os.path.abspath(fpath), OUTPUT_DIR]) == OUTPUT_DIR:
             continue
         assert os.path.exists(fpath), f"Frozen file was deleted: {fpath}"
         size_now = os.path.getsize(fpath)
@@ -170,10 +170,10 @@ def test_git_commit_recorded(analysis_result):
 
 def test_output_dir_only_in_versioned_subdir():
     """Output must only be written inside the versioned subdir, not into frozen dirs."""
-    # frozen dirs must not contain any 'a1r_a2_disagreement_v1' files
+    # frozen dirs must not contain output files outside the versioned subdir
     # (the new output dir is a subfolder of validation_results, which is guarded by
     #  the snapshot ignoring the new subdir)
-    new_subdir = os.path.join(FROZEN_DIRS[1], "a1r_a2_disagreement_v1")
+    new_subdir = os.path.join(FROZEN_DIRS[1], "a1r_a2_disagreement_v3")
     assert os.path.abspath(OUTPUT_DIR) == os.path.abspath(new_subdir), (
         "Output directory is not the expected versioned subdirectory"
     )

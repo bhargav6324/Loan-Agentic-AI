@@ -1,0 +1,98 @@
+{
+  "source": {
+    "input_directory": "/Users/bhargavpatil/Loan-Agentic-AI/research_v2/results_corrected_v3",
+    "experiment_id": "ablation_v2_20260928_023545",
+    "git_commit": "9243ed50a2655769e4668a72239a88a3f5bc278b",
+    "dataset_sha256": "fae2e0e34f42c524a5c8d107d5acc864ced5e569387cdbbaf964bad263201a06",
+    "paper_mode": true,
+    "llm_calls_attempted": 0,
+    "raw_trace_rows": 90000
+  },
+  "corrected_fairness": {
+    "C0a": {
+      "n": 15000,
+      "fairness_audits": 0,
+      "fairness_bias_flags": 0,
+      "escalated": 0,
+      "approved": 15000,
+      "rejected": 0,
+      "unsafe_policy_approvals": 1728,
+      "terminal_blocks": 0,
+      "critique_events": 0
+    },
+    "A0": {
+      "n": 15000,
+      "fairness_audits": 0,
+      "fairness_bias_flags": 0,
+      "escalated": 0,
+      "approved": 12272,
+      "rejected": 2728,
+      "unsafe_policy_approvals": 490,
+      "terminal_blocks": 0,
+      "critique_events": 0
+    },
+    "A1": {
+      "n": 15000,
+      "fairness_audits": 0,
+      "fairness_bias_flags": 0,
+      "escalated": 0,
+      "approved": 11743,
+      "rejected": 3257,
+      "unsafe_policy_approvals": 0,
+      "terminal_blocks": 0,
+      "critique_events": 0
+    },
+    "A1R": {
+      "n": 15000,
+      "fairness_audits": 0,
+      "fairness_bias_flags": 0,
+      "escalated": 0,
+      "approved": 11713,
+      "rejected": 3287,
+      "unsafe_policy_approvals": 0,
+      "terminal_blocks": 0,
+      "critique_events": 0
+    },
+    "A2": {
+      "n": 15000,
+      "fairness_audits": 1376,
+      "fairness_bias_flags": 348,
+      "escalated": 348,
+      "approved": 11510,
+      "rejected": 3142,
+      "unsafe_policy_approvals": 0,
+      "terminal_blocks": 0,
+      "critique_events": 0
+    },
+    "A3": {
+      "n": 15000,
+      "fairness_audits": 1376,
+      "fairness_bias_flags": 348,
+      "escalated": 348,
+      "approved": 11510,
+      "rejected": 3142,
+      "unsafe_policy_approvals": 0,
+      "terminal_blocks": 0,
+      "critique_events": 0
+    }
+  },
+  "a1r_vs_a2": {
+    "n": 15000,
+    "agreements": 14646,
+    "disagreements": 354,
+    "agreement_rate": 0.9764,
+    "fairness_escalations": 348,
+    "decision_proposal_contract_divergences": 6,
+    "unexplained_review_required": 0
+  },
+  "a2_vs_a3": {
+    "compared": 15000,
+    "decision_governance_mismatches": 0
+  },
+  "reporting_correction": {
+    "affected_metric": "audit_bias_flagged_count for A2/A3",
+    "cause": "seed metrics read the legacy audit_bias_flagged field instead of fairness_bias_flagged",
+    "decision_outputs_affected": false,
+    "ten_seed_rerun_required": false
+  }
+}

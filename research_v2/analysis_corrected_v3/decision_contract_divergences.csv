@@ -1,0 +1,7 @@
+seed,applicant_id,ground_truth,a1r_final_decision,a2_final_decision,a1r_decision_proposal,a2_decision_proposal,composite_score,risk_category,policy_passed,fairness_audit_triggered,fairness_bias_flagged,fairness_recommendation,classification
+43,1898,0,rejected,approved,reject,approve,41.7,MEDIUM,True,True,False,proceed,decision_proposal_contract_divergence
+44,2253,0,rejected,approved,reject,approve,49.3,MEDIUM,True,True,False,proceed,decision_proposal_contract_divergence
+46,1582,0,rejected,approved,reject,approve,44.5,MEDIUM,True,True,False,proceed,decision_proposal_contract_divergence
+48,4770,0,rejected,approved,reject,approve,41.7,MEDIUM,True,True,False,proceed,decision_proposal_contract_divergence
+51,1312,0,rejected,approved,reject,approve,64.5,MEDIUM,True,True,False,proceed,decision_proposal_contract_divergence
+51,3988,0,rejected,approved,reject,approve,54.8,MEDIUM,True,True,False,proceed,decision_proposal_contract_divergence

@@ -1,0 +1,6 @@
+a1r_final_decision,a2_final_decision,count,rate
+approved,approved,11504,0.7669333333333334
+approved,escalated,209,0.013933333333333334
+rejected,approved,6,0.0004
+rejected,escalated,139,0.009266666666666666
+rejected,rejected,3142,0.20946666666666666

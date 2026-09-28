@@ -158,7 +158,13 @@ def _compute_metrics(df, seed, config):
         )
         
     audit_exec = int(df["audit_triggered"].sum()) if "audit_triggered" in df else 0
-    audit_bias = int(df["audit_bias_flagged"].sum()) if "audit_bias_flagged" in df else 0
+    # Graph configurations store the real multi-attribute fairness result in
+    # fairness_bias_flagged. Static configurations retain the legacy audit
+    # field, so use the graph field when it is present and populated.
+    if "fairness_bias_flagged" in df and df["fairness_bias_flagged"].notna().any():
+        audit_bias = int(df["fairness_bias_flagged"].eq(True).sum())
+    else:
+        audit_bias = int(df["audit_bias_flagged"].eq(True).sum()) if "audit_bias_flagged" in df else 0
     det_reass = int(df["deterministic_reassessment_count"].sum()) if "deterministic_reassessment_count" in df else 0
     
     blocked_count = int(df.get("commitment_block_events", pd.Series(dtype=float)).fillna(0).sum())

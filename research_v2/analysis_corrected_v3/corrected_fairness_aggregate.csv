@@ -1,0 +1,7 @@
+configuration,n,fairness_audit_count,fairness_bias_flagged_count,fairness_bias_flagged_mean_per_seed,fairness_bias_flagged_std_per_seed,fairness_bias_rate_among_audits,escalation_count,escalation_rate,unsafe_policy_approval_count,terminal_block_count,critique_event_count
+C0a,15000,0,0,0.0,0.0,0.0,0,0.0,1728,0,0
+A0,15000,0,0,0.0,0.0,0.0,0,0.0,490,0,0
+A1,15000,0,0,0.0,0.0,0.0,0,0.0,0,0,0
+A1R,15000,0,0,0.0,0.0,0.0,0,0.0,0,0,0
+A2,15000,1376,348,34.8,10.042133460796288,0.25290697674418605,348,0.0232,0,0,0
+A3,15000,1376,348,34.8,10.042133460796288,0.25290697674418605,348,0.0232,0,0,0

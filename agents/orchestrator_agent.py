@@ -29,6 +29,7 @@ import httpx
 from agents.state import AgentState
 from agents.llm_client import call_groq
 from config import settings
+from core.canonical_contracts import canonical_decision_proposal
 
 
 # ══════════════════════════════════════════════════════════
@@ -306,7 +307,17 @@ def _fallback_decide(state: AgentState, iteration: int) -> dict:
     if "risk_reeval" not in agents_run and state.get("bias_detected"):
         return {"next_agent": "risk_reeval", "reasoning": "Fallback: Bias detected, re-evaluating risk."}
 
-    decision_prop = "escalate" if state.get("bias_detected") else "approve"
+    if state.get("bias_detected"):
+        decision_prop = "escalate"
+    else:
+        # Fairness may clear an escalation concern, but it must not become an
+        # independent approval authority. Reapply the canonical deterministic
+        # risk/policy proposal contract after the fairness path completes.
+        decision_prop = canonical_decision_proposal(
+            risk_category=risk_category,
+            policy_passed=state.get("policy_passed") is True,
+            risk_ml_confidence=float(state.get("risk_ml_confidence", 1.0)),
+        )
     return {"next_agent": "policy_join", "decision_proposal": decision_prop, "reasoning": "Fallback: All checks done, making final decision."}
 
 
