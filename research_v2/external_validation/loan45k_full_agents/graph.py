@@ -1,7 +1,7 @@
 """Full adapted graph reusing compatible original project agents."""
 from __future__ import annotations
 
-import operator
+import json
 from typing import Annotated, Optional
 
 from langgraph.graph import END, StateGraph
@@ -20,6 +20,18 @@ def _last(_old, new):
     return new
 
 
+def _merge_unique(old, new):
+    """Merge branch lists without re-adding the full history returned by nodes."""
+    merged = []
+    seen = set()
+    for item in [*(old or []), *(new or [])]:
+        marker = json.dumps(item, sort_keys=True, default=str)
+        if marker not in seen:
+            seen.add(marker)
+            merged.append(item)
+    return merged
+
+
 class FullAgentState(AgentState, total=False):
     source_record: Annotated[dict, _last]
     approval_probability: Annotated[float, _last]
@@ -27,6 +39,8 @@ class FullAgentState(AgentState, total=False):
     state_version: Annotated[int, _last]
     state_hash: Annotated[str, _last]
     critic_findings: Annotated[list, _last]
+    agent_logs: Annotated[list, _merge_unique]
+    errors: Annotated[list, _merge_unique]
 
 
 def fan_out(state):

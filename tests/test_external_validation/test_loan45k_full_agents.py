@@ -54,3 +54,11 @@ def test_medium_risk_high_rejection_confidence_cannot_become_approval():
     graph = invoke(FULL_F2, row, .30, .30)
     assert static["final_approval"] == 0
     assert graph["final_decision"] == "rejected"
+
+
+def test_parallel_merges_do_not_duplicate_logs_or_audit_entries():
+    result = invoke(FULL_F3)
+    markers = [str(sorted(entry.items())) for entry in result["agent_logs"]]
+    assert len(markers) == len(set(markers))
+    assert len(result["agent_logs"]) < 30
+    assert len(result.get("audit_trail", [])) < 30
