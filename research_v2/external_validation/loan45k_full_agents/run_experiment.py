@@ -12,6 +12,7 @@ from sklearn.metrics import accuracy_score, f1_score, matthews_corrcoef, precisi
 from sklearn.model_selection import train_test_split
 
 from config import settings
+from core.canonical_contracts import canonical_decision_proposal
 from research_v2.external_validation.loan45k_adapter import prepare_loan45k
 from research_v2.external_validation.loan45k_full_agents.graph import FULL_F2, FULL_F3
 from research_v2.external_validation.loan45k_full_agents.model import FEATURES, fit_model
@@ -26,11 +27,18 @@ def policy_outcome(record, probability):
     passed, _ = research_policy(record)
     score = native_risk_score(record, 1 - float(probability))
     score, reassessed = deterministic_reassessment(score, record)
-    final = int(float(probability) >= .5 and passed and risk_category(score) != "HIGH")
+    category = risk_category(score)
+    proposal = canonical_decision_proposal(
+        risk_category=category,
+        policy_passed=passed,
+        risk_ml_confidence=float(probability),
+    )
+    final = int(proposal == "approve")
     return {"final_approval": final, "policy_passed": passed,
             "fairness_flagged": False, "reassessed": reassessed,
             "commit_status": "committed", "critic_findings": 0,
-            "agent_steps": 0, "audit_entries": 0}
+            "agent_steps": 0, "audit_entries": 0,
+            "risk_category": category, "proposal": proposal}
 
 
 def graph_outcome(graph, record, probability, counterfactual):
@@ -46,7 +54,9 @@ def graph_outcome(graph, record, probability, counterfactual):
             "commit_status": state.get("commit_status", "missing"),
             "critic_findings": len(state.get("critic_findings", [])),
             "agent_steps": len(state.get("agent_logs", [])),
-            "audit_entries": len(state.get("audit_trail", []))}
+            "audit_entries": len(state.get("audit_trail", [])),
+            "risk_category": state.get("risk_category"),
+            "proposal": state.get("decision_proposal")}
 
 
 def run_seed(data, seed, configurations, limit=None):
@@ -69,12 +79,15 @@ def run_seed(data, seed, configurations, limit=None):
                 outcome = {"final_approval": 1, "policy_passed": True,
                            "fairness_flagged": False, "reassessed": False,
                            "commit_status": "committed", "critic_findings": 0,
-                           "agent_steps": 0, "audit_entries": 0}
+                           "agent_steps": 0, "audit_entries": 0,
+                           "risk_category": None, "proposal": "approve"}
             elif configuration == "F1":
                 outcome = {"final_approval": int(p >= .5), "policy_passed": True,
                            "fairness_flagged": False, "reassessed": False,
                            "commit_status": "committed", "critic_findings": 0,
-                           "agent_steps": 0, "audit_entries": 0}
+                           "agent_steps": 0, "audit_entries": 0,
+                           "risk_category": None,
+                           "proposal": "approve" if p >= .5 else "reject"}
             elif configuration == "F1P":
                 outcome = policy_outcome(row, p)
             else:
@@ -83,6 +96,7 @@ def run_seed(data, seed, configurations, limit=None):
             outcomes.append(outcome)
         elapsed = time.perf_counter() - started
         pred = np.array([x["final_approval"] for x in outcomes])
+        resolved = np.array([x["commit_status"] != "automated_escalated_status" for x in outcomes])
         raw_policy_fail = np.array([not research_policy(r)[0] for r in records])
         metrics.append({"seed": seed, "configuration": configuration, "n_test": len(test),
                         "accuracy": accuracy_score(y, pred),
@@ -90,6 +104,8 @@ def run_seed(data, seed, configurations, limit=None):
                         "recall_approve": recall_score(y, pred, zero_division=0),
                         "f1_approve": f1_score(y, pred, zero_division=0),
                         "mcc": matthews_corrcoef(y, pred),
+                        "automation_coverage": float(resolved.mean()),
+                        "selective_accuracy": float(accuracy_score(y[resolved], pred[resolved])) if resolved.any() else None,
                         "policy_violating_approvals": int((raw_policy_fail & (pred == 1)).sum()),
                         "fairness_flags": sum(x["fairness_flagged"] for x in outcomes),
                         "reassessments": sum(x["reassessed"] for x in outcomes),
@@ -101,7 +117,11 @@ def run_seed(data, seed, configurations, limit=None):
                         "execution_seconds": elapsed})
         traces.append(pd.DataFrame({"benchmark_id": test["benchmark_id"].to_numpy(),
                                     "seed": seed, "configuration": configuration,
-                                    "ground_truth_approval": y, "final_approval": pred}))
+                                    "ground_truth_approval": y, "final_approval": pred,
+                                    "commit_status": [x["commit_status"] for x in outcomes],
+                                    "fairness_flagged": [x["fairness_flagged"] for x in outcomes],
+                                    "risk_category": [x["risk_category"] for x in outcomes],
+                                    "proposal": [x["proposal"] for x in outcomes]}))
     return metrics, traces
 
 

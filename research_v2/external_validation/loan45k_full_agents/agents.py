@@ -53,8 +53,10 @@ def risk_agent_45k(state):
     logs = _append_log(state, "risk_agent", "45K risk evaluated",
                        f"score={score:.3f}; category={category}; reassessed={reassessed}", started)
     return {**state, "risk_score": score, "risk_category": category,
-            "risk_ml_confidence": max(float(state["approval_probability"]),
-                                      1 - float(state["approval_probability"])),
+            # The orchestrator uses this value as approval support for MEDIUM
+            # risk. Preserve direction: high rejection confidence must never
+            # be misread as high confidence to approve.
+            "risk_ml_confidence": float(state["approval_probability"]),
             "risk_agent_reflection": {"revised": reassessed,
                                       "original_score": original,
                                       "revised_score": score},

@@ -1,4 +1,5 @@
 from config import settings
+from research_v2.external_validation.loan45k_full_agents.run_experiment import policy_outcome
 from research_v2.external_validation.loan45k_full_agents.graph import FULL_F2, FULL_F3
 
 
@@ -45,3 +46,11 @@ def test_no_identity_values_are_fabricated():
     result = invoke(FULL_F2)
     assert "applicant_pan" not in result["applicant_data"]
     assert "applicant_aadhaar" not in result["applicant_data"]
+
+
+def test_medium_risk_high_rejection_confidence_cannot_become_approval():
+    row = record(credit_score=720, loan_percent_income=.17)
+    static = policy_outcome(row, .30)
+    graph = invoke(FULL_F2, row, .30, .30)
+    assert static["final_approval"] == 0
+    assert graph["final_decision"] == "rejected"

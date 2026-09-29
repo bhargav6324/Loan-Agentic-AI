@@ -19,3 +19,7 @@ Configurations:
 
 F2/F3 are full-agent *adapters*, not the unchanged original graph, because the
 source feature contracts differ.
+
+Version-1 server results are diagnostic only. See `MISMATCH_DIAGNOSIS_V1.md`.
+The corrected runner preserves the direction of approval probability and
+reports escalations through automation coverage/selective accuracy.
